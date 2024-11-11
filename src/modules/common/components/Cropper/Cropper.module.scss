@@ -1,0 +1,67 @@
+.warpper {
+  z-index: 100;
+}
+.action {
+}
+.select_image_button {
+  min-width: 5rem;
+  font-size: 1.5rem;
+  border-radius: 0;
+  border: none;
+  border-top-right-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  &:hover {
+    background-color: var(--primary-color);
+    opacity: 0.8;
+  }
+}
+.see_image_button {
+  border-radius: 0;
+  // background-color: var();
+}
+.btn_group {
+  button,
+  label {
+    font-size: 1.5rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: 0;
+  }
+  button {
+    svg {
+      min-width: 1.5rem;
+    }
+  }
+  & + .btn_group {
+    margin-left: 10px;
+  }
+  .btn_left {
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+  }
+  .border_right {
+    border-right: 0.15rem solid #ffffff52 !important;
+  }
+  .btn_right {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0rem;
+  }
+  .btn_middle {
+    border-radius: 0;
+  }
+  .btn_rounded {
+    border-radius: 1rem;
+  }
+}
+.sample_img {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  text-decoration: underline;
+}

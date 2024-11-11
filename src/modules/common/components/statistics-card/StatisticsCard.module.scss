@@ -1,0 +1,86 @@
+.wrapper {
+  box-shadow: var(--card-shadow);
+  background-color: #fff;
+  border-radius: 1rem;
+  overflow: auto;
+  position: relative;
+  height: 19rem;
+  .bg_img {
+    flex-shrink: 0;
+    display: inline-flex;
+    background-color: currentcolor;
+    top: 0;
+    bottom: 0;
+    left: -2rem;
+    z-index: 3;
+    opacity: 0.3;
+    position: absolute;
+    height: 100%;
+    width: 60%;
+  }
+
+  .body {
+    height: 100%;
+    .header {
+      height: 50%;
+      .chart {
+        height: 100%;
+        z-index: 4;
+      }
+    }
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    font-weight: bold;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .children {
+    width: 100%;
+    align-content: end;
+  }
+  .icon {
+    font-size: 6rem;
+  }
+  &.blue_card {
+    background: var(--statistics-card-body-bg-linear-blue-color);
+    .bg_img {
+      color: var(--statistics-card-img-bg-blue);
+    }
+    .body {
+      color: var(--statistics-card-body-blue-color);
+      background: var(--statistics-card-body-bg-linear-blue-color);
+    }
+  }
+  &.purple_card {
+    background: var(--statistics-card-body-bg-linear-purple-color);
+    .bg_img {
+      color: var(--statistics-card-img-bg-purple);
+    }
+    .body {
+      color: var(--statistics-card-body-purple-color);
+      background: var(--statistics-card-body-bg-linear-purple-color);
+    }
+  }
+  &.light_yellow_card {
+    background: var(--statistics-card-body-bg-linear-light-yellow-color);
+    .bg_img {
+      color: var(--statistics-card-img-bg-light-yellow);
+    }
+    .body {
+      color: var(--statistics-card-body-light-yellow-color);
+      background: var(--statistics-card-body-bg-linear-light-yellow-color);
+    }
+  }
+  &.light_red_card {
+    background: var(--statistics-card-body-bg-linear-light-red-color);
+    .bg_img {
+      color: var(--statistics-card-img-bg-light-red);
+    }
+    .body {
+      color: var(--statistics-card-body-light-red-color);
+      background: var(--statistics-card-body-bg-linear-light-red-color);
+    }
+  }
+}

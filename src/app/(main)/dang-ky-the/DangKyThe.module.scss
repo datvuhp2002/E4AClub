@@ -1,0 +1,49 @@
+.wrapper {
+  font-weight: normal;
+  min-width: 60%;
+}
+.thong_tin_the,
+.luu_y {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.thong_tin_the_header,
+.luu_y_header {
+  font-size: calc(var(--fs-text-primary) + 0.5rem);
+  font-weight: bold;
+  width: 100%;
+  color: #fff;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.thong_tin_the {
+  .thong_tin_the_header {
+    background-color: var(--primary-color);
+  }
+  .thong_tin_the_fix_header {
+    background-color: var(--navlink-background-color);
+    text-align: start;
+    color: var(--navlink-text-color);
+    font-weight: bold;
+  }
+}
+.luu_y {
+  .luu_y_header {
+    background-color: var(--warning-color);
+  }
+  .luu_y_body {
+    padding: 1rem 1.5rem;
+  }
+  .luu_y_fix_header {
+    color: var(--warning-fix-color);
+    background-color: var(--warning-fix-bg-color);
+    text-align: start;
+    font-weight: bold;
+    border-color: #faebcc;
+  }
+}

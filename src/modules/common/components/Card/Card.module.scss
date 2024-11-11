@@ -1,0 +1,15 @@
+.wrapper {
+  box-shadow: var(--card-shadow);
+  border-radius: 0.5rem;
+  background-color: #fff;
+  .body {
+    padding: 1rem;
+    padding-top: 0;
+  }
+  .title {
+    padding: 1rem;
+    padding-bottom: 0;
+    color: var(--admin-orange-color);
+    margin: 0;
+  }
+}

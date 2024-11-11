@@ -1,0 +1,46 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.admin_logo {
+}
+.logo {
+  // height: calc(var(--header-height) - 5rem);
+  max-height: var(--header-height);
+  width: calc(var(--header-height) + 4rem);
+}
+.login_logo {
+  width: calc(var(--header-height));
+}
+.admin_logo {
+  max-height: calc(var(--header-height) - 2rem);
+}
+.avatar {
+  width: calc(var(--header-height) - 1rem);
+  height: calc(var(--header-height) - 1rem);
+}
+.rounded {
+  border-radius: 9999rem;
+}
+.w100 {
+  width: 100%;
+}
+.w50 {
+  width: 50%;
+}
+.w30 {
+  width: 30%;
+}
+.minw30 {
+  min-width: 30%;
+}
+.h100 {
+  height: 100%;
+}
+.h50 {
+  height: 50%;
+}
+.minh30 {
+  min-height: 30%;
+}

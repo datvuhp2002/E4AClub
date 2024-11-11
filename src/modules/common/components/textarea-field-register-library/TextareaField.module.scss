@@ -1,0 +1,24 @@
+.form_item {
+  margin-top: 1rem;
+  label {
+    font-weight: bold;
+  }
+  &.form_item_alert {
+    background-color: #efd8d7;
+    padding: 1rem;
+    border: 0.1rem solid var(--danger-color);
+    border-radius: 0.3rem;
+    color: var(--danger-color);
+    font-style: italic;
+  }
+  textarea {
+    font-size: 1.5rem;
+    height: 15rem;
+  }
+}
+.error {
+  color: red;
+}
+.success {
+  color: green;
+}

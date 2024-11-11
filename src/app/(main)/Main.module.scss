@@ -1,0 +1,32 @@
+.wrapper {
+  font-size: calc(var(--fs-text-primary) + 0.1rem);
+}
+.primary_color {
+  color: var(--text-color-guess-dashboard);
+}
+.welcome_title {
+  font-weight: 600;
+  font-size: 4rem;
+}
+.welcome {
+  font-weight: 600;
+  opacity: 0.8;
+  color: var(--text-color-welcome-guess-dashboard);
+  font-style: italic;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.icon_bounce {
+  color: var(--primary-color);
+  display: inline-block;
+  animation: bounce 1s infinite;
+  animation-timing-function: ease-in-out;
+}

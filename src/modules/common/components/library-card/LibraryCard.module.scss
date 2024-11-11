@@ -1,0 +1,36 @@
+@import "../../tools/Mixin/Mixin.scss";
+.library_card {
+  @include desktop {
+    width: 80%;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // pointer-events: none;
+  cursor: default;
+  user-select: none;
+  .library_card_header {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 0.39rem solid var(--primary-admin-color);
+    .library_card_header_el_title {
+      letter-spacing: 0.5em;
+      font-size: 1rem;
+    }
+  }
+  .library_card_body {
+    line-height: 1.5rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border: 0.39rem solid var(--primary-admin-color);
+    border-top: 0;
+    .value {
+      font-size: 1.4rem;
+      @include desktop {
+      }
+    }
+  }
+}

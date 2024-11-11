@@ -1,0 +1,11 @@
+(node:16756) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:16756) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
+Application has thrown an uncaught exception and is terminated:
+Error: Could not find a production build in the 'D:\Projects\UCVN\Code\brainlib-web\.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+    at NextNodeServer.getBuildId (D:\Projects\UCVN\Code\brainlib-web\node_modules\next\dist\server\next-server.js:348:23)
+    at new Server (D:\Projects\UCVN\Code\brainlib-web\node_modules\next\dist\server\base-server.js:153:29)
+    at new NextNodeServer (D:\Projects\UCVN\Code\brainlib-web\node_modules\next\dist\server\next-server.js:175:9)
+    at NextServer.createServer (D:\Projects\UCVN\Code\brainlib-web\node_modules\next\dist\server\next.js:179:24)
+    at async D:\Projects\UCVN\Code\brainlib-web\node_modules\next\dist\server\next.js:200:31
+    at async NextServer.prepare (D:\Projects\UCVN\Code\brainlib-web\node_modules\next\dist\server\next.js:161:24)

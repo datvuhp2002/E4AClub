@@ -1,0 +1,114 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  border: 0.03rem solid var(--component-border-color);
+  border-radius: 0.3rem;
+  height: 4rem;
+  width: 100%;
+  padding: 0 1.6rem 0 0;
+  transition: border-color 0.2s ease-in-out;
+  overflow: hidden;
+  &:focus-within {
+    border: 0.1rem solid var(--component-border-color);
+  }
+  input {
+    padding: 0 0.8rem;
+    flex: 1 1;
+    font-size: 100%;
+    opacity: 0.6;
+    border: none;
+    width: 100%;
+    height: 100%;
+    color: var(--text-color-primary);
+    text-align: start;
+    background-color: transparent;
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px var(--white) inset;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  input:not(:placeholder-shown) {
+    ~ .Icon {
+      color: #444;
+    }
+  }
+
+  h5 {
+    padding: 0 0.8rem;
+    width: 100%;
+  }
+
+  + .wrapper {
+    margin-top: 1rem;
+  }
+  &.admin_temp {
+    border: 0.03rem solid #aaa;
+    color: #333;
+    .Icon {
+      background: var(--header-admin-bg-color);
+      color: #fff;
+    }
+    &:focus-within {
+      border: 0.1rem solid #aaa;
+    }
+  }
+
+  &.login_temp {
+    height: 5rem;
+  }
+  &.success {
+    border: 0.3px solid green; // Ghi đè thuộc tính border của wrapper
+    color: green; // Ghi đè thuộc tính color của wrapper
+
+    .Icon {
+      background-color: green !important; // Ghi đè background-color của Icon
+    }
+  }
+  &.error {
+    background-color: #fff;
+    border: 0.3px solid var(--danger-color);
+    &:focus-within {
+      border: 0.1rem solid var(--danger-color);
+    }
+    .Icon {
+      background-color: var(--danger-background-color);
+      svg {
+        color: var(--danger-color);
+      }
+    }
+  }
+  &.admin_temp_research {
+    height: 3.5rem;
+  }
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w70 {
+  width: 70%;
+}
+
+.cropper {
+  border-top-right-radius: 0rem;
+  border-bottom-right-radius: 0rem;
+}
+
+.Icon {
+  padding: 0 1.6rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  background-color: var(--icon-space-component-bg-color);
+  border-right: 0.3px solid var(--component-border-color);
+  svg {
+    min-width: 2.5rem;
+    color: var(--icon-space-component-color);
+  }
+}

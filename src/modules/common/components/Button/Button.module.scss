@@ -1,0 +1,241 @@
+@import "../../tools/Mixin/Mixin.scss";
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  border: 0.15rem solid transparent;
+  transition: all 0.3s ease-in-out;
+  padding: 0.7rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  .icon_left {
+    margin-right: 0.5rem;
+  }
+  &.icon_only {
+    .icon_right,
+    .icon_left {
+      width: 2rem;
+      height: 2rem;
+      margin: 0;
+    }
+  }
+
+  .icon_right {
+    margin-left: 0.5rem;
+  }
+
+  &.orange_btn {
+    background: var(--admin-orange-color);
+    &:hover {
+      opacity: 1;
+      background-color: #fb7500;
+      border-color: #fb7500;
+    }
+  }
+  &.grey_btn {
+    background: grey;
+    &:hover {
+      opacity: 1;
+      background-color: #565e64;
+    }
+  }
+  &.transparent_btn {
+    color: grey;
+    background: transparent;
+    &:hover {
+      opacity: 1;
+      background-color: rgba(145 158 171 / 0.08);
+      text-decoration: none;
+    }
+  }
+  &.more {
+    box-shadow: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    padding: 0;
+    opacity: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &.menuItem {
+    display: flex;
+    align-items: start;
+    padding: 0;
+    box-shadow: none;
+    width: 100%;
+    background-color: #fff;
+    padding: 1rem 1rem 1rem 0rem;
+    span {
+      text-align: right;
+      width: 100%;
+    }
+  }
+  &.login_btn {
+    background: var(--header-admin-bg-color) !important;
+  }
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  &.rounded {
+    border-radius: 1rem;
+  }
+  &.NavLink {
+    height: 100%;
+    width: 15rem;
+    color: var(--navlink-text-color);
+    background-color: transparent;
+    .title {
+      // font-weight: normal;
+    }
+    &:hover {
+      color: #fff;
+      background-color: rgba(var(--primary-dark-color), 0.8);
+      .title {
+        font-weight: bolder;
+      }
+    }
+    &.NavLink {
+      margin: 0;
+    }
+  }
+  &.admin_temp {
+    background: var(--admin-orange-color);
+    .Icon {
+      color: #fff;
+    }
+    &:hover {
+      background: var(--admin-deep-orange-color);
+      opacity: 1;
+    }
+  }
+  &.active {
+    border-bottom: 0.3rem solid var(--navlink-active-color);
+    .title {
+      font-weight: bolder;
+    }
+  }
+  &.research_information {
+    background-color: #fff;
+    color: var(--primary-color);
+    border: 0.15rem solid var(--primary-color);
+  }
+  &.active_research {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+  &.collapse {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: calc(var(--fs-text-primary) + 0.1rem);
+    text-align: start;
+    color: #333;
+    background-color: var(--collapse-background-color);
+    border: 0.15rem solid var(--border-collapse-color);
+    text-transform: uppercase;
+    .icon_left {
+      font-size: calc(var(--fs-text-primary) - 1rem);
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+    }
+    &:hover {
+      opacity: 1;
+      color: var(--primary-color);
+    }
+  }
+  &.directionLink {
+    text-transform: uppercase;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0;
+    background-color: transparent;
+    color: rgba(var(--link-color), 1);
+    &:hover {
+      color: rgba(var(--link-color-hover), 1);
+    }
+    span {
+      text-decoration: underline;
+    }
+  }
+  &.toggleMenu {
+    padding: 0.5rem 1rem;
+    text-wrap: nowrap;
+    background-color: transparent;
+    color: rgb(var(--primary-dark-color));
+    width: 15rem;
+    & + .toggleMenu {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+    .title {
+      text-align: start;
+      width: 100%;
+    }
+    &.active {
+      // box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.1);
+      border: none;
+      background-color: var(--navlink-background-color);
+    }
+  }
+  &.edit_btn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #333;
+  }
+  &.trash_btn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: var(--danger-color);
+  }
+  &.success_btn {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    &:hover {
+      color: #fff;
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+  }
+  &.danger_btn {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    &:hover {
+      color: #fff;
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+  }
+  @include mobile {
+    & + .wrapper {
+      margin-top: 1rem;
+    }
+  }
+  @include tablet {
+    & + .wrapper {
+      margin-left: 1.5rem;
+    }
+  }
+  @include desktop {
+    & + .wrapper {
+      margin-left: 1.5rem;
+    }
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}

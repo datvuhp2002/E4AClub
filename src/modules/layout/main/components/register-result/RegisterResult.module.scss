@@ -1,0 +1,16 @@
+.register_status {
+  .register_status_title {
+    font-size: calc(var(--fs-text-primary) + 0.5rem);
+  }
+  .register_code {
+    font-size: calc(var(--fs-text-primary) + 0.4rem);
+  }
+  font-size: calc(var(--fs-text-primary) + 0.1rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .register_status_action {
+    display: flex;
+  }
+}

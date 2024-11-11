@@ -1,0 +1,871 @@
+(node:12668) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[33m[1mWarning: [22m[39mFor production Image Optimization with Next.js, the optional 'sharp' package is strongly recommended. Run 'yarn add sharp', and Next.js will use it automatically for Image Optimization.
+Read more: https://nextjs.org/docs/messages/sharp-missing-in-production
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/3.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/5.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/3.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/5.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/3.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/5.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/nothumb.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/3.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/5.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+ImageError: The requested resource isn't a valid image.
+    at imageOptimizer [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\image-optimizer.js:569:19[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async cacheEntry.imageResponseCache.get.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:414:72[90m)[39m
+    at async [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\response-cache\index.js:99:36 {
+  statusCode: [33m400[39m
+}
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/3.jpg received text/html; charset=utf-8
+ImageError: The requested resource isn't a valid image.
+    at imageOptimizer [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\image-optimizer.js:569:19[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async cacheEntry.imageResponseCache.get.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:414:72[90m)[39m
+    at async [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\response-cache\index.js:99:36 {
+  statusCode: [33m400[39m
+}
+The requested resource isn't a valid image for /images/temp/5.jpg received text/html; charset=utf-8
+ImageError: The requested resource isn't a valid image.
+    at imageOptimizer [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\image-optimizer.js:569:19[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async cacheEntry.imageResponseCache.get.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:414:72[90m)[39m
+    at async [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\response-cache\index.js:99:36 {
+  statusCode: [33m400[39m
+}
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+The requested resource isn't a valid image for /_next/static/media/LOGOTHUMBNAIL.a8132ce5.png received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+The requested resource isn't a valid image for /_next/static/media/mdi_account-circle.29283ac9.png received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async pipe.req.req [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1497:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+The requested resource isn't a valid image for /_next/static/media/mdi_home-outline.232de49b.png received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/3.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/5.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/3.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/5.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+Error: Cannot find module 'D:\deploy\web_opac\.next/server/app/favicon.ico/route.js'
+Require stack:
+- D:\deploy\web_opac\node_modules\next\dist\server\future\helpers\module-loader\node-module-loader.js
+- D:\deploy\web_opac\node_modules\next\dist\server\future\route-handler-managers\route-handler-manager.js
+- D:\deploy\web_opac\node_modules\next\dist\server\base-server.js
+- D:\deploy\web_opac\node_modules\next\dist\server\next-server.js
+- D:\deploy\web_opac\node_modules\next\dist\server\next.js
+- D:\deploy\web_opac\node_modules\next\dist\server\lib\render-server.js
+- D:\deploy\web_opac\node_modules\next\dist\compiled\jest-worker\processChild.js
+[90m    at Module._resolveFilename (node:internal/modules/cjs/loader:1048:15)[39m
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require-hook.js:113:36
+[90m    at Module._load (node:internal/modules/cjs/loader:901:27)[39m
+[90m    at Module.require (node:internal/modules/cjs/loader:1115:19)[39m
+[90m    at require (node:internal/modules/helpers:130:18)[39m
+    at NodeModuleLoader.load [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\future\helpers\module-loader\node-module-loader.js:15:26[90m)[39m
+    at RouteModuleLoader.load [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\future\helpers\module-loader\route-module-loader.js:15:51[90m)[39m
+    at RouteHandlerManager.handle [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\future\route-handler-managers\route-handler-manager.js:20:67[90m)[39m
+    at doRender [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1009:58[90m)[39m
+    at cacheEntry.responseCache.get.incrementalCache.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1218:34[90m)[39m {
+  code: [32m'MODULE_NOT_FOUND'[39m,
+  requireStack: [
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\future\\helpers\\module-loader\\node-module-loader.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\future\\route-handler-managers\\route-handler-manager.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\base-server.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\next-server.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\next.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\lib\\render-server.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'[39m
+  ]
+}
+Error: Cannot find module 'D:\deploy\web_opac\.next\server\pages\_error.js'
+Require stack:
+- D:\deploy\web_opac\node_modules\next\dist\server\require.js
+- D:\deploy\web_opac\node_modules\next\dist\server\next-server.js
+- D:\deploy\web_opac\node_modules\next\dist\server\next.js
+- D:\deploy\web_opac\node_modules\next\dist\server\lib\render-server.js
+- D:\deploy\web_opac\node_modules\next\dist\compiled\jest-worker\processChild.js
+[90m    at Module._resolveFilename (node:internal/modules/cjs/loader:1048:15)[39m
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require-hook.js:113:36
+[90m    at Module._load (node:internal/modules/cjs/loader:901:27)[39m
+[90m    at Module.require (node:internal/modules/cjs/loader:1115:19)[39m
+[90m    at require (node:internal/modules/helpers:130:18)[39m
+    at requirePage [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:112:75[90m)[39m
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:84
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1570:26[90m)[39m {
+  code: [32m'MODULE_NOT_FOUND'[39m,
+  requireStack: [
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\require.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\next-server.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\next.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\server\\lib\\render-server.js'[39m,
+    [32m'D:\\deploy\\web_opac\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'[39m
+  ]
+}
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/3.jpg received text/html; charset=utf-8
+MissingStaticPage [Error]: Failed to load static file for page: /404 ENOENT: no such file or directory, open 'D:\deploy\web_opac\.next\server\pages\404.html'
+    at [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\require.js:109:19
+    at async loadComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\load-components.js:80:26[90m)[39m
+    at async NextNodeServer.findPageComponentsImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:772:36[90m)[39m
+    at async NextNodeServer.renderErrorToResponseImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:1542:30[90m)[39m
+    at async NextNodeServer.pipeImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:645:25[90m)[39m
+    at async Object.fn [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:1153:21[90m)[39m
+    at async Router.execute [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\router.js:315:32[90m)[39m
+    at async NextNodeServer.runImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:619:29[90m)[39m
+    at async NextNodeServer.handleRequestImpl [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\base-server.js:546:20[90m)[39m
+The requested resource isn't a valid image for /images/temp/5.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+ImageError: The requested resource isn't a valid image.
+    at imageOptimizer [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\image-optimizer.js:569:19[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async cacheEntry.imageResponseCache.get.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:414:72[90m)[39m
+    at async [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\response-cache\index.js:99:36 {
+  statusCode: [33m400[39m
+}
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+ImageError: The requested resource isn't a valid image.
+    at imageOptimizer [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\image-optimizer.js:569:19[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async cacheEntry.imageResponseCache.get.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:414:72[90m)[39m
+    at async [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\response-cache\index.js:99:36 {
+  statusCode: [33m400[39m
+}
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+ImageError: The requested resource isn't a valid image.
+    at imageOptimizer [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\image-optimizer.js:569:19[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async cacheEntry.imageResponseCache.get.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:414:72[90m)[39m
+    at async [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\response-cache\index.js:99:36 {
+  statusCode: [33m400[39m
+}
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+ImageError: The requested resource isn't a valid image.
+    at imageOptimizer [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\image-optimizer.js:569:19[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async cacheEntry.imageResponseCache.get.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:414:72[90m)[39m
+    at async [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\response-cache\index.js:99:36 {
+  statusCode: [33m400[39m
+}
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/Anh-Truong-FTU.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/leaders.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/300-tro-choi.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-111.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/sach-222.jpg received text/html; charset=utf-8
+ImageError: The requested resource isn't a valid image.
+    at imageOptimizer [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\image-optimizer.js:569:19[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async cacheEntry.imageResponseCache.get.incrementalCache [90m(D:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\next-server.js:414:72[90m)[39m
+    at async [90mD:\deploy\web_opac\[39mnode_modules\[4mnext[24m\dist\server\response-cache\index.js:99:36 {
+  statusCode: [33m400[39m
+}
+The requested resource isn't a valid image for /images/temp/FTU-1.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/maudon.jpg received text/html; charset=utf-8
+The requested resource isn't a valid image for /images/temp/banner1.jpg received text/html; charset=utf-8

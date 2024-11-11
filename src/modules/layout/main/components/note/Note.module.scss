@@ -1,0 +1,10 @@
+.container {
+  margin-top: 8vh;
+  transition: all 0.5s ease;
+  border-radius: 2rem;
+  box-shadow: var(--card-shadow) !important;
+  background-color: #fff;
+  .container_wrapper {
+    width: 100%;
+  }
+}

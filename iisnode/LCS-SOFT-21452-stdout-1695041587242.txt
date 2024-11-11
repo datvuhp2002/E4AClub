@@ -1,0 +1,2 @@
+- info Loaded env from D:\Projects\UCVN\Code\brainlib-web\.env.local
+> Ready on http://localhost:\\.\pipe\0d9d974d-b68e-488d-aa34-de6740a4124f

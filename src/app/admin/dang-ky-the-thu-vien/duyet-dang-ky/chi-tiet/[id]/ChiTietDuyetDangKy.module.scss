@@ -1,0 +1,14 @@
+.wrapper {
+  .body {
+    .card_img_wrapper {
+      border: 0.1rem solid grey;
+      padding: 0.4rem;
+      .card_img {
+        border: 0.1rem solid var(--sub_title_color);
+      }
+    }
+    .card_common_info_wrapper {
+      color: var(--admin-orange-color);
+    }
+  }
+}

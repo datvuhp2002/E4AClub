@@ -1,0 +1,17 @@
+.actions_column {
+  position: sticky;
+  right: 0; /* Position it to the right */
+  background: white; /* Background color for visibility */
+  z-index: 1; /* Ensures it's on top of other content */
+  border: 1px solid #333;
+}
+
+.actions_header {
+  position: sticky !important;
+  right: 0; /* Same position as the cell */
+  top: 0;
+  background: white;
+  border: 1px solid #333;
+
+  z-index: 3; /* Ensures it's on top of other content */
+}

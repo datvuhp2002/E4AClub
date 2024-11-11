@@ -1,0 +1,63 @@
+.wrapper {
+  .personal_info {
+    .content {
+      margin-bottom: 2rem;
+    }
+    .title_body {
+    }
+  }
+  .wrapper_content {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: #fff;
+    overflow: hidden;
+    .content,
+    .content_hasImg {
+      position: relative;
+      height: 6.2rem;
+      padding: 0 1.6rem;
+      transition: background-color 0.1s;
+      &:hover {
+        cursor: pointer;
+        background: #0000000d;
+      }
+      .info {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1px;
+        height: 100%;
+        .value {
+          padding-right: 50px;
+          font-size: 1.5rem;
+          opacity: 0.8;
+          overflow: hidden;
+          word-wrap: break-word;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+        }
+        .avatar {
+          border-radius: 50%;
+          width: 5rem;
+          height: 5rem;
+          margin: 5rem;
+        }
+      }
+      .actions {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1px;
+        height: 100%;
+      }
+      + .content {
+        border-top: 1px solid var(--divider-color);
+      }
+    }
+    .content_hasImg {
+      height: 10.4rem;
+      border-top: 1px solid var(--divider-color);
+    }
+  }
+}

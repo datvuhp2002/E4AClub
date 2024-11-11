@@ -1,0 +1,28 @@
+.appChatbotContainer {
+    border-radius: 5px;
+    bottom: 40px;
+    box-shadow: 5px 5px 13px rgba(91,81,81,.4);
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    position: fixed;
+    right: 85px;
+    z-index: 99999999999999;
+}
+.appChatbotButton {
+    background-color: #1f3646;
+    border: none;
+    border-radius: 25px;
+    bottom: 70px;
+    height: 50px;
+    position: fixed;
+    right: 22px;
+    width: 50px;
+    z-index: 6;
+    padding: 12px;
+}
+.appChatbotButtonIcon {
+    fill: #fff;
+    height: 25px;
+    width: 25px;
+}
