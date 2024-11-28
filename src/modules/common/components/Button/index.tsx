@@ -20,6 +20,7 @@ interface ButtonProps {
   collapse?: boolean;
   directionLink?: boolean;
   research_information?: boolean;
+  sidebar?: boolean;
   active_research?: boolean;
   admin_temp?: boolean;
   className?: string;
@@ -52,6 +53,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   active = false,
   admin_temp = false,
+  sidebar = false,
   transparent_btn,
   collapse,
   directionLink,
@@ -114,6 +116,7 @@ const Button: React.FC<ButtonProps> = ({
     login_btn,
     NavLink,
     toggleMenu,
+    sidebar,
     rounded,
     more,
     barButton,

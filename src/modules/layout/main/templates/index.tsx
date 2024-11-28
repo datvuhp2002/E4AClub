@@ -4,10 +4,10 @@ import Footer from "./footer";
 import styles from "./Layout.module.scss";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import Sidebar from "./Sidebar";
 export const metadata = {
   title: "Dang ky the",
 };
-
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { theme, setTheme } = useTheme();
   const [imageBackground, setImageBackground] = useState(
@@ -17,9 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setMounted(true);
     theme === "standard"
-      ? setImageBackground(
-          `${process.env.FILE_URL}images/public-background.jpg`
-        )
+      ? setImageBackground(`${process.env.FILE_URL}svg/Banner.svg`)
       : setImageBackground(
           `${process.env.FILE_URL}images/red-theme-background.jpg`
         );
@@ -29,6 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div lang="en">
       <div>
         <Header theme={theme} />
+        <Sidebar />
         <div
           className={`${styles.wrapper_body}`}
           style={{
@@ -38,11 +37,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div
-            className={`${styles.body} pb-5 container d-flex align-items-center justify-content-center`}
-          >
-            {children}
-          </div>
+          <div className={`${styles.body} pb-5 container`}>{children}</div>
         </div>
         <Footer />
       </div>

@@ -11,7 +11,6 @@
   border: 0.15rem solid transparent;
   transition: all 0.3s ease-in-out;
   padding: 0.7rem;
-  background-color: var(--primary-color);
   color: #fff;
   .icon_left {
     margin-right: 0.5rem;
@@ -67,9 +66,37 @@
       opacity: 1;
     }
   }
+  &.sidebar {
+    margin-top: 0.5rem;
+    border-radius: 0.8rem;
+    box-shadow: none;
+    color: var(--text-color);
+    min-width: 5rem;
+    min-height: 5rem;
+    padding: 1rem;
+    width: 10rem;
+    display: flex;
+    flex-direction: column;
+    &:hover {
+      background-color: var(--grey-color);
+      color: #1a1a1a;
+    }
+    span {
+      margin: 0;
+    }
+    .icon_left {
+      font-size: calc(var(--fs-text-primary));
+    }
+    .title {
+      font-size: calc(var(--fs-text-primary) - 0.3rem);
+    }
+    & + .sidebar {
+      margin-left: 0;
+    }
+  }
   &.menuItem {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     padding: 0;
     box-shadow: none;
     width: 100%;
@@ -80,6 +107,7 @@
       width: 100%;
     }
   }
+
   &.login_btn {
     background: var(--header-admin-bg-color) !important;
   }

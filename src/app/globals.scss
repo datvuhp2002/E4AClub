@@ -1,8 +1,10 @@
 :root {
+  --text-color: #242424;
   // common
   --fs-text-primary: 1.5rem;
-  --text-color-primary: #333;
+  --text-color-primary: #575554;
   --grey: #bebebe;
+  --grey-color: #e8ebed;
   // guess
   --welcome-page-step-1-color: #2ac3ff;
   --welcome-page-step-2-color: #f1a93d;
@@ -234,4 +236,13 @@ a {
   border: #d37f78 2px solid;
   color: #b83c37;
   font-weight: bold;
+}
+
+.fa-spin-slower {
+  animation-name: fa-spin;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 18s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
 }

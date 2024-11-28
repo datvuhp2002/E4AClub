@@ -16,6 +16,9 @@ const WebMetadata = (tenant: any) => {
   } else if (tenant == "dev") {
     title = "Thư viện dev";
     description = "";
+  } else if (tenant === "en") {
+    title = "E4A Club";
+    description = "";
   }
   return {
     title: title,
