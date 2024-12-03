@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Main.module.scss";
 import { auth } from "@/auth";
 import Image from "@/modules/common/components/Image";

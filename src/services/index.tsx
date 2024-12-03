@@ -5,16 +5,16 @@ const FeedbackLibraryServices = {
   Insert: async (data: any) => {
     data.status = "Tạo mới";
     let res: any = await fetch({
-      url: `/${Service}/insert`,
-      method: "post",
+      endpoint: `/${Service}/insert`,
+      method: "POST",
       data,
     });
     return res;
   },
   Search: async (data: any) => {
     let res: any = await fetch({
-      url: `/${Service}/search-feedback`,
-      method: "post",
+      endpoint: `/${Service}/search-feedback`,
+      method: "POST",
       data,
     });
     return res;
@@ -22,8 +22,8 @@ const FeedbackLibraryServices = {
   UpdateStatusFeedBack: async (id: number) => {
     const status = "Đã duyệt";
     let res: any = await fetch({
-      url: `/${Service}/update-status-feedback?id=${id}&status=${status}`,
-      method: "post",
+      endpoint: `/${Service}/update-status-feedback?id=${id}&status=${status}`,
+      method: "POST",
     });
     return res;
   },

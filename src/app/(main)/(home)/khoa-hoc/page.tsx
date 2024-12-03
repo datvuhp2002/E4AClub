@@ -9,7 +9,6 @@ import RegisterResult from "@/modules/layout/main/components/register-result";
 
 const Page = () => {
   const [registerData, setRegisterData] = useState<any>();
-
   return (
     <div className={`${styles.wrapper} row`}>
       <div className={`col-xs-12 col-md-7 mt-2`}>

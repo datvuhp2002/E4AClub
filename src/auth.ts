@@ -14,19 +14,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        const res = await LoginServices.Login({
-          email: credentials.email,
-          password: credentials.password,
-        });
-        if (res) {
+        try {
+          const res = await LoginServices.Login({
+            email: credentials.email,
+            password: credentials.password,
+          });
+          if (!res) {
+            throw new InvalidEmailPasswordError(); // Gửi lỗi cụ thể
+          }
           return {
             email: credentials.email as string,
             role: res.role as string,
             accessToken: res.access_token,
             refreshToken: res.refresh_token,
           };
-        } else {
-          throw new InvalidEmailPasswordError();
+        } catch (error) {
+          console.error("Authorize error:", error); // Log lỗi để debug
+          throw new Error("Invalid credentials"); // Trả lỗi chung chung cho người dùng
         }
       },
     }),

@@ -34,9 +34,15 @@ apiService.interceptors.request.use(
 
     if (typeof window !== "undefined") {
       const session = await getSession();
-      if (session && session.access_token) {
+      if (session && session.user.access_token) {
+        console.log("session.access_token:::", session.user.access_token);
         // Add Authorization header if token exists in session
-        config.headers.set("Authorization", `Bearer ${session.access_token}`);
+        config.headers.set(
+          "Authorization",
+          `Bearer ${session?.user.access_token}`
+        );
+      } else {
+        console.log("No token found in session");
       }
     }
     // Set default headers
@@ -66,7 +72,7 @@ apiService.interceptors.response.use(
 
         try {
           const session = await getSession();
-          const refreshToken = session?.refresh_token;
+          const refreshToken = session?.user;
 
           if (!refreshToken) {
             throw new Error("No refresh token available");
@@ -104,7 +110,7 @@ apiService.interceptors.response.use(
 
       if (status === 401) {
         if (typeof window !== "undefined") {
-          window.location.href = "/page401";
+          // window.location.href = "/page401";
         }
       }
     }
@@ -114,7 +120,7 @@ apiService.interceptors.response.use(
 );
 
 // Function to make API requests
-export default function requestApi({
+export default async function requestApi({
   endpoint,
   method = "GET",
   data = null,
@@ -122,7 +128,7 @@ export default function requestApi({
   responseType = "json",
   contentType = "application/json",
 }: RequestApiOptions) {
-  return apiService.request({
+  return await apiService.request({
     url: endpoint,
     method: method,
     data: data,
