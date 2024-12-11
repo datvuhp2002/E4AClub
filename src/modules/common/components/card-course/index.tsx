@@ -52,7 +52,7 @@ const CardCourse: React.FC<any> = ({
         {true ? (
           <Button
             rounded
-            to={`/khoa-hoc/${data.id}`}
+            to={`/bai-giang/${data.id}`}
             className={cx("course_btn")}
           >
             Tiếp tục học
@@ -60,7 +60,7 @@ const CardCourse: React.FC<any> = ({
         ) : (
           <Button
             rounded
-            to={`/khoa-hoc/chi-tiet/${data.id}`}
+            to={`/bai-giang/chi-tiet/${data.id}`}
             className={cx("course_btn")}
           >
             Đăng ký học

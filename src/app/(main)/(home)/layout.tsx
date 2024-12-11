@@ -1,5 +1,6 @@
 import Layout from "@/modules/layout/main/templates";
-export default function PageLayout({
+export const metadata = { title: "homepage", description: "This is homepage" };
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
