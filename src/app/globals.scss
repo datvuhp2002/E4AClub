@@ -1,3 +1,5 @@
+@import "../modules/common/tools/Mixin/Mixin.scss";
+
 :root {
   --text-color: #242424;
   // common
@@ -246,4 +248,15 @@ a {
   animation-duration: var(--fa-animation-duration, 18s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
+}
+.text-justify {
+  text-align: justify;
+}
+.w-md-50 {
+  width: 50%;
+}
+@include mobile {
+  .w-md-50 {
+    width: 100%;
+  }
 }

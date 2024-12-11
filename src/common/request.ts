@@ -3,7 +3,7 @@ import axios, {
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from "axios";
-import { getSession } from "next-auth/react"; // Import NextAuth's getSession
+import Cookies from "js-cookie";
 
 interface RequestApiOptions {
   endpoint: string;
@@ -21,31 +21,22 @@ interface RequestApiOptions {
 }
 
 const apiService = axios.create({
-  baseURL: process.env.API_URL, // Base URL for API requests
-  withCredentials: true, // Send cookies with cross-domain requests
-  timeout: 15000, // Request timeout in milliseconds
+  baseURL: process.env.API_URL, // Base URL cho API requests
+  withCredentials: true, // Gửi cookies với cross-domain requests
+  timeout: 15000, // Timeout request sau 15 giây
 });
 
 // Request Interceptor
 apiService.interceptors.request.use(
-  async (config: InternalAxiosRequestConfig) => {
-    // Initialize headers if undefined
+  (config: InternalAxiosRequestConfig) => {
     config.headers = config.headers || new AxiosHeaders();
 
-    if (typeof window !== "undefined") {
-      const session = await getSession();
-      if (session && session.user.access_token) {
-        console.log("session.access_token:::", session.user.access_token);
-        // Add Authorization header if token exists in session
-        config.headers.set(
-          "Authorization",
-          `Bearer ${session?.user.access_token}`
-        );
-      } else {
-        console.log("No token found in session");
-      }
+    const accessToken = Cookies.get("access_token");
+    if (accessToken) {
+      config.headers.set("Authorization", `Bearer ${accessToken}`);
+    } else {
+      console.log("No token found in cookies");
     }
-    // Set default headers
     config.headers.set("Accept", "application/json");
     config.headers.set("Content-Type", "application/json");
 
@@ -66,14 +57,11 @@ apiService.interceptors.response.use(
     if (error.response) {
       const { status } = error.response;
 
-      // Handle 419 (token expired) errors with refresh logic
       if (status === 419 && !originalRequest._retry) {
-        originalRequest._retry = true; // Mark the request as retried
+        originalRequest._retry = true;
 
         try {
-          const session = await getSession();
-          const refreshToken = session?.user;
-
+          const refreshToken = Cookies.get("refresh_token");
           if (!refreshToken) {
             throw new Error("No refresh token available");
           }
@@ -83,8 +71,8 @@ apiService.interceptors.response.use(
           });
 
           const { access_token, refresh_token } = refreshResponse.data;
-          sessionStorage.setItem("access_token", access_token);
-          sessionStorage.setItem("refresh_token", refresh_token);
+          Cookies.set("access_token", access_token, { expires: 1 });
+          Cookies.set("refresh_token", refresh_token, { expires: 7 });
 
           originalRequest.headers =
             originalRequest.headers || new AxiosHeaders();
@@ -98,28 +86,24 @@ apiService.interceptors.response.use(
           console.error("Token refresh failed:", refreshError);
 
           if (typeof window !== "undefined") {
-            if (refreshError.response?.status === 400) {
-              sessionStorage.removeItem("access_token");
-              sessionStorage.removeItem("refresh_token");
-              window.location.href = "/login";
-            }
+            Cookies.remove("access_token");
+            Cookies.remove("refresh_token");
+            window.location.href = "/login";
           }
           return Promise.reject(refreshError);
         }
       }
-
       if (status === 401) {
         if (typeof window !== "undefined") {
-          // window.location.href = "/page401";
+          throw new Error("Unauthorized, redirecting to login");
         }
       }
     }
-
     return Promise.reject(error);
   }
 );
 
-// Function to make API requests
+// Hàm thực hiện API requests
 export default async function requestApi({
   endpoint,
   method = "GET",
@@ -130,10 +114,10 @@ export default async function requestApi({
 }: RequestApiOptions) {
   return await apiService.request({
     url: endpoint,
-    method: method,
-    data: data,
-    params: params,
-    responseType: responseType,
+    method,
+    data,
+    params,
+    responseType,
     headers: {
       "Content-Type": contentType,
     },

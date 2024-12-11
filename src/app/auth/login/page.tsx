@@ -6,8 +6,8 @@ import { Box } from "@mui/material";
 import InputField from "@/modules/common/components/input-field-register-library";
 import Button from "@/modules/common/components/Button";
 import { useRouter } from "next/navigation";
-import { authenticate } from "@/common/actions";
 import { useToastContext } from "@/lib/context/toast-context";
+import AuthServices from "@/services/auth-services";
 interface LoginFormInputs {
   email: string;
   password: string;
@@ -33,10 +33,9 @@ const page = () => {
   const onSubmit: SubmitHandler<LoginFormInputs> = async (
     data: LoginFormInputs
   ) => {
-    const res = await authenticate(data);
-    console.log("REs", res);
-    if (res.error) {
-      handleErrorToast(res.error);
+    const res = await AuthServices.Login(data);
+    if (!res) {
+      handleErrorToast("Login failed");
     } else {
       router.push("/");
     }

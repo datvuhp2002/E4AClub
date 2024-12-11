@@ -4,7 +4,6 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/modules/theme";
-import { SessionProvider } from "next-auth/react";
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextThemesProvider
@@ -12,15 +11,13 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       attribute="class"
       defaultTheme={process.env.NEXT_PUBLIC_SETTING_THEME}
     >
-      <SessionProvider>
-        <ThemeProvider theme={theme}>
-          <ToastContextProvider>
-            <AppRouterCacheProvider>
-              <ModalContextProvider>{children}</ModalContextProvider>
-            </AppRouterCacheProvider>
-          </ToastContextProvider>
-        </ThemeProvider>
-      </SessionProvider>
+      <ThemeProvider theme={theme}>
+        <ToastContextProvider>
+          <AppRouterCacheProvider>
+            <ModalContextProvider>{children}</ModalContextProvider>
+          </AppRouterCacheProvider>
+        </ToastContextProvider>
+      </ThemeProvider>
     </NextThemesProvider>
   );
 }

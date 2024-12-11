@@ -1,4 +1,4 @@
-import { publicRoute } from "./index";
+import { route } from "./index";
 import {
   faBookAtlas,
   faChalkboardTeacher,
@@ -12,27 +12,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const directPublicRoutes = [
   {
-    path: publicRoute.dashboard,
-    name: "Trang chủ",
-    icon: <FontAwesomeIcon icon={faHome} />,
-  },
-  {
-    path: publicRoute.dangKyThe,
-    name: "Đăng ký",
-    icon: <FontAwesomeIcon icon={faBookAtlas} />,
-  },
-  {
-    path: publicRoute.traCuuThongTinThe,
-    name: "Tra cứu",
-    icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
-  },
-  {
-    path: publicRoute.huongDan,
+    path: route.huongDan,
     name: "Huớng dẫn",
     icon: <FontAwesomeIcon icon={faChalkboardTeacher} />,
   },
   {
-    path: publicRoute.gopY,
+    path: route.gopY,
     name: "Góp ý",
     icon: <FontAwesomeIcon icon={faEnvelopeOpenText} />,
   },

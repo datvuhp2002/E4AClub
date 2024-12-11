@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
@@ -9,9 +10,10 @@ import {
   faPenNib,
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/modules/common/components/Button";
+import { usePathname } from "next/navigation";
+import { route } from "@/config";
 
 const cx = classNames.bind(styles);
-
 // Định nghĩa kiểu cho privateRoutes
 type Route = {
   path: string;
@@ -20,22 +22,24 @@ type Route = {
 };
 const privateRoutes = [
   {
-    path: "/",
+    path: route.trang_chu,
     name: "Trang chủ",
     icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
-    path: "khoa-hoc",
+    path: route.khoa_hoc,
     name: "Khóa học",
     icon: <FontAwesomeIcon icon={faBook} />,
   },
   {
-    path: "/bai-viet",
+    path: route.bai_viet,
     name: "Bài viết",
     icon: <FontAwesomeIcon icon={faNewspaper} />,
   },
 ];
 const Sidebar: React.FC = () => {
+  const pathName = usePathname();
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("sidebar", "d-flex align-items-center")}>
@@ -49,13 +53,24 @@ const Sidebar: React.FC = () => {
           leftIcon={<FontAwesomeIcon icon={faPenNib} />}
         /> */}
         {/* Hiển thị danh sách các route */}
-        {privateRoutes.map((item: Route, index: number) =>
-          item.name ? (
-            <Button sidebar key={index} to={item.path} leftIcon={item.icon}>
+        {privateRoutes.map((item: Route, index: number) => {
+          const isActive =
+            item.path === "/"
+              ? pathName === item.path
+              : pathName.startsWith(item.path) && item.path !== "/";
+          return item.name ? (
+            <Button
+              sidebar
+              active={isActive}
+              key={index}
+              to={item.path}
+              leftIcon={item.icon}
+            >
+              {isActive}
               {item.name}
             </Button>
-          ) : null
-        )}
+          ) : null;
+        })}
       </div>
     </div>
   );

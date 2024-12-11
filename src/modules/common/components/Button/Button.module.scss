@@ -148,7 +148,7 @@
     }
   }
   &.active {
-    border-bottom: 0.3rem solid var(--navlink-active-color);
+    background-color: var(--grey-color);
     .title {
       font-weight: bolder;
     }

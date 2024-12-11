@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: WebMetadata(process.env.TENANT).title,
   description: WebMetadata(process.env.TENANT).description,
   icons: {
-    icon: process.env.FILE_URL + "images/favicon.ico",
+    icon: process.env.FILE_URL + "images/logo.png",
   },
 };
 
