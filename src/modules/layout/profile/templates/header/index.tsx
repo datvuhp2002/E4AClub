@@ -3,17 +3,15 @@ import React, { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
 import Image from "@/modules/common/components/Image";
 import Menu from "@/modules/common/components/Popper/Menu";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
+import AuthServices from "@/services/auth-services";
 const Header = ({ theme }: any) => {
   const [logo, setLogo] = useState("");
-  const { data: session, status } = useSession();
   const Menu_item = [
     [
       {
         title: `Trang cá nhân`,
-        path: `/thong-tin-ca-nhan/${session?.user?.email}`,
+        path: `/thong-tin-ca-nhan}`,
       },
     ],
     [{ title: "Khoá học của tôi", path: "/khoa-hoc/ca-nhan" }],
@@ -24,7 +22,7 @@ const Header = ({ theme }: any) => {
     [{ title: "Luyện tập lập trình", path: "/luyen-tap/lap-trinh" }],
     [
       { title: "Cài đặt", path: `/cai-dat` },
-      { title: "Đăng xuất", onClick: signOut, path: "auth/login" },
+      { title: "Đăng xuất", onClick: AuthServices.Logout, path: "auth/login" },
     ],
   ];
   useEffect(() => {

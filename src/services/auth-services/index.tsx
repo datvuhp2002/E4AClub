@@ -14,10 +14,11 @@ const AuthServices = {
       });
       console.log(res);
       if (res) {
-        Cookies.set("email", data.email);
-        Cookies.set("access_token", res.access_token, { expires: 1 });
-        Cookies.set("refresh_token", res.refresh_token, { expires: 7 });
-        Cookies.set("role", res.role, { expires: 7 });
+        Cookies.set("email", res.user.email, { expires: 7 });
+        Cookies.set("name", res.user.name, { expires: 7 });
+        Cookies.set("access_token", res.user.accessToken, { expires: 1 });
+        // Cookies.set("refresh_token", res.refresh_token, { expires: 7 });
+        Cookies.set("role", res.user.role, { expires: 7 });
       }
       return res;
     } catch (error) {
