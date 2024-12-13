@@ -39,7 +39,6 @@ apiService.interceptors.request.use(
     }
     config.headers.set("Accept", "application/json");
     config.headers.set("Content-Type", "application/json");
-
     return config;
   },
   (error) => {
@@ -51,51 +50,16 @@ apiService.interceptors.request.use(
 // Response Interceptor
 apiService.interceptors.response.use(
   (response) => response.data,
-  async (error) => {
-    const originalRequest = error.config;
-
+  (error) => {
     if (error.response) {
       const { status } = error.response;
 
-      if (status === 419 && !originalRequest._retry) {
-        originalRequest._retry = true;
-
-        try {
-          const refreshToken = Cookies.get("refresh_token");
-          if (!refreshToken) {
-            throw new Error("No refresh token available");
-          }
-
-          const refreshResponse = await apiService.post("/auth/refresh_token", {
-            refresh_token: refreshToken,
-          });
-
-          const { access_token, refresh_token } = refreshResponse.data;
-          Cookies.set("access_token", access_token, { expires: 1 });
-          Cookies.set("refresh_token", refresh_token, { expires: 7 });
-
-          originalRequest.headers =
-            originalRequest.headers || new AxiosHeaders();
-          originalRequest.headers.set(
-            "Authorization",
-            `Bearer ${access_token}`
-          );
-
-          return apiService(originalRequest);
-        } catch (refreshError: any) {
-          console.error("Token refresh failed:", refreshError);
-
-          if (typeof window !== "undefined") {
-            Cookies.remove("access_token");
-            Cookies.remove("refresh_token");
-            window.location.href = "/login";
-          }
-          return Promise.reject(refreshError);
-        }
-      }
       if (status === 401) {
+        console.error("Unauthorized: Redirecting to login...");
         if (typeof window !== "undefined") {
-          throw new Error("Unauthorized, redirecting to login");
+          // Xóa cookie access_token nếu tồn tại
+          Cookies.remove("access_token");
+          window.location.href = "/login"; // Chuyển hướng về trang đăng nhập
         }
       }
     }

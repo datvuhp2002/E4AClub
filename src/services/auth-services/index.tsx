@@ -12,7 +12,6 @@ const AuthServices = {
         method: "POST",
         data,
       });
-      console.log(res);
       if (res) {
         Cookies.set("email", res.user.email, { expires: 7 });
         Cookies.set("name", res.user.name, { expires: 7 });

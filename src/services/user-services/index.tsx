@@ -1,11 +1,11 @@
 import fetch from "@/common/request";
 
-const Service = "users";
+const Service = "user";
 const UserServices = {
-  Profile: async () => {
+  Info: async () => {
     try {
       let res: any = await fetch({
-        endpoint: `/${Service}/profile`,
+        endpoint: `/${Service}/info`,
         method: "GET",
       });
       return res;

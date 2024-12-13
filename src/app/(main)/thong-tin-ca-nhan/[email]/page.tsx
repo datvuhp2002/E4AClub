@@ -9,16 +9,16 @@ type User = {
   username: string;
   fullname: string;
   email: string;
-  avatar: string; // URL hoặc đường dẫn đến ảnh đại diện
-  roles: string; // Có thể là "Admin", "User", v.v.
-  createdAt: string; // Ngày tạo người dùng, có thể định dạng ISO 8601 (ví dụ: "2024-07-25T01:18:39.482Z")
+  avatar: string;
+  roles: string;
+  createdAt: string;
 };
 
 const ThongTinCaNhan = () => {
   const [profile, setProfile] = useState<User>();
   useEffect(() => {
     try {
-      UserServices.Profile().then((res) => {
+      UserServices.Info().then((res) => {
         console.log(res);
         setProfile(res);
       });
