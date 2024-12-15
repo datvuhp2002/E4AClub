@@ -6,9 +6,9 @@ import CardCourse from "@/modules/common/components/card-course";
 const Page = () => {
   const [course, setCourse] = useState([]);
   useEffect(() => {
-    CourseServices.getCourse(4)
-      .then((res) => setCourse(res.data))
-      .catch((err) => console.log(err));
+    // CourseServices.getCourse(4)
+    //   .then((res) => setCourse(res.data))
+    //   .catch((err) => console.log(err));
   }, []);
 
   return (

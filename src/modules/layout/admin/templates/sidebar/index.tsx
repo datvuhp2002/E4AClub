@@ -68,10 +68,19 @@ const Sidebar: React.FC<{
   handleMouseEnter: () => void;
   handleMouseLeave: () => void;
 }> = ({ open, handleMouseEnter, handleMouseLeave }) => {
-  const [openSubmenus, setOpenSubmenus] = useState<{ [key: string]: boolean }>({
-    1: true,
-  });
   const pathName = usePathname();
+  // open submenu dựa theo pathName
+  const [openSubmenus, setOpenSubmenus] = useState<{ [key: string]: boolean }>(
+    () => {
+      const initialState: { [key: string]: boolean } = {};
+      directAdminRoutes.forEach((item, index) => {
+        if (item.subMenu?.some((sub) => pathName.startsWith(sub.path))) {
+          initialState[index] = true;
+        }
+      });
+      return initialState;
+    }
+  );
   const toggleSubmenu = (index: number) => {
     setOpenSubmenus((prev) => ({
       ...prev,
@@ -186,7 +195,7 @@ const Sidebar: React.FC<{
           <Link href="/admin">
             <Image
               alt="logo"
-              src={process.env.FILE_URL + "images/UCVN.png"}
+              src={process.env.FILE_URL + "svg/Logo.svg"}
               logo
               className={!open ? "d-none" : ""}
             />

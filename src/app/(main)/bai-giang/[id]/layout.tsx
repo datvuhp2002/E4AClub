@@ -1,12 +1,9 @@
+import Layout from "@/modules/layout/baigiang/templates";
+export const metadata = { title: "Bài giảng", description: "Bài giảng" };
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div>
-      <h4>Đây là page id</h4>
-      {children}
-    </div>
-  );
+  return <Layout>{children}</Layout>;
 }

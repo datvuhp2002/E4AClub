@@ -4,7 +4,12 @@ import { useState, MouseEvent, useEffect } from "react";
 import { Popover, Stack } from "@mui/material";
 import Button from "../Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDeleteLeft,
+  faEye,
+  faPersonCircleMinus,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import DT from "datatables.net-dt";
 import "datatables.net-fixedcolumns-dt";
@@ -17,16 +22,9 @@ interface DataTable {
   data: any;
   selectedColumn: any;
   edit_direction: any;
-  isComment?: boolean;
   action?: (id: any) => any;
 }
-function App({
-  data,
-  selectedColumn,
-  edit_direction,
-  isComment = false,
-  action,
-}: DataTable) {
+function App({ data, selectedColumn, edit_direction, action }: DataTable) {
   const route = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedRow, setSelectedRow] = useState<string | null>(null);
@@ -80,40 +78,32 @@ function App({
         data: null,
         orderable: false,
         render: (data: any, type: any, row: any) => {
-          return isComment
-            ? `
-               <button class='btn btn-outline-success action-comment-button fs-4 fw-bold' data-id='${row.id}' }>
-                Duyệt
-               </button>
-            `
-            : `
-            <button class='action-menu bg-transparent btn ' data-id='${row.id}'>
-                <svg fill="#333" width="3rem" height="2rem" viewBox="0 0 512.00 512.00" xmlns="http://www.w3.org/2000/svg" stroke="#637381" stroke-width="0.512" transform="rotate(0)matrix(1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>ionicons-v5-f</title><circle cx="256" cy="256" r="48"></circle><circle cx="256" cy="416" r="48"></circle><circle cx="256" cy="96" r="48"></circle></g></svg>
+          return `
+            <button class='action-menu bg-transparent btn ' data-id='${row._id}'>
+              <svg fill="#333" width="3rem" height="2rem" viewBox="0 0 512.00 512.00" xmlns="http://www.w3.org/2000/svg" stroke="#637381" stroke-width="0.512" transform="rotate(0)matrix(1, 0, 0, 1, 0, 0)">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <title>ionicons-v5-f</title>
+                  <circle cx="256" cy="256" r="48"></circle>
+                  <circle cx="256" cy="416" r="48"></circle>
+                  <circle cx="256" cy="96" r="48"></circle>
+                </g>
+              </svg>
             </button>
           `;
         },
       },
     ],
     drawCallback: function () {
-      !isComment
-        ? document.querySelectorAll(".action-menu").forEach((element) => {
-            element.addEventListener("click", (event) => {
-              const id = (event.currentTarget as HTMLElement).getAttribute(
-                "data-id"
-              );
-              handleOpenPopover(event as any, id!);
-            });
-          })
-        : document
-            .querySelectorAll(".action-comment-button")
-            .forEach((element) => {
-              element.addEventListener("click", (event) => {
-                const id = (event.currentTarget as HTMLElement).getAttribute(
-                  "data-id"
-                );
-                action && action(id);
-              });
-            });
+      document.querySelectorAll(".action-menu").forEach((element) => {
+        element.addEventListener("click", (event) => {
+          const id = (event.currentTarget as HTMLElement).getAttribute(
+            "data-id"
+          );
+          handleOpenPopover(event as any, id!);
+        });
+      });
     },
   };
   useEffect(() => {}, [data]);
@@ -150,6 +140,16 @@ function App({
               leftIcon={<FontAwesomeIcon icon={faEye} />}
             >
               Chi tiết
+            </Button>
+            <Button
+              className="w-100 justify-content start m-0 mt-2"
+              transparent_btn
+              rounded
+              edit_btn
+              onClick={handleView}
+              leftIcon={<FontAwesomeIcon icon={faPersonCircleMinus} />}
+            >
+              Xóa
             </Button>
           </div>
 

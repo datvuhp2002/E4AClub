@@ -107,7 +107,73 @@
       width: 100%;
     }
   }
-
+  &.next_lesson {
+    display: inline-block;
+    min-width: 14.8rem;
+    height: 32px;
+    border-radius: 9999rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.8;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.2s;
+    background-color: var(--primary-color);
+    outline: none;
+    border: none;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    span {
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      border-radius: 9999rem;
+    }
+    .Icon {
+      margin: 0;
+    }
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+  &.previous_lesson {
+    display: inline-block;
+    min-width: 14.8rem;
+    height: 32px;
+    border-radius: 9999rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.8;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #fff;
+    transition: opacity 0.2s;
+    outline: none;
+    border: none;
+    -webkit-user-select: none;
+    background: #fff;
+    user-select: none;
+    padding: 0;
+    color: transparent;
+    cursor: pointer;
+    span {
+      color: #000;
+      border-radius: inherit;
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      border-radius: 9999rem;
+    }
+    &:hover {
+      opacity: 0.6;
+    }
+  }
   &.login_btn {
     background: var(--header-admin-bg-color) !important;
   }
@@ -255,12 +321,12 @@
   }
   @include tablet {
     & + .wrapper {
-      margin-left: 1.5rem;
+      margin-left: 1rem;
     }
   }
   @include desktop {
     & + .wrapper {
-      margin-left: 1.5rem;
+      margin-left: 1rem;
     }
   }
   &:hover {

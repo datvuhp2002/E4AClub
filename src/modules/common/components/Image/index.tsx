@@ -34,7 +34,7 @@ const Image: React.FC<ImageProps> = ({
   login_logo,
   rounded,
   className,
-  fallback: customFallback = process.env.FILE_URL + "images/logo.png",
+  fallback: customFallback = process.env.FILE_URL + "images/no_img.svg",
   w100,
   w50,
   w30,

@@ -5,8 +5,9 @@ import {
   faEnvelopeOpenText,
   faHome,
   faMagnifyingGlass,
-  faAddressCard,
   faCircle,
+  faLayerGroup,
+  faUsersCog,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -29,24 +30,46 @@ const directAdminRoutes = [
     path: "/admin",
   },
   {
-    text: "Đăng ký thẻ thư viện",
-    icon: faAddressCard,
-    path: "dang-ky-the-thu-vien",
+    text: "Tài khoản",
+    icon: faUsersCog,
+    path: "tai-khoan",
     subMenu: [
       {
-        text: "Duyệt đăng ký",
+        text: "Danh sách",
         icon: faCircle,
-        path: "/admin/dang-ky-the-thu-vien/duyet-dang-ky",
+        path: "/admin/tai-khoan/danh-sach",
       },
       {
-        text: "Tra cứu - báo cáo",
+        text: "Tạo mới",
         icon: faCircle,
-        path: "/admin/dang-ky-the-thu-vien/tra-cuu-bao-cao",
+        path: "/admin/tai-khoan/tao-moi",
       },
       {
-        text: "Quản lý góp ý",
+        text: "Thùng rác",
         icon: faCircle,
-        path: "/admin/dang-ky-the-thu-vien/quan-ly-gop-y",
+        path: "/admin/tai-khoan/thung-rac",
+      },
+    ],
+  },
+  {
+    text: "Khóa học",
+    icon: faLayerGroup,
+    path: "khoa-hoc",
+    subMenu: [
+      {
+        text: "Danh sách",
+        icon: faCircle,
+        path: "/admin/khoa-hoc/danh-sach",
+      },
+      {
+        text: "Tạo mới",
+        icon: faCircle,
+        path: "/admin/khoa-hoc/tao-moi",
+      },
+      {
+        text: "Thùng rác",
+        icon: faCircle,
+        path: "/admin/khoa-hoc/thung-rac",
       },
     ],
   },

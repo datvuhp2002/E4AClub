@@ -32,8 +32,8 @@ const privateRoutes = [
     icon: <FontAwesomeIcon icon={faBook} />,
   },
   {
-    path: route.bai_viet,
-    name: "Bài viết",
+    path: route.gioi_thieu,
+    name: "Giới thiệu",
     icon: <FontAwesomeIcon icon={faNewspaper} />,
   },
 ];

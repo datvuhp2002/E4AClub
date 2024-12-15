@@ -79,7 +79,7 @@ const Header: React.FC<{ open: boolean; handleDrawerOpen: () => void }> = ({
             )}
           </IconButton>
           <div className="mb-0 fs-2 h-100 d-flex align-items-center ms-1">
-            Quản lý đăng ký thẻ
+            {process.env.NEXT_PUBLIC_APP_NAME}
           </div>
         </Box>
         <Box className={`pe-3 `}>

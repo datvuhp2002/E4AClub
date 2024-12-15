@@ -1,10 +1,7 @@
-import axios, {
-  AxiosHeaders,
-  AxiosRequestConfig,
-  InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosHeaders, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
+// Interface cho các tùy chọn của hàm requestApi
 interface RequestApiOptions {
   endpoint: string;
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
@@ -21,22 +18,22 @@ interface RequestApiOptions {
 }
 
 const apiService = axios.create({
-  baseURL: process.env.API_URL, // Base URL cho API requests
+  baseURL: process.env.API_URL, // Base URL từ environment
   withCredentials: true, // Gửi cookies với cross-domain requests
   timeout: 15000, // Timeout request sau 15 giây
 });
 
-// Request Interceptor
 apiService.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     config.headers = config.headers || new AxiosHeaders();
-
     const accessToken = Cookies.get("access_token");
     if (accessToken) {
       config.headers.set("Authorization", `Bearer ${accessToken}`);
     } else {
       console.log("No token found in cookies");
     }
+
+    // Thêm các headers mặc định
     config.headers.set("Accept", "application/json");
     config.headers.set("Content-Type", "application/json");
     return config;
@@ -47,27 +44,32 @@ apiService.interceptors.request.use(
   }
 );
 
-// Response Interceptor
 apiService.interceptors.response.use(
-  (response) => response.data,
+  (response) => {
+    return response.data;
+  },
   (error) => {
     if (error.response) {
-      const { status } = error.response;
+      const { status, data } = error.response;
 
-      if (status === 401) {
-        console.error("Unauthorized: Redirecting to login...");
+      if (
+        status === 401 ||
+        (status === 400 && data?.message?.includes("Invalid token"))
+      ) {
+        console.error("Authorization error: Token expired or invalid.");
+        // Xóa token khỏi cookies
+        Cookies.remove("access_token");
+        // Chuyển hướng về trang đăng nhập
         if (typeof window !== "undefined") {
-          // Xóa cookie access_token nếu tồn tại
-          Cookies.remove("access_token");
-          window.location.href = "/login"; // Chuyển hướng về trang đăng nhập
+          window.location.href = "/login";
         }
       }
     }
+
     return Promise.reject(error);
   }
 );
 
-// Hàm thực hiện API requests
 export default async function requestApi({
   endpoint,
   method = "GET",

@@ -3,9 +3,8 @@ import Header from "./header";
 import styles from "./Layout.module.scss";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
 export const metadata = {
-  title: "Dang ky the",
+  title: "Bài giảng",
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { theme, setTheme } = useTheme();
@@ -25,8 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div lang="en">
       <div>
-        <Header theme={theme} />
-        <Sidebar />
+        <Header />
         <div
           className={`${styles.wrapper_body}`}
           style={{
@@ -36,7 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className={`${styles.body} pb-5 container`}>{children}</div>
+          <div className={`${styles.body} `}>{children}</div>
         </div>
       </div>
     </div>

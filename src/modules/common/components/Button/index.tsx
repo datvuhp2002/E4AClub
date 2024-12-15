@@ -36,6 +36,8 @@ interface ButtonProps {
   menuItem?: boolean;
   danger_btn?: boolean;
   more?: boolean;
+  previous_lesson?: boolean;
+  next_lesson?: boolean;
   rightIcon?: ReactNode;
   children?: ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>; // Click handler for both Link and button
@@ -73,6 +75,8 @@ const Button: React.FC<ButtonProps> = ({
   edit_btn,
   more,
   trash_btn,
+  previous_lesson,
+  next_lesson,
   onClick,
   ...passProps
 }) => {
@@ -107,6 +111,7 @@ const Button: React.FC<ButtonProps> = ({
     icon_only,
     admin_temp,
     grey_btn,
+    previous_lesson,
     success_btn,
     danger_btn,
     transparent_btn,
@@ -124,6 +129,7 @@ const Button: React.FC<ButtonProps> = ({
     directionLink,
     active_research,
     collapse,
+    next_lesson,
     [className as string]: className, // Ensure className is treated as string
   });
 

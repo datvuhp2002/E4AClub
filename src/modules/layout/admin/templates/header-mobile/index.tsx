@@ -58,7 +58,7 @@ const Header = () => {
   return (
     <>
       <div className={`${styles.wrapper} container d-block d-sm-none `}>
-        <div className="d-flex align-items-center h-100">
+        <div className="d-flex align-items-center justify-content-center h-100">
           <div className="row justify-content-between">
             <div className="col-4 d-flex align-items-center justify-content-start">
               <Button
@@ -79,10 +79,7 @@ const Header = () => {
             </div>
             <div className="col-4 d-flex align-items-center justify-content-center">
               <Link href="/admin">
-                <Image
-                  alt="logo"
-                  src={process.env.FILE_URL + "images/UCVN.png"}
-                />
+                <Image alt="logo" src={process.env.FILE_URL + "svg/Logo.svg"} />
               </Link>
             </div>
             <div className="col-4 d-flex align-items-center justify-content-end">
