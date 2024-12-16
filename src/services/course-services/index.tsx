@@ -3,10 +3,10 @@ import requestApi from "@/common/request";
 const Service = "courses";
 
 const CourseServices = {
-  getCourseForAdmin: async (items_per_page: Number) => {
+  getCourseForAdmin: async () => {
     try {
       const res: any = await requestApi({
-        endpoint: `/${Service}?items_per_page=${items_per_page}`,
+        endpoint: `/${Service}`,
         method: "GET",
       });
       return res;

@@ -141,10 +141,10 @@ const Page = () => {
                     <strong>Nội dung khóa học:</strong>
                   </h2>
                 </header>
-                {lessonData.data &&
+                {/* {lessonData.data &&
                   lessonData.data.map((item, index) => {
                     return <LessonCard key={index} index={index} data={item} />;
-                  })}
+                  })} */}
               </div>
             )}
           </div>

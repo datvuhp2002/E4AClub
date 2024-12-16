@@ -8,6 +8,8 @@ import {
   faCircle,
   faLayerGroup,
   faUsersCog,
+  faBookOpen,
+  faGraduationCap,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -53,7 +55,7 @@ const directAdminRoutes = [
   },
   {
     text: "Khóa học",
-    icon: faLayerGroup,
+    icon: faBookOpen,
     path: "khoa-hoc",
     subMenu: [
       {
@@ -70,6 +72,28 @@ const directAdminRoutes = [
         text: "Thùng rác",
         icon: faCircle,
         path: "/admin/khoa-hoc/thung-rac",
+      },
+    ],
+  },
+  {
+    text: "Bài giảng",
+    icon: faGraduationCap,
+    path: "bai-giang",
+    subMenu: [
+      {
+        text: "Danh sách",
+        icon: faCircle,
+        path: "/admin/bai-giang/danh-sach",
+      },
+      {
+        text: "Tạo mới",
+        icon: faCircle,
+        path: "/admin/bai-giang/tao-moi",
+      },
+      {
+        text: "Thùng rác",
+        icon: faCircle,
+        path: "/admin/bai-giang/thung-rac",
       },
     ],
   },

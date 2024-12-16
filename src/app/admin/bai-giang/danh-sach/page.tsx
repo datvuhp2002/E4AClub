@@ -83,15 +83,15 @@ const page = () => {
   };
   useEffect(() => {
     setOnLoading(true);
-    UserServices.GetAllUser()
-      .then((res) => {
-        console.log(res.result);
-        setList(res.result);
-        setOnLoading(false);
-      })
-      .catch((errors) => {});
-
-    searchFeedBack();
+    // CourseServices.getCourseForAdmin()
+    //   .then((res) => {
+    //     console.log(res);
+    //     setList(res.data);
+    //     setOnLoading(false);
+    //   })
+    //   .catch((errors) => {
+    //     console.log(errors);
+    //   });
   }, []);
   return (
     <div className={`${styles.wrapper} mb-5`}>
@@ -100,14 +100,14 @@ const page = () => {
           <li className="breadcrumb-item">
             <Link href="/admin">Trang chủ</Link>
           </li>
-          <li className="breadcrumb-item">Tài khoản</li>
+          <li className="breadcrumb-item">Bài giảng</li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">
             Danh sách
           </li>
         </ol>
       </div>
       {/* Data Table */}
-      <Card title={<strong>Quản lý tài khoản</strong>}>
+      <Card title={<strong>Quản lý bài giảng</strong>}>
         <div className="d-flex">
           <Button
             success_btn
