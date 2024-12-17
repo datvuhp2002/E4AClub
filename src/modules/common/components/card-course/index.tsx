@@ -36,11 +36,6 @@ const CardCourse: React.FC<any> = ({
   const classes = cx("wrapper", {
     [className || ""]: className,
   });
-
-  const [totalLesson, setTotalLessonData] = useState<number>(0);
-  const [totalUserRegistered, setTotalUserRegistered] = useState<number>(0);
-  const [percentage, setPercentage] = useState<number>(0);
-
   return (
     <div className={`${classes} h-100 mt-2`}>
       <div
@@ -49,21 +44,21 @@ const CardCourse: React.FC<any> = ({
           "d-flex align-items-center w-100 justify-content-center"
         )}
       >
-        {true ? (
+        {data.totalSections > 0 ? (
           <Button
             rounded
-            to={`/bai-giang/${data.id}`}
+            to={`/bai-giang/${data._id}?section=1`}
             className={cx("course_btn")}
           >
-            Tiếp tục học
+            Vào học
           </Button>
         ) : (
           <Button
             rounded
-            to={`/bai-giang/chi-tiet/${data.id}`}
-            className={cx("course_btn")}
+            orange_btn
+            className={cx("course_btn", "text-white bg-danger")}
           >
-            Đăng ký học
+            Khóa học đang được cập nhật
           </Button>
         )}
         <Image
@@ -78,7 +73,8 @@ const CardCourse: React.FC<any> = ({
           "d-flex flex-column w-100 p-3 justify-content-between "
         )}
       >
-        <h3 className="fw-bold ">{data.name}</h3>
+        <h3 className="fw-bold ">{data.title}</h3>
+        <p className="fw-bold fs-6 fw-regular">{data.description}</p>
         <div
           className={cx(
             "title",
@@ -87,21 +83,21 @@ const CardCourse: React.FC<any> = ({
         >
           <div className="d-flex">
             <FontAwesomeIcon icon={faUserGroup} className="me-2" />
-            <span className="col-4 p-0 w-100">{totalUserRegistered}</span>
+            <span className="col-4 p-0 w-100">{data.totalEnrolledUsers}</span>
           </div>
           <div className="d-flex">
             <FontAwesomeIcon icon={faPlayCircle} className="me-2" />
-            <span className="col-4 p-0">{totalLesson}</span>
+            <span className="col-4 p-0">{data.totalSections}</span>
           </div>
         </div>
-        {isUserCourses && (
+        {/* {isUserCourses && (
           <LinearProgress
             value={percentage}
             color="success"
             variant="determinate"
             className={cx("progress", "w-100")}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

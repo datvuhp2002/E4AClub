@@ -1,3 +1,6 @@
+import AuthServices from "@/services/auth-services";
+import UserServices from "@/services/user-services";
+
 const WebMetadata = (tenant: any) => {
   var title = "Thư viện local",
     description = "";
@@ -242,7 +245,10 @@ const DefaultCollection = [
 ];
 const menuOptionAdmin = [
   { title: "Cài đặt", path: "/admin/setting" },
-  { title: "Đăng xuất", path: "/login" },
+  {
+    title: "Đăng xuất",
+    onclick: AuthServices.Logout,
+  },
 ];
 export {
   WebMetadata,

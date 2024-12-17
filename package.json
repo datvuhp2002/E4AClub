@@ -75,7 +75,8 @@
     "sass": "^1.79.4",
     "swiper": "^11.1.14",
     "tippy.js": "^6.3.7",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-basic-styles": "^44.0.0",

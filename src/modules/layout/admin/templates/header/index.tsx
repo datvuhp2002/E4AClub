@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -13,7 +13,9 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Link from "next/link";
+import Cookies from "js-cookie";
 import { menuOptionAdmin } from "@/common/consts";
+import Button from "@/modules/common/components/Button";
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
   handleDrawerOpen?: () => void;
@@ -41,6 +43,12 @@ const Header: React.FC<{ open: boolean; handleDrawerOpen: () => void }> = ({
   open,
   handleDrawerOpen,
 }) => {
+  const [email, setEmail] = useState<any>("");
+
+  useEffect(() => {
+    // Lấy dữ liệu hoặc gán giá trị chỉ trên client-side
+    setEmail(Cookies.get("email"));
+  }, []);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -85,7 +93,7 @@ const Header: React.FC<{ open: boolean; handleDrawerOpen: () => void }> = ({
         <Box className={`pe-3 `}>
           <Tooltip title="" sx={{ position: "relative" }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <span className="me-3 fs-3"> ADMIN</span>
+              <span className="me-3 fs-3"> {email && email}</span>
               <Avatar alt="Remy Sharp" src="" />
             </IconButton>
           </Tooltip>
@@ -116,9 +124,13 @@ const Header: React.FC<{ open: boolean; handleDrawerOpen: () => void }> = ({
                 onClick={handleCloseUserMenu}
                 sx={{ bgcolor: "#fff" }}
               >
-                <Link href={setting.path} className="fs-4">
+                <Button
+                  onClick={setting.onclick || undefined}
+                  to={setting.path || "#"}
+                  className="fs-4 text-black"
+                >
                   {setting.title}
-                </Link>
+                </Button>
               </MenuItem>
             ))}
           </Menu>

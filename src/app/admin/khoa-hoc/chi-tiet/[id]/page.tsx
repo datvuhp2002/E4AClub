@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import styles from "./DanhSach.module.scss";
+import styles from "./ChiTiet.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Card from "@/modules/common/components/Card";
 import TableSkeleton from "@/modules/common/components/table-skeleton";
@@ -13,32 +13,30 @@ import formatDateTime from "@/common/format_date";
 import Button from "@/modules/common/components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import UserServices from "@/services/user-services";
+import { useParams } from "next/navigation";
+import SectionServices from "@/services/section-services";
 const DataTable = dynamic(
   () => import("@/modules/common/components/data-table"),
   { ssr: false }
 );
+
+const selectedColumn = [
+  { title: "Tiêu đề", data: "title" },
+  { title: "Tập", data: "order" },
+  // {
+  //   title: "Tổng bài học",
+  //   data: "createddate",
+  //   render: (data: string) => {
+  //     return formatDateTime.formatDate(data);
+  //   },
+  // },
+];
 const page = () => {
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    setValue,
-    clearErrors,
-    formState: { errors },
-  } = useForm<any>({ mode: "all" });
+  const params = useParams<{ id: string }>();
+
+  const [course, setCourse] = useState<ICourse>({} as ICourse);
+  const [sections, setSections] = useState<ICourse>({} as ICourse);
   const { HandleOpenToast } = useToastContext();
-  const selectedColumn = [
-    { title: "Họ và tên", data: "name" },
-    { title: "Email", data: "email" },
-    {
-      title: "Ngày tạo",
-      data: "createdAt",
-      render: (data: string) => {
-        return formatDateTime.formatDate(data);
-      },
-    },
-  ];
   const handleSuccessToast = () => {
     HandleOpenToast({
       type: "success",
@@ -51,47 +49,22 @@ const page = () => {
       content: `${message}! Vui lòng thử lại`,
     });
   };
-
-  const [list, setList] = useState<any>();
+  const [List, setList] = useState<any>();
   const [onLoading, setOnLoading] = useState<boolean>(true);
-  const searchFeedBack = () => {
-    setOnLoading(true);
-    // CourseServices.Search(SetFormValues({}))
-    //   .then((res) => {
-    //     if (res.data) {
-    //       setOnLoading(false);
-    //       setFormData(res.data);
-    //     } else {
-    //       setOnLoading(false);
-    //       handleErrorToast("Đã có lỗi xảy ra");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     setOnLoading(false);
-    //     handleErrorToast("Đã có lỗi xảy ra");
-    //   });
-  };
-  const handleUpdateStatusFeedback = async (id: any) => {
-    // const result = await CourseServices.UpdateStatusFeedBack(id);
-    // if (result.statusCode === 200) {
-    //   handleSuccessToast();
-    //   searchFeedBack();
-    // } else {
-    //   handleErrorToast("Đã xảy ra lỗi");
-    // }
-    console.log(id);
-  };
   useEffect(() => {
     setOnLoading(true);
-    UserServices.GetAllUser()
+    CourseServices.getCourseById(params.id).then((res) => {
+      console.log(res.data);
+      setCourse(res.data);
+      setOnLoading(false);
+    });
+    SectionServices.GetSectionFromCourse(params.id)
       .then((res) => {
-        console.log(res.result);
-        setList(res.result);
-        setOnLoading(false);
+        setSections(res.sections);
       })
-      .catch((errors) => {});
-
-    searchFeedBack();
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   return (
     <div className={`${styles.wrapper} mb-5`}>
@@ -100,23 +73,33 @@ const page = () => {
           <li className="breadcrumb-item">
             <Link href="/admin">Trang chủ</Link>
           </li>
-          <li className="breadcrumb-item">Tài khoản</li>
+          <li className="breadcrumb-item">Khóa học</li>
+          <li className="breadcrumb-item">
+            <Link href="/admin/khoa-hoc/danh-sach">Danh sách</Link>
+          </li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">
-            Danh sách
+            Chi tiết
           </li>
         </ol>
       </div>
       {/* Data Table */}
-      <Card title={<strong>Quản lý tài khoản</strong>}>
+      <Card
+        title={
+          <strong>
+            Quản lý khóa học{" - "}
+            <span className="text-secondary">{course.title}</span>
+          </strong>
+        }
+      >
         <div className="d-flex">
-          <Button
+          {/* <Button
             success_btn
             rounded
             to="tao-moi"
             leftIcon={<FontAwesomeIcon icon={faPlus} />}
           >
             Tạo mới
-          </Button>
+          </Button> */}
           {/* <Button
             danger_btn
             rounded
@@ -128,9 +111,9 @@ const page = () => {
         <hr></hr>
         {!onLoading ? (
           <DataTable
-            data={list}
+            data={sections}
             selectedColumn={selectedColumn}
-            edit_direction={"chi-tiet"}
+            edit_direction={"/admin/bai-giang/chi-tiet"}
             delete_handle={console.log}
           />
         ) : (

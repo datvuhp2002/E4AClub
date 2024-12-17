@@ -12,12 +12,11 @@ const AuthServices = {
         method: "POST",
         data,
       });
-      if (res) {
-        Cookies.set("email", res.user.email, { expires: 7 });
-        Cookies.set("name", res.user.name, { expires: 7 });
-        Cookies.set("access_token", res.user.accessToken, { expires: 1 });
-        // Cookies.set("refresh_token", res.refresh_token, { expires: 7 });
-        Cookies.set("role", res.user.role, { expires: 7 });
+      if (res.success) {
+        Cookies.set("email", res.data.user.email, { expires: 7 });
+        Cookies.set("name", res.data.user.name, { expires: 7 });
+        Cookies.set("access_token", res.data.user.accessToken, { expires: 1 });
+        Cookies.set("role", res.data.user.role, { expires: 7 });
       }
       return res;
     } catch (error) {

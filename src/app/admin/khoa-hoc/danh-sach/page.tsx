@@ -63,7 +63,7 @@ const page = () => {
   const [onLoading, setOnLoading] = useState<boolean>(true);
   useEffect(() => {
     setOnLoading(true);
-    CourseServices.getCourseForAdmin()
+    CourseServices.getAllCourse()
       .then((res) => {
         console.log(res.data);
         setList(res.data);
@@ -110,7 +110,8 @@ const page = () => {
           <DataTable
             data={List}
             selectedColumn={selectedColumn}
-            edit_direction={"tra-cuu-bao-cao/chi-tiet"}
+            edit_direction={"chi-tiet"}
+            delete_handle={console.log}
           />
         ) : (
           <TableSkeleton />

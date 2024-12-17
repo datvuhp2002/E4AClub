@@ -4,12 +4,7 @@ import { useState, MouseEvent, useEffect } from "react";
 import { Popover, Stack } from "@mui/material";
 import Button from "../Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faDeleteLeft,
-  faEye,
-  faPersonCircleMinus,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBan, faEye } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import DT from "datatables.net-dt";
 import "datatables.net-fixedcolumns-dt";
@@ -23,8 +18,15 @@ interface DataTable {
   selectedColumn: any;
   edit_direction: any;
   action?: (id: any) => any;
+  delete_handle: (id: any) => any;
 }
-function App({ data, selectedColumn, edit_direction, action }: DataTable) {
+function App({
+  data,
+  selectedColumn,
+  edit_direction,
+  action,
+  delete_handle,
+}: DataTable) {
   const route = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedRow, setSelectedRow] = useState<string | null>(null);
@@ -46,6 +48,7 @@ function App({ data, selectedColumn, edit_direction, action }: DataTable) {
 
   const handleDelete = () => {
     console.log(`Delete item with ID: ${selectedRow}`);
+    delete_handle(selectedRow);
     // handleClosePopover();
   };
 
@@ -146,8 +149,8 @@ function App({ data, selectedColumn, edit_direction, action }: DataTable) {
               transparent_btn
               rounded
               edit_btn
-              onClick={handleView}
-              leftIcon={<FontAwesomeIcon icon={faPersonCircleMinus} />}
+              onClick={handleDelete}
+              leftIcon={<FontAwesomeIcon icon={faBan} />}
             >
               Xóa
             </Button>

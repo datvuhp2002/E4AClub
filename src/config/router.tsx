@@ -46,11 +46,11 @@ const directAdminRoutes = [
         icon: faCircle,
         path: "/admin/tai-khoan/tao-moi",
       },
-      {
-        text: "Thùng rác",
-        icon: faCircle,
-        path: "/admin/tai-khoan/thung-rac",
-      },
+      // {
+      //   text: "Thùng rác",
+      //   icon: faCircle,
+      //   path: "/admin/tai-khoan/thung-rac",
+      // },
     ],
   },
   {
@@ -68,11 +68,11 @@ const directAdminRoutes = [
         icon: faCircle,
         path: "/admin/khoa-hoc/tao-moi",
       },
-      {
-        text: "Thùng rác",
-        icon: faCircle,
-        path: "/admin/khoa-hoc/thung-rac",
-      },
+      // {
+      //   text: "Thùng rác",
+      //   icon: faCircle,
+      //   path: "/admin/khoa-hoc/thung-rac",
+      // },
     ],
   },
   {
@@ -90,11 +90,11 @@ const directAdminRoutes = [
         icon: faCircle,
         path: "/admin/bai-giang/tao-moi",
       },
-      {
-        text: "Thùng rác",
-        icon: faCircle,
-        path: "/admin/bai-giang/thung-rac",
-      },
+      // {
+      //   text: "Thùng rác",
+      //   icon: faCircle,
+      //   path: "/admin/bai-giang/thung-rac",
+      // },
     ],
   },
 ];

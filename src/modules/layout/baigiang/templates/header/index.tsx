@@ -5,16 +5,32 @@ import styles from "./Header.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/modules/common/components/Button";
+import CourseServices from "@/services/course-services";
+import { Skeleton } from "@mui/material";
 // import CircularWithValueLabel from "~/components/CircularProgressWithLabel";
 
 const cx = classNames.bind(styles);
 
-interface CourseData {
-  name?: string;
+interface Teacher {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+interface Course {
+  _id: string;
+  title: string;
+  description: string;
+  teacher: Teacher;
+  sections: string[]; // Assuming sections are just an array of strings (IDs)
+  enrolledUsers: string[]; // Assuming enrolledUsers are represented by user IDs
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  __v: number;
 }
 
 const HeaderLesson: React.FC = () => {
-  const [courseData, setCourseData] = useState<CourseData>({});
+  const [courseData, setCourseData] = useState<Course>();
   const [totalLessonHasBeenLearned, setTotalLessonHasBeenLearned] = useState(0);
   const [progress, setProgress] = useState(0);
   const [totalLessonData, setTotalLessonData] = useState(0);
@@ -22,44 +38,10 @@ const HeaderLesson: React.FC = () => {
 
   useEffect(() => {
     if (!nextParam.id) return; // Wait until `id` is available
-    console.log(nextParam.id);
-    // const fetchData = async () => {
-    //   try {
-    //     const courses = requestApi({ endpoint: `/courses/${id}` });
-    //     const promiseLessonData = requestApi({
-    //       endpoint: `/lessons/all-lesson?get_all=All&course_id=${id}`,
-    //     });
-    //     const promiseUserProgressListLessonHasBeenLearned = requestApi({
-    //       endpoint: `/user-progress/getAllLessonUserHasLearned/${id}`,
-    //     });
-
-    //     const responses = await Promise.all([
-    //       courses,
-    //       promiseLessonData,
-    //       promiseUserProgressListLessonHasBeenLearned,
-    //     ]);
-
-    //     const courseResponse = responses[0];
-    //     const lessonResponse = responses[1];
-    //     const progressResponse = responses[2];
-
-    //     setCourseData(courseResponse?.data || {});
-    //     setTotalLessonData(lessonResponse?.data?.total || 0);
-    //     setTotalLessonHasBeenLearned(progressResponse?.data?.total || 0);
-
-    //     // Calculate progress percentage
-    //     const calculatePercentage =
-    //       lessonResponse?.data?.total > 0
-    //         ? (progressResponse?.data?.total / lessonResponse.data.total) * 100
-    //         : 0;
-    //     setProgress(calculatePercentage);
-    //   } catch (err) {
-    //     console.error("Error fetching data:", err);
-    //   }
-    // };
-
-    // fetchData();
-  }, [nextParam.id]); // Fetch data when `id` is available
+    CourseServices.getCourseById(String(nextParam.id)).then((res) => {
+      setCourseData(res.data);
+    });
+  }, []);
 
   return (
     <div className={cx("wrapper")}>
@@ -82,7 +64,7 @@ const HeaderLesson: React.FC = () => {
             >
               <FontAwesomeIcon icon={faChevronLeft} className="fs-2 me-4" />
               <h5 className="m-0 text-white opacity-100 bold fs-2">
-                {courseData?.name || "Course Name"}
+                {courseData ? courseData?.title : <Skeleton />}
               </h5>
             </div>
           </Button>

@@ -82,7 +82,7 @@ const page = () => {
     }
   };
   useEffect(() => {
-    CourseServices.getCourseForAdmin()
+    CourseServices.getAllCourse()
       .then((res) => {
         setCourses(res.data);
       })

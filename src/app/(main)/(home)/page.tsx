@@ -6,9 +6,11 @@ import CardCourse from "@/modules/common/components/card-course";
 const Page = () => {
   const [course, setCourse] = useState([]);
   useEffect(() => {
-    // CourseServices.getCourse(4)
-    //   .then((res) => setCourse(res.data))
-    //   .catch((err) => console.log(err));
+    CourseServices.getAllCourse()
+      .then((res) => {
+        setCourse(res.data);
+      })
+      .catch((e) => console.error(e));
   }, []);
 
   return (
@@ -22,7 +24,7 @@ const Page = () => {
             <div className={`row w-100`}>
               {course && course.length > 0 ? (
                 course.map((item, index) => (
-                  <div key={index} className="col-lg-3 col-md-6 col-sm-12 mb-4">
+                  <div key={index} className="col-lg-4 col-md-6 col-sm-12 mb-4">
                     <CardCourse data={item} />
                   </div>
                 ))

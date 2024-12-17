@@ -13,6 +13,7 @@ import formatDateTime from "@/common/format_date";
 import Button from "@/modules/common/components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import ExcelUploader from "@/modules/common/components/excel-uploader";
 const DataTable = dynamic(
   () => import("@/modules/common/components/data-table"),
   { ssr: false }
@@ -111,7 +112,14 @@ const page = () => {
         </ol>
       </div>
       {/* Data Table */}
-      <Card title={<strong>Tạo tài khoản</strong>}>
+      <Card
+        title={
+          <div className="d-flex align-items-center justify-content-between">
+            <strong>Tạo tài khoản</strong>
+            <ExcelUploader />
+          </div>
+        }
+      >
         <div></div>
       </Card>
     </div>

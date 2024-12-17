@@ -37,6 +37,20 @@ const page = () => {
     if (!res) {
       handleErrorToast("Login failed");
     } else {
+      switch (res.data.user.role) {
+        case "admin":
+          window.open("/admin", "_blank"); // Mở tab mới cho admin
+          break;
+        case "teacher":
+          window.open("/teacher", "_blank"); // Mở tab mới cho teacher
+          break;
+        case "student":
+          router.push("/");
+          break;
+        default:
+          router.push("/"); // Chuyển trang mặc định
+          break;
+      }
       router.push("/");
     }
   };

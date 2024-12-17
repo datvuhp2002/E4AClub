@@ -1,4 +1,5 @@
 .wrapper {
+  background: #fff;
   .action {
     position: fixed;
     left: 0;
@@ -9,7 +10,7 @@
     align-items: center;
     justify-content: center;
     height: 5rem;
-    background-color: rgba($color: #fff, $alpha: 0.2);
+    background-color: rgba($color: #fff, $alpha: 1);
     box-shadow: #0000001a 0 -2px 3px;
   }
   .course {
