@@ -15,12 +15,12 @@ const Header = ({ theme }: any) => {
         path: `/thong-tin-ca-nhan/${Cookies.get("email")}`,
       },
     ],
-    [{ title: "Khoá học của tôi", path: "/khoa-hoc/ca-nhan" }],
-    [
-      { title: "Bài viết đã lưu", path: "/bai-viet/luu-tru" },
-      { title: "Bài viết của bạn", path: "/bai-viet/ca-nhan" },
-    ],
-    [{ title: "Luyện tập lập trình", path: "/luyen-tap/lap-trinh" }],
+    // [{ title: "Khoá học của tôi", path: "/khoa-hoc/ca-nhan" }],
+    // [
+    //   { title: "Bài viết đã lưu", path: "/bai-viet/luu-tru" },
+    //   { title: "Bài viết của bạn", path: "/bai-viet/ca-nhan" },
+    // ],
+    // [{ title: "Luyện tập lập trình", path: "/luyen-tap/lap-trinh" }],
     [
       { title: "Cài đặt", path: `/cai-dat` },
       { title: "Đăng xuất", onClick: AuthServices.Logout, path: "auth/login" },

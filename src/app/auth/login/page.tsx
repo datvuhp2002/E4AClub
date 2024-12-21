@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./RegisterLibrary.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Box } from "@mui/material";
-import InputField from "@/modules/common/components/input-field-register-library";
+import InputField from "@/modules/common/components/input-field";
 import Button from "@/modules/common/components/Button";
 import { useRouter } from "next/navigation";
 import { useToastContext } from "@/lib/context/toast-context";

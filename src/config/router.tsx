@@ -81,11 +81,6 @@ const directAdminRoutes = [
     path: "bai-giang",
     subMenu: [
       {
-        text: "Danh sách",
-        icon: faCircle,
-        path: "/admin/bai-giang/danh-sach",
-      },
-      {
         text: "Tạo mới",
         icon: faCircle,
         path: "/admin/bai-giang/tao-moi",

@@ -4,7 +4,7 @@ import {
   faArrowRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./FormAdminComment.module.scss";
-import InputField from "@/modules/common/components/input-field-register-library";
+import InputField from "@/modules/common/components/input-field";
 import Button from "@/modules/common/components/Button";
 import { handleDateInput } from "@/modules/common/tools/date-validation";
 import Select from "@/modules/common/components/Select";

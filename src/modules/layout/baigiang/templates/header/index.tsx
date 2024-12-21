@@ -38,7 +38,7 @@ const HeaderLesson: React.FC = () => {
 
   useEffect(() => {
     if (!nextParam.id) return; // Wait until `id` is available
-    CourseServices.getCourseById(String(nextParam.id)).then((res) => {
+    CourseServices.GetCourseById(String(nextParam.id)).then((res) => {
       setCourseData(res.data);
     });
   }, []);

@@ -64,7 +64,7 @@ const InputField: React.FC<InputFieldProps> = ({
           onInput={onInput}
           id={id}
         />
-        {errors[name] && ( // Hiển thị thông báo lỗi chỉ khi đã tương tác
+        {errors[name] && (
           <small className="text-danger">{errors[name]?.message}</small>
         )}
       </div>

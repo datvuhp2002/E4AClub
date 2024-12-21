@@ -28,6 +28,19 @@ const SectionServices = {
       throw err;
     }
   },
+  DeleteSection: async (section_id: string) => {
+    try {
+      let res: any = await fetch({
+        endpoint: `/${Service}/${section_id}`,
+        method: "DELETE",
+        data: {},
+      });
+      return res;
+    } catch (err) {
+      console.log("ERRR::::", err);
+      throw err;
+    }
+  },
   GetSectionFromCourse: async (course_id: string) => {
     try {
       let res: any = await fetch({

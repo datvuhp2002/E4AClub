@@ -249,4 +249,9 @@ const countries = [
   { value: "ZW", title: "Zimbabwe" },
 ];
 
-export { countries };
+const role = [
+  { value: "admin", title: "Quản trị" },
+  { value: "teacher", title: "Giáo viên" },
+  { value: "student", title: "Học sinh" },
+];
+export { countries, role };

@@ -6,7 +6,7 @@ import CardCourse from "@/modules/common/components/card-course";
 const Page = () => {
   const [course, setCourse] = useState([]);
   useEffect(() => {
-    CourseServices.getAllCourse()
+    CourseServices.GetAllCourse()
       .then((res) => {
         setCourse(res.data);
       })

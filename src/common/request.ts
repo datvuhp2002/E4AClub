@@ -52,10 +52,7 @@ apiService.interceptors.response.use(
     if (error.response) {
       const { status, data } = error.response;
 
-      if (
-        status === 401 ||
-        (status === 400 && data?.message?.includes("Invalid token"))
-      ) {
+      if (status === 401 || data?.message?.includes("Invalid token")) {
         console.error("Authorization error: Token expired or invalid.");
         // Xóa token khỏi cookies
         Cookies.remove("access_token");

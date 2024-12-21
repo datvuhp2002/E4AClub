@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./FormAdminResearch.module.scss"; // Import any relevant styles
-import InputField from "@/modules/common/components/input-field-register-library";
+import InputField from "@/modules/common/components/input-field";
 import Button from "@/modules/common/components/Button";
 
 interface FormAdminResearchProps {

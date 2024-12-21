@@ -45,7 +45,6 @@ const Page = () => {
     if (current_section) {
       SectionServices.GetSectionByOrder(params.id, current_section)
         .then((res) => {
-          console.log(res);
           setSectionData(res.section);
           setHtml(res.section.content || "");
         })
@@ -67,18 +66,20 @@ const Page = () => {
   return (
     <div className={cx("wrapper", `d-flex`)}>
       <div className={cx("course", `${!showLesson ? "w-100" : ""}`)}>
-        <div className={cx("vid", "w-100")}>
-          {sectionData?.video !== undefined && (
-            <iframe
-              key={sectionData._id}
-              width="100%"
-              height="100%"
-              src={`https://www.youtube.com/embed/${sectionData.video}?autoplay=1`}
-              allow="autoplay; fullscreen"
-              title="Lesson Video"
-            />
+        {sectionData?.video !== undefined &&
+          sectionData?.video !== null &&
+          sectionData?.video !== "" && (
+            <div className={cx("vid", "w-100")}>
+              <iframe
+                key={sectionData._id}
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${sectionData.video}?autoplay=1`}
+                allow="autoplay; fullscreen"
+                title="Lesson Video"
+              />
+            </div>
           )}
-        </div>
         {sectionData && (
           <div className={cx("content", "mt-5 container")}>
             <div className={cx("content_top")}>

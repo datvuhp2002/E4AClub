@@ -18,8 +18,17 @@ const useModal = () => {
     setShowModal(true);
     setConfigModal(config);
   };
+  const HandleCloseModal = () => {
+    setShowModal(false);
+  };
 
-  return { showModal, setShowModal, configModal, HandleOpenModal };
+  return {
+    showModal,
+    setShowModal,
+    configModal,
+    HandleOpenModal,
+    HandleCloseModal,
+  };
 };
 
 export default useModal;

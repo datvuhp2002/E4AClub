@@ -4,46 +4,43 @@ import React, { useEffect, useState } from "react";
 import styles from "./TaoMoi.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Card from "@/modules/common/components/Card";
-import TableSkeleton from "@/modules/common/components/table-skeleton";
-import dynamic from "next/dynamic";
-import CourseServices from "@/services/course-services";
-import { SetFormValues } from "@/common/ucform-heplers";
 import { useToastContext } from "@/lib/context/toast-context";
-import formatDateTime from "@/common/format_date";
-import Button from "@/modules/common/components/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import ExcelUploader from "@/modules/common/components/excel-uploader";
-const DataTable = dynamic(
-  () => import("@/modules/common/components/data-table"),
-  { ssr: false }
-);
+import InputField from "@/modules/common/components/input-field";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEnvelope,
+  faPersonCircleQuestion,
+  faSpinner,
+  faUser,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import Button from "@/modules/common/components/Button";
+import UserServices from "@/services/user-services";
+import SelectField from "@/modules/common/components/select-field-register-library ";
+import { role } from "@/common/static_variable";
+interface CreateUserForm {
+  email: string;
+  name: string;
+}
 const page = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     setValue,
+    watch,
+    control,
+    reset,
+    getValues,
     clearErrors,
     formState: { errors },
-  } = useForm<any>({ mode: "all" });
+  } = useForm<ICreateUserDto>();
   const { HandleOpenToast } = useToastContext();
-  const selectedColumn = [
-    { title: "Tiêu đề", data: "title" },
-    { title: "Nội dung", data: "content" },
-    {
-      title: "Ngày gửi",
-      data: "createddate",
-      render: (data: string) => {
-        return formatDateTime.formatDate(data);
-      },
-    },
-    { title: "Trạng Thái", data: "status" },
-  ];
-  const handleSuccessToast = () => {
+  const [onLoading, setOnLoading] = useState<boolean>(false);
+  const handleSuccessToast = (message: string) => {
     HandleOpenToast({
       type: "success",
-      content: "Lấy dữ liệu thành công!",
+      content: message,
     });
   };
   const handleErrorToast = (message: string) => {
@@ -52,54 +49,37 @@ const page = () => {
       content: `${message}! Vui lòng thử lại`,
     });
   };
-  const onSubmit: SubmitHandler<any> = (data) => {
-    // setOnLoading(true);
-    // CourseServices.Search(SetFormValues(data))
-    //   .then((res) => {
-    //     if (res) {
-    //       setOnLoading(false);
-    //       setFormData(res.data);
-    //       handleSuccessToast();
-    //     } else {
-    //       handleErrorToast("Đã có lỗi xảy ra");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     setOnLoading(false);
-    //     handleErrorToast("Đã có lỗi xảy ra");
-    //   });
+  const resetFormValues = () => {
+    const currentValues = getValues();
+    Object.keys(currentValues).forEach((key) => {
+      setValue(key as keyof CreateUserForm, "");
+    });
+    Object.keys(currentValues).forEach((key) => {
+      clearErrors(key as keyof CreateUserForm);
+    });
   };
-  const [formData, setFormData] = useState<any>();
-  const [onLoading, setOnLoading] = useState<boolean>(true);
-  const searchFeedBack = () => {
+  const handleSubmitCreateUser: SubmitHandler<ICreateUserDto> = async (
+    data
+  ) => {
     setOnLoading(true);
-    // CourseServices.Search(SetFormValues({}))
-    //   .then((res) => {
-    //     if (res.data) {
-    //       setOnLoading(false);
-    //       setFormData(res.data);
-    //     } else {
-    //       setOnLoading(false);
-    //       handleErrorToast("Đã có lỗi xảy ra");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     setOnLoading(false);
-    //     handleErrorToast("Đã có lỗi xảy ra");
-    //   });
+    try {
+      const result = await UserServices.CreateUser(data);
+      if (result && result.success) {
+        setOnLoading(false);
+
+        handleSuccessToast("Tạo người dùng thành công");
+      } else {
+        setOnLoading(false);
+        handleErrorToast("Tạo người dùng thất bại");
+      }
+    } catch (err) {
+      console.error(err);
+      setOnLoading(false);
+      handleErrorToast("Tạo người dùng thất bại");
+    }
+    resetFormValues();
   };
-  const handleUpdateStatusFeedback = async (id: any) => {
-    // const result = await CourseServices.UpdateStatusFeedBack(id);
-    // if (result.statusCode === 200) {
-    //   handleSuccessToast();
-    //   searchFeedBack();
-    // } else {
-    //   handleErrorToast("Đã xảy ra lỗi");
-    // }
-  };
-  useEffect(() => {
-    searchFeedBack();
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className={`${styles.wrapper} mb-5`}>
       <div className="">
@@ -115,12 +95,85 @@ const page = () => {
       <Card
         title={
           <div className="d-flex align-items-center justify-content-between">
-            <strong>Tạo tài khoản</strong>
-            <ExcelUploader />
+            <strong>
+              Tạo tài khoản{" "}
+              {onLoading && (
+                <FontAwesomeIcon icon={faSpinner} spin className="fs-2 ms-2" />
+              )}
+            </strong>
+            <div className="d-flex align-items-center ">
+              <ExcelUploader />
+              <Button
+                onClick={handleSubmit(handleSubmitCreateUser)}
+                success_btn
+                leftIcon={<FontAwesomeIcon icon={faUserPlus} />}
+                className="btn ms-3 fs-5"
+              >
+                Tạo
+              </Button>
+            </div>
           </div>
         }
       >
-        <div></div>
+        <div className="container">
+          <div className="mb-3">
+            <InputField
+              label="Họ và tên"
+              name="name"
+              register={register}
+              validation={{
+                required: "Họ và tên là bắt buộc",
+                maxLength: {
+                  value: 254,
+                  message: "Họ và tên có tối đa 254 ký tự",
+                },
+              }}
+              onInput={(e) => {
+                e.target.value = e.target.value
+                  .toLowerCase()
+                  .replace(/(?:^|\s)\S/g, (char) => char.toUpperCase());
+              }}
+              placeholder="Họ và tên"
+              leftIcon={<FontAwesomeIcon icon={faUser} />}
+              errors={errors}
+            />
+          </div>
+
+          <div className="mb-3">
+            <SelectField
+              label="Chức vụ"
+              name="role"
+              leftIcon={<FontAwesomeIcon icon={faPersonCircleQuestion} />}
+              validation={{
+                required: "Chức vụ là bắt buộc",
+              }}
+              register={register}
+              data={role}
+              errors={errors}
+            />
+          </div>
+          <div className="mb-3">
+            <InputField
+              label="Email"
+              name="email"
+              register={register}
+              validation={{
+                required: "Email không để trống",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Email không hợp lệ",
+                },
+                maxLength: {
+                  value: 254,
+                  message: "Email có tối đa 254 ký tự",
+                },
+              }}
+              placeholder="Nhập email"
+              leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
+              errors={errors}
+            />
+          </div>
+        </div>
       </Card>
     </div>
   );

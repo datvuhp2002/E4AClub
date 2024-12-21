@@ -45,6 +45,7 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no"
         />
+
         <link
           rel="stylesheet"
           href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css"
@@ -66,7 +67,7 @@ export default function RootLayout({
         <Providers>
           <main>{children}</main>
         </Providers>
-
+        {/* <Script src="https://code.responsivevoice.org/responsivevoice.js?key=UY8NFr5C"></Script> */}
         {/* Ensure jQuery loads first */}
         <Script
           src="https://code.jquery.com/jquery-3.7.1.min.js"

@@ -24,16 +24,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   default_value,
 }) => {
   var selected = "";
-  switch (name) {
-    case "job": {
-      selected = "nghề nghiệp";
-      break;
-    }
-    case "nation": {
-      selected = "quốc tịch";
-      break;
-    }
-  }
+
   return (
     <div className={`${styles.form_item} row align-items-center`}>
       <label className="col-sm-4 col-xs-12">

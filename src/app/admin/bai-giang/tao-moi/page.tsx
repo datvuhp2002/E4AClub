@@ -10,6 +10,10 @@ import CourseServices from "@/services/course-services";
 import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
 import SectionServices from "@/services/section-services";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useParams, useSearchParams } from "next/navigation";
+
 const CKEditorComponent = dynamic(
   () => import("@/modules/common/components/ck-editor"),
   { ssr: false }
@@ -25,6 +29,7 @@ const page = () => {
     formState: { errors },
   } = useForm();
   const { HandleOpenToast } = useToastContext();
+  const searchParams = useSearchParams();
   const handleSuccessToast = (message: string) => {
     HandleOpenToast({
       type: "success",
@@ -37,6 +42,7 @@ const page = () => {
       content: `${message}! Vui lòng thử lại`,
     });
   };
+  const [courseParams, setCourseParams] = useState<string>("");
   const [courses, setCourses] = useState([]);
   const [videoId, setVideoId] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -62,27 +68,31 @@ const page = () => {
     }
   }, [videoUrl, setValue]);
   const handleSubmitFormUrlAdd = async (data: any) => {
-    if (videoId === null) {
-      handleErrorToast("Đường dẫn không hợp lệ");
-    } else {
-      data.video = videoId;
-      SectionServices.AddSection(data)
-        .then((res) => {
-          if (res.success) {
-            handleSuccessToast("Tạo thành công");
-          } else {
-            handleErrorToast("Tạo thất bại");
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-          handleErrorToast("Tạo thất bại");
-        });
-      console.log(data);
+    data.video = videoId;
+    if (courseParams) {
+      data.courseId = courseParams;
     }
+    console.log(data);
+    SectionServices.AddSection(data)
+      .then((res) => {
+        if (res.success) {
+          handleSuccessToast("Tạo thành công");
+        } else {
+          handleErrorToast("Tạo thất bại");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        handleErrorToast("Tạo thất bại");
+      });
+    console.log(data);
   };
   useEffect(() => {
-    CourseServices.getAllCourse()
+    const searchParamsCourse = searchParams.get("course");
+    if (searchParamsCourse) {
+      setCourseParams(searchParamsCourse);
+    }
+    CourseServices.GetAllCourse()
       .then((res) => {
         setCourses(res.data);
       })
@@ -102,56 +112,75 @@ const page = () => {
         </ol>
       </div>
       {/* Data Table */}
-      <Card title={<strong>Tạo bài giảng</strong>}>
+      <Card
+        title={
+          <div className="d-flex align-items-center justify-content-between">
+            <div className=" mt-2 fw-bold">Tạo bài giảng</div>
+            <div className="d-flex mt-2">
+              <Button
+                onClick={handleSubmit(handleSubmitFormUrlAdd)}
+                rounded
+                success_btn
+                leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                className="text-nowrap w-100 justify-content-around fs-4"
+              >
+                Tạo
+              </Button>
+            </div>
+          </div>
+        }
+      >
         <form>
           <div className="row">
             <div className="col-12 col-md-6 mb-3">
-              <div className="mb-3 ">
-                <label className="form-label">Khóa học:</label>
-                <Controller
-                  name="courseId"
-                  control={control}
-                  rules={{ required: "Vui lòng chọn khóa học" }}
-                  render={({ field }) => (
-                    <Autocomplete
-                      {...field}
-                      value={selectedCourse}
-                      options={courses}
-                      getOptionLabel={(option) =>
-                        `${option.title} - ${option._id}`
-                      }
-                      isOptionEqualToValue={(option: any, value: any) =>
-                        option._id === value._id
-                      }
-                      onChange={(event, value) => {
-                        field.onChange(value ? value._id : null);
-                        setSelectedCourse(value);
-                      }}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Khóa học"
-                          error={!!errors._id}
-                          helperText={
-                            errors._id?.message
-                              ? String(errors._id.message)
-                              : ""
-                          }
-                          InputProps={{
-                            ...params.InputProps,
-                            readOnly: hasCourse,
-                          }}
-                        />
-                      )}
-                    />
+              {!courseParams && (
+                <div className="mb-3 ">
+                  <label className="form-label">Khóa học:</label>
+                  <Controller
+                    name="courseId"
+                    control={control}
+                    rules={{ required: "Vui lòng chọn khóa học" }}
+                    render={({ field }) => (
+                      <Autocomplete
+                        {...field}
+                        value={selectedCourse}
+                        options={courses}
+                        getOptionLabel={(option) =>
+                          `${option.title} - ${option._id}`
+                        }
+                        isOptionEqualToValue={(option: any, value: any) =>
+                          option._id === value._id
+                        }
+                        onChange={(event, value) => {
+                          field.onChange(value ? value._id : null);
+                          setSelectedCourse(value);
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Khóa học"
+                            error={!!errors._id}
+                            helperText={
+                              errors._id?.message
+                                ? String(errors._id.message)
+                                : ""
+                            }
+                            InputProps={{
+                              ...params.InputProps,
+                              readOnly: hasCourse,
+                            }}
+                          />
+                        )}
+                      />
+                    )}
+                  />
+                  {errors.courseId && (
+                    <p className="text-danger mt-2">
+                      {String(errors.courseId?.message)}
+                    </p>
                   )}
-                />
-                {errors.courseId && (
-                  <p className="text-danger mt-2">
-                    {String(errors.courseId?.message)}
-                  </p>
-                )}
-              </div>
+                </div>
+              )}
               <div className="mb-3">
                 <label className="form-label">Tiêu đề:</label>
                 <input
@@ -183,15 +212,8 @@ const page = () => {
                   type="text"
                   className="form-control p-3 fs-5"
                   placeholder="URL của video YouTube"
-                  {...register("video", {
-                    required: "Vui lòng nhập URL video YouTube",
-                  })}
+                  {...register("video", {})}
                 />
-                {errors.video && (
-                  <p className="text-danger mt-2">
-                    {String(errors.video?.message)}
-                  </p>
-                )}
               </div>
               {videoId ? (
                 <div className={`${styles.video_thumbnail}`}>
@@ -216,15 +238,6 @@ const page = () => {
                 </p>
               )}
             </div>
-          </div>
-          <div className="d-flex align-items-end justify-content-end">
-            <Button
-              onClick={handleSubmit(handleSubmitFormUrlAdd)}
-              success_btn
-              className="btn"
-            >
-              Tạo
-            </Button>
           </div>
         </form>
       </Card>

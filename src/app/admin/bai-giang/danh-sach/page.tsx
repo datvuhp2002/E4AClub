@@ -2,12 +2,10 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styles from "./DanhSach.module.scss";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Card from "@/modules/common/components/Card";
 import TableSkeleton from "@/modules/common/components/table-skeleton";
 import dynamic from "next/dynamic";
-import CourseServices from "@/services/course-services";
-import { SetFormValues } from "@/common/ucform-heplers";
 import { useToastContext } from "@/lib/context/toast-context";
 import formatDateTime from "@/common/format_date";
 import Button from "@/modules/common/components/Button";
@@ -51,47 +49,10 @@ const page = () => {
       content: `${message}! Vui lòng thử lại`,
     });
   };
-
   const [list, setList] = useState<any>();
   const [onLoading, setOnLoading] = useState<boolean>(true);
-  const searchFeedBack = () => {
-    setOnLoading(true);
-    // CourseServices.Search(SetFormValues({}))
-    //   .then((res) => {
-    //     if (res.data) {
-    //       setOnLoading(false);
-    //       setFormData(res.data);
-    //     } else {
-    //       setOnLoading(false);
-    //       handleErrorToast("Đã có lỗi xảy ra");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     setOnLoading(false);
-    //     handleErrorToast("Đã có lỗi xảy ra");
-    //   });
-  };
-  const handleUpdateStatusFeedback = async (id: any) => {
-    // const result = await CourseServices.UpdateStatusFeedBack(id);
-    // if (result.statusCode === 200) {
-    //   handleSuccessToast();
-    //   searchFeedBack();
-    // } else {
-    //   handleErrorToast("Đã xảy ra lỗi");
-    // }
-    console.log(id);
-  };
   useEffect(() => {
     setOnLoading(true);
-    // CourseServices.getCourseForAdmin()
-    //   .then((res) => {
-    //     console.log(res);
-    //     setList(res.data);
-    //     setOnLoading(false);
-    //   })
-    //   .catch((errors) => {
-    //     console.log(errors);
-    //   });
   }, []);
   return (
     <div className={`${styles.wrapper} mb-5`}>
@@ -131,6 +92,9 @@ const page = () => {
             data={list}
             selectedColumn={selectedColumn}
             edit_direction={"chi-tiet"}
+            delete_handle={() => {
+              return Promise.resolve({ success: true });
+            }}
           />
         ) : (
           <TableSkeleton />

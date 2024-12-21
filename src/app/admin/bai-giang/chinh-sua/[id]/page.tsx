@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./ChinhSua.module.scss";
 import { Controller, useForm } from "react-hook-form";
 import Card from "@/modules/common/components/Card";
-import { Autocomplete, Skeleton, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import dynamic from "next/dynamic";
 import CourseServices from "@/services/course-services";
 import Button from "@/modules/common/components/Button";
@@ -13,9 +13,9 @@ import SectionServices from "@/services/section-services";
 import { youtubeParser } from "@/helpers";
 import { useParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faLeftLong, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import SkeletonData from "@/modules/common/components/skeleton-data";
-import CustomSkeleton from "@/modules/common/components/custom-skeleton";
+import { useRouter } from "next/navigation";
 const CKEditorComponent = dynamic(
   () => import("@/modules/common/components/ck-editor"),
   { ssr: false }
@@ -30,6 +30,7 @@ const page = () => {
     control,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
   const params = useParams<{ id: string }>();
   const { HandleOpenToast } = useToastContext();
   const handleSuccessToast = (message: string) => {
@@ -45,6 +46,7 @@ const page = () => {
     });
   };
   const [courses, setCourses] = useState([]);
+  const [totalSections, setTotalSections] = useState(0);
   const [videoId, setVideoId] = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
   const [hasCourse, setHasCourse] = useState(false);
@@ -61,13 +63,11 @@ const page = () => {
     }
   }, [videoUrl, setValue]);
   const handleSubmitFormUpdate = async (data: any) => {
-    if (videoId === null) {
-      handleErrorToast("Đường dẫn không hợp lệ");
-    } else {
+    if (videoId !== null) {
       data.video = videoId;
+    } else {
       SectionServices.UpdateSection(params.id, data)
         .then((res) => {
-          console.log(res);
           if (res.success) {
             handleSuccessToast("Cập nhật thành công");
           } else {
@@ -81,7 +81,7 @@ const page = () => {
     }
   };
   useEffect(() => {
-    CourseServices.getAllCourse()
+    CourseServices.GetAllCourse()
       .then((res) => {
         setCourses(res.data);
       })
@@ -91,20 +91,19 @@ const page = () => {
     SectionServices.GetSection(params.id)
       .then((res) => {
         if (res.success) {
+          setTotalSections(res.data.totalSections);
           setLoading(false);
-          console.log(res);
-          setValue("title", res.section.title);
-          setValue("order", res.section.order);
-          setValue("content", res.section.content);
+          setValue("title", res.data.section.title);
+          setValue("order", res.data.section.order);
+          setValue("content", res.data.section.content);
           setValue(
             "video",
-            `https://www.youtube.com/embed/${res.section.video}`
+            `https://www.youtube.com/embed/${res.data.section.video}`
           );
           setSelectedCourse({
-            label: res.data.name,
-            id: res.section.course,
+            title: `${res.data.section.course.title}`,
+            _id: res.data.section.course._id,
           });
-
           setVideoId(res.section.video);
         }
       })
@@ -132,7 +131,7 @@ const page = () => {
           title={
             <div className="d-flex align-items-center justify-content-between">
               <div className=" mt-2 fw-bold">Chỉnh sửa bài giảng</div>
-              <div className=" mt-2">
+              <div className="d-flex mt-2">
                 <Button
                   rounded
                   success_btn
@@ -141,6 +140,15 @@ const page = () => {
                   onClick={handleSubmit(handleSubmitFormUpdate)}
                 >
                   sửa
+                </Button>
+                <Button
+                  rounded
+                  leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+                  className="text-nowrap w-100 justify-content-around fs-5"
+                  transparent_btn
+                  onClick={() => router.back()}
+                >
+                  Quay lại
                 </Button>
               </div>
             </div>
@@ -154,7 +162,6 @@ const page = () => {
                   <Controller
                     name="courseId"
                     control={control}
-                    rules={{ required: "Vui lòng chọn khóa học" }}
                     render={({ field }) => (
                       <Autocomplete
                         {...field}
@@ -189,11 +196,6 @@ const page = () => {
                       />
                     )}
                   />
-                  {errors.courseId && (
-                    <p className="text-danger mt-2">
-                      {String(errors.courseId?.message)}
-                    </p>
-                  )}
                 </div>
                 <div className="mb-3">
                   <label className="form-label">Tiêu đề:</label>
@@ -215,12 +217,27 @@ const page = () => {
                   <label className="form-label">Tập:</label>
                   <input
                     type="number"
-                    min={0}
+                    min={1}
+                    max={totalSections}
                     className="form-control p-3 fs-5"
                     placeholder="Tập khóa học"
                     {...register("order", {
                       required: "Vui lòng nhập tập",
                     })}
+                    onBlur={(e) => {
+                      let value = Number(e.target.value);
+                      if (value < 1) {
+                        value = 1;
+                        handleErrorToast(`Số tập không được nhỏ hơn 1`);
+                      }
+                      if (value > totalSections) {
+                        handleErrorToast(
+                          `Số tập không được lớn hơn ${totalSections}`
+                        );
+                        value = totalSections;
+                      }
+                      e.target.value = value.toString();
+                    }}
                   />
                   {errors.number && (
                     <p className="text-danger mt-2">
@@ -243,15 +260,8 @@ const page = () => {
                     type="text"
                     className="form-control p-3 fs-5"
                     placeholder="URL của video YouTube"
-                    {...register("video", {
-                      required: "Vui lòng nhập URL video YouTube",
-                    })}
+                    {...register("video", {})}
                   />
-                  {errors.video && (
-                    <p className="text-danger mt-2">
-                      {String(errors.video?.message)}
-                    </p>
-                  )}
                 </div>
                 {videoId ? (
                   <div className={`${styles.video_thumbnail}`}>

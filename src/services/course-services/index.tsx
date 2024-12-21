@@ -3,7 +3,19 @@ import requestApi from "@/common/request";
 const Service = "courses";
 
 const CourseServices = {
-  getAllCourse: async () => {
+  GetEnrolledUsers: async (course_id: string) => {
+    try {
+      let res: any = await requestApi({
+        endpoint: `/${Service}/enroll-users/${course_id}`,
+        method: "GET",
+      });
+      return res;
+    } catch (err) {
+      console.log("ERRR::::", err);
+      throw err;
+    }
+  },
+  GetAllCourse: async () => {
     try {
       const res: any = await requestApi({
         endpoint: `/${Service}`,
@@ -14,11 +26,47 @@ const CourseServices = {
       console.log("Request failed:", error);
     }
   },
-  getCourseById: async (course_id: string) => {
+  GetCourseById: async (course_id: string) => {
     try {
       const res: any = await requestApi({
         endpoint: `/${Service}/${course_id}`,
         method: "GET",
+      });
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
+    }
+  },
+  DeleteCourse: async (course_id: string) => {
+    try {
+      const res: any = await requestApi({
+        endpoint: `/${Service}/${course_id}`,
+        method: "DELETE",
+        data: {},
+      });
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
+    }
+  },
+  CreateCourse: async (data: ICreateCourse) => {
+    try {
+      const res: any = await requestApi({
+        endpoint: `/${Service}}`,
+        method: "DELETE",
+        data: data,
+      });
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
+    }
+  },
+  UpdateCourse: async (id: string, data: ICreateCourse) => {
+    try {
+      const res: any = await requestApi({
+        endpoint: `/${Service}/${id}`,
+        method: "PUT",
+        data: data,
       });
       return res;
     } catch (error) {

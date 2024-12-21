@@ -267,3 +267,12 @@ a {
 .ck-content {
   min-height: 40rem;
 }
+
+// text customizations style
+.text-link {
+  color: var(--navlink-active-color) !important;
+  cursor: pointer;
+}
+.text-link:hover {
+  text-decoration: underline !important;
+}

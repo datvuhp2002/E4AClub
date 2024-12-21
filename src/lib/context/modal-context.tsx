@@ -10,11 +10,23 @@ export const ModalContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { showModal, setShowModal, configModal, HandleOpenModal } = useModal();
+  const {
+    showModal,
+    setShowModal,
+    configModal,
+    HandleOpenModal,
+    HandleCloseModal,
+  } = useModal();
 
   return (
     <ModalContext.Provider
-      value={{ showModal, setShowModal, configModal, HandleOpenModal }}
+      value={{
+        showModal,
+        setShowModal,
+        configModal,
+        HandleOpenModal,
+        HandleCloseModal,
+      }}
     >
       <Modal />
       {children}

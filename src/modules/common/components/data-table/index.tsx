@@ -1,6 +1,5 @@
 "use client";
 import { useState, MouseEvent, useEffect } from "react";
-
 import { Popover, Stack } from "@mui/material";
 import Button from "../Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,26 +9,70 @@ import DT from "datatables.net-dt";
 import "datatables.net-fixedcolumns-dt";
 import "datatables.net-responsive-dt";
 import DataTable from "datatables.net-react";
+import { useToastContext } from "@/lib/context/toast-context";
+import { useModalContext } from "@/lib/context/modal-context";
 
 DataTable.use(DT);
 
-interface DataTable {
+interface DataTableProps {
   data: any;
-  selectedColumn: any;
-  edit_direction: any;
+  selectedColumn: any[];
+  edit_direction: string;
   action?: (id: any) => any;
-  delete_handle: (id: any) => any;
+  delete_handle: (id: any) => Promise<{ success: boolean }>;
 }
 function App({
-  data,
+  data: initialData,
   selectedColumn,
   edit_direction,
   action,
   delete_handle,
-}: DataTable) {
+}: DataTableProps) {
   const route = useRouter();
+  const [data, setData] = useState(initialData); // Quản lý dữ liệu bằng state
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedRow, setSelectedRow] = useState<string | null>(null);
+  const { HandleOpenToast } = useToastContext();
+  const { HandleOpenModal, HandleCloseModal } = useModalContext();
+  const handleOpen = () => {
+    HandleOpenModal({
+      title: "Xác nhận",
+      body: (
+        <div className="fw-bold">
+          Hành động này sẽ không thể khôi phục, bạn chắc chắn muốn tiếp tục?
+        </div>
+      ),
+      footer: (
+        <div className="d-flex">
+          <Button danger_btn rounded onClick={() => handleDelete()}>
+            Xác nhận
+          </Button>
+          <Button
+            edit_btn
+            rounded
+            onClick={() => {
+              HandleCloseModal();
+            }}
+          >
+            Hủy
+          </Button>
+        </div>
+      ),
+    });
+  };
+
+  const handleSuccessToast = (message: string) => {
+    HandleOpenToast({
+      type: "success",
+      content: message,
+    });
+  };
+  const handleErrorToast = (message: string) => {
+    HandleOpenToast({
+      type: "error",
+      content: `${message}! Vui lòng thử lại`,
+    });
+  };
 
   const handleOpenPopover = (event: MouseEvent<HTMLElement>, rowId: string) => {
     setAnchorEl(event.currentTarget);
@@ -46,10 +89,24 @@ function App({
     handleClosePopover();
   };
 
-  const handleDelete = () => {
-    console.log(`Delete item with ID: ${selectedRow}`);
-    delete_handle(selectedRow);
-    // handleClosePopover();
+  const handleDelete = async () => {
+    try {
+      const result = await delete_handle(selectedRow);
+      if (result && result.success) {
+        setData((prevData: any) =>
+          prevData.filter((row: any) => row._id !== selectedRow)
+        ); // Loại bỏ dòng đã xóa
+        handleSuccessToast("Xóa thành công");
+      } else {
+        handleErrorToast("Xóa thất bại");
+      }
+    } catch (e) {
+      console.error(e);
+      handleErrorToast("Xóa thất bại");
+    } finally {
+      handleClosePopover();
+      HandleCloseModal();
+    }
   };
 
   const tableOptions = {
@@ -109,7 +166,9 @@ function App({
       });
     },
   };
+
   useEffect(() => {}, [data]);
+
   return (
     <div style={{ width: "100%", overflowX: "auto" }}>
       {typeof window !== "undefined" && (
@@ -149,25 +208,11 @@ function App({
               transparent_btn
               rounded
               edit_btn
-              onClick={handleDelete}
+              onClick={handleOpen}
               leftIcon={<FontAwesomeIcon icon={faBan} />}
             >
               Xóa
             </Button>
-          </div>
-
-          <div>
-            {/* <Button
-              className="w-100 "
-              color="error"
-              rounded
-              transparent_btn
-              trash_btn
-              onClick={handleDelete}
-              leftIcon={<FontAwesomeIcon icon={faTrashCan} />}
-            >
-              Xóa
-            </Button> */}
           </div>
         </Stack>
       </Popover>
