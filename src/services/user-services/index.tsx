@@ -28,6 +28,32 @@ const UserServices = {
       throw err;
     }
   },
+  UpdateUser: async (data: IUpdateUser) => {
+    try {
+      let res: any = await fetch({
+        endpoint: `/${Service}/update-user`,
+        method: "PUT",
+        data,
+      });
+      return res;
+    } catch (err) {
+      console.log("ERRR::::", err);
+      throw err;
+    }
+  },
+  ChangePasswordUser: async (data: IUpdateUser) => {
+    try {
+      let res: any = await fetch({
+        endpoint: `/${Service}/change-password`,
+        method: "PUT",
+        data,
+      });
+      return res;
+    } catch (err) {
+      console.log("ERRR::::", err);
+      throw err;
+    }
+  },
 
   CreateUserBatch: async (data: any) => {
     try {

@@ -150,13 +150,12 @@ const page = () => {
       ),
     });
   };
-  const handleSubmitUpdateUser: SubmitHandler<ICreateUserDto> = async (
-    data
-  ) => {
+  const handleSubmitUpdateUser: SubmitHandler<IUpdateUser> = async (data) => {
     try {
-      const result = await UserServices.CreateUser(data);
+      const result = await UserServices.UpdateUser(data);
       if (result && result.success) {
         handleSuccessToast("Cập nhật người dùng thành công");
+        getUserInfo();
         HandleCloseModal();
       } else {
         handleErrorToast("Cập nhật người dùng thất bại");
@@ -207,33 +206,33 @@ const page = () => {
   const handleSubmitUpdateUserPassword: SubmitHandler<IUpdateUser> = async (
     data
   ) => {
-    // try {
     console.log(data);
     if (!validatePasswordChange(data)) {
       return;
     }
-    // validate password
-
-    //   const result = await UserServices.CreateUser(data);
-    //   if (result && result.success) {
-    //     handleSuccessToast("Cập nhật người dùng thành công");
-    //     HandleCloseModal();
-    //   } else {
-    //     handleErrorToast("Cập nhật người dùng thất bại");
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    //   handleErrorToast("Cập nhật người dùng thất bại");
-    // }
+    try {
+      const result = await UserServices.ChangePasswordUser(data);
+      if (result && result.success) {
+        handleSuccessToast("Cập nhật người dùng thành công");
+        HandleCloseModal();
+      } else {
+        handleErrorToast("Cập nhật người dùng thất bại");
+      }
+    } catch (err) {
+      console.error(err);
+      handleErrorToast("Cập nhật người dùng thất bại");
+    }
   };
-
-  useEffect(() => {
-    UserServices.Info()
+  const getUserInfo = async () => {
+    await UserServices.Info()
       .then((res) => {
         setUserData(res.user);
         setValue("name", res.user.name);
       })
       .catch((err) => console.error(err));
+  };
+  useEffect(() => {
+    getUserInfo();
   }, []);
   return (
     <div className={styles.wrapper}>
