@@ -4,23 +4,15 @@ import styles from "./ThongTinCaNhan.module.scss";
 import UserServices from "@/services/user-services";
 import Image from "@/modules/common/components/Image";
 import Card from "@/modules/common/components/Card";
-type User = {
-  id: number;
-  username: string;
-  fullname: string;
-  email: string;
-  avatar: string;
-  roles: string;
-  createdAt: string;
-};
-
+import moment from "moment";
+import "moment/locale/vi";
 const ThongTinCaNhan = () => {
-  const [profile, setProfile] = useState<User>();
+  const [profile, setProfile] = useState<IUser>();
+  moment.locale("vi");
   useEffect(() => {
     try {
       UserServices.Info().then((res) => {
-        console.log(res);
-        setProfile(res);
+        setProfile(res.user);
       });
     } catch (err) {
       console.log("ERRR::::", err);
@@ -41,17 +33,21 @@ const ThongTinCaNhan = () => {
           <div className="col-md-6">
             <Card title={"Giới thiệu"}>
               <div>
-                <strong className="me-1">Email:</strong>
-                {profile.email}
+                <strong className="me-1">Họ và tên:</strong>
+                {profile.name}
               </div>
               <div className="mt-2">
                 <strong className="me-1">Email:</strong>
                 {profile.email}
               </div>
+              <div className="mt-2">
+                <strong className="me-1">Đã tham gia:</strong>
+                {moment(profile.createdAt).fromNow()}
+              </div>
             </Card>
             <div className="mt-3">
               <Card title={"Khóa học đã tham gia"}>
-                <div>{profile.email}</div>
+                <div>Chưa tham gia khóa học nào</div>
               </Card>
             </div>
           </div>

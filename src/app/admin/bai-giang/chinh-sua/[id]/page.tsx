@@ -65,20 +65,19 @@ const page = () => {
   const handleSubmitFormUpdate = async (data: any) => {
     if (videoId !== null) {
       data.video = videoId;
-    } else {
-      SectionServices.UpdateSection(params.id, data)
-        .then((res) => {
-          if (res.success) {
-            handleSuccessToast("Cập nhật thành công");
-          } else {
-            handleErrorToast("Cập nhật thất bại");
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-          handleErrorToast("Cập nhật thất bại");
-        });
     }
+    SectionServices.UpdateSection(params.id, data)
+      .then((res) => {
+        if (res.success) {
+          handleSuccessToast("Cập nhật thành công");
+        } else {
+          handleErrorToast("Cập nhật thất bại");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        handleErrorToast("Cập nhật thất bại");
+      });
   };
   useEffect(() => {
     CourseServices.GetAllCourse()

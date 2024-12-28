@@ -40,6 +40,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|svg|images).*)", // Match all routes except public assets
+    "/((?!_next/static|_next/image|favicon.ico|svg|images|auth).*)", // Match all routes except public assets
   ],
 };

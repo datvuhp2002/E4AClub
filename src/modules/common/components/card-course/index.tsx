@@ -10,29 +10,51 @@ import {
 import { LinearProgress } from "@mui/material";
 import Button from "../Button";
 import Image from "../Image";
+import UserServices from "@/services/user-services";
+import { useToastContext } from "@/lib/context/toast-context";
+import { useRouter } from "next/navigation";
 
 const cx = classNames.bind(styles);
-
-// Định nghĩa kiểu cho `data` prop
-interface CourseData {
-  id: string;
-  name: string;
-  price: number;
-  thumbnail: string;
-}
-
-// Định nghĩa kiểu cho `Card` props
-interface CardCourseProps {
-  data: CourseData;
-  className?: string;
-  isUserCourses?: boolean;
-}
 
 const CardCourse: React.FC<any> = ({
   data,
   className,
   isUserCourses = false,
 }) => {
+  const router = useRouter();
+  const { HandleOpenToast } = useToastContext();
+  const handleSuccessToast = (message: string) => {
+    HandleOpenToast({
+      type: "success",
+      content: message,
+    });
+  };
+  const handleErrorToast = (message: string) => {
+    HandleOpenToast({
+      type: "error",
+      content: `${message}! Vui lòng thử lại`,
+    });
+  };
+  const onEnrollCourse = async (course_id: string) => {
+    try {
+      UserServices.EnrollCourse(course_id)
+        .then((res) => {
+          if (res.success) {
+            handleSuccessToast("Đăng ký thành công");
+            router.push(`/bai-giang/${data._id}?section=1`);
+          } else {
+            handleErrorToast("Đăng ký thất bại");
+          }
+        })
+        .catch((err) => {
+          handleErrorToast("Đăng ký thất bại");
+          console.error(err);
+        });
+    } catch (err) {
+      handleErrorToast("Đăng ký thất bại");
+      console.error(err);
+    }
+  };
   const classes = cx("wrapper", {
     [className || ""]: className,
   });
@@ -45,13 +67,23 @@ const CardCourse: React.FC<any> = ({
         )}
       >
         {data.totalSections > 0 ? (
-          <Button
-            rounded
-            to={`/bai-giang/${data._id}?section=1`}
-            className={cx("course_btn")}
-          >
-            Vào học
-          </Button>
+          data.isEnrolled ? (
+            <Button
+              rounded
+              to={`/bai-giang/${data._id}?section=1`}
+              className={cx("course_btn")}
+            >
+              Tiếp tục học
+            </Button>
+          ) : (
+            <Button
+              rounded
+              className={cx("course_btn")}
+              onClick={() => onEnrollCourse(data._id)}
+            >
+              Đăng ký học
+            </Button>
+          )
         ) : (
           <Button
             rounded

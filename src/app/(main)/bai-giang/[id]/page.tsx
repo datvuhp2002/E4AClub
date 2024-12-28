@@ -1,47 +1,42 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Learning.module.scss";
 import moment from "moment";
 import "moment/locale/vi";
-import { useParams, useSearchParams } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faBars,
   faChevronLeft,
   faChevronRight,
-  faComments,
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/modules/common/components/Button";
 import LessonCard from "@/modules/layout/baigiang/components/lesson-card";
 import SectionServices from "@/services/section-services";
-import { Skeleton } from "@mui/material";
-
 const cx = classNames.bind(styles);
-
-interface CourseData {
-  id: number;
-  title: string;
-  // Add other properties as needed
-}
-
-interface CourseReceivedData {
-  id: number;
-  // Add other properties as needed
-}
 
 const Page = () => {
   moment.locale("vi");
   const params = useParams<{ id: string }>();
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [currentSection, setCurrentSection] = useState(1);
+  const [maxSection, setMaxSection] = useState(1);
   const [lessonData, setLessonData] = useState<ISection[]>();
   const [showLesson, setShowLesson] = useState<boolean>(true);
-  const [isShowComment, setShowComment] = useState<boolean>(false);
   const [sectionData, setSectionData] = useState<ISection>();
   const [html, setHtml] = useState<string>("");
   useEffect(() => {
     const current_section = searchParams.get("section");
+    setCurrentSection(Number(current_section));
     if (current_section) {
       SectionServices.GetSectionByOrder(params.id, current_section)
         .then((res) => {
@@ -53,10 +48,24 @@ const Page = () => {
         });
     }
   }, [searchParams]);
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+  const onNavigate = (section: number) => {
+    router.push(pathname + "?" + createQueryString("section", `${section}`));
+  };
+
   useEffect(() => {
     SectionServices.GetSectionFromCourse(params.id)
       .then((res) => {
         if (res.success) {
+          setMaxSection(res.sections.length);
           setLessonData(res.sections);
         }
       })
@@ -87,6 +96,7 @@ const Page = () => {
               <p>Cập nhật {moment(sectionData.updatedAt).fromNow()}</p>
             </div>
             <div
+              className="overflow-x-scroll"
               dangerouslySetInnerHTML={{
                 __html: html,
               }}
@@ -114,25 +124,27 @@ const Page = () => {
             <Button
               leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
               previous_lesson
-              // onClick={() => onNavigate(previousLessonId)}
-              disabled={Number(params.id) === 1}
+              onClick={() => onNavigate(currentSection - 1)}
+              className={`${Number(currentSection) === 1 ? "disabled" : ""} d-flex px-3`}
+              disabled={Number(currentSection) === 1}
             >
-              Bài trước
+              <span className="d-none d-md-flex"> Bài trước</span>
             </Button>
             <Button
               rightIcon={<FontAwesomeIcon icon={faChevronRight} />}
               next_lesson
-              // onClick={() => onNavigate(nextLessonId)}
-              // disabled={nextLessonId === null}
+              onClick={() => onNavigate(currentSection + 1)}
+              className={`${Number(currentSection) === maxSection ? "disabled" : ""} d-flex  px-3 mt-0`}
+              disabled={Number(currentSection) === maxSection}
             >
-              Bài tiếp theo
+              <span className="d-none d-md-flex"> Bài tiếp theo</span>
             </Button>
           </div>
         )}
         <div className="me-3">
           {showLesson ? (
             <Button
-              className="p-0 w-0"
+              className="p-0 w-0  px-3"
               previous_lesson
               onClick={() => {
                 setShowLesson(!showLesson);
@@ -141,7 +153,7 @@ const Page = () => {
             ></Button>
           ) : (
             <Button
-              className="p-0 w-0"
+              className="p-0 w-0  px-3"
               previous_lesson
               onClick={() => {
                 setShowLesson(!showLesson);

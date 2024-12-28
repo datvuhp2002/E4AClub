@@ -2,22 +2,21 @@ import FileServices from "@/services/file-services";
 
 class CustomUploadAdapter {
   constructor(loader) {
-    this.loader = loader; // File loader từ CKEditor
+    this.loader = loader;
   }
 
   upload() {
     return this.loader.file.then(
       (file) =>
         new Promise((resolve, reject) => {
-          // Gọi FileServices với file, không cần chuẩn bị FormData
           FileServices.UploadFileForCkEditor(file)
             .then((res) => {
+              console.log(res);
               resolve({
-                default: `${process.env.API_URL}/${res.url}`, // URL trả về từ server
+                default: `${process.env.FLIPBOOK_URL}${res.url}`,
               });
             })
             .catch((err) => {
-              console.error("File upload failed:", err);
               reject(err);
             });
         })

@@ -1,22 +1,26 @@
 import fetch from "@/common/request";
 
-const Service = "user";
+const Service = "ck-editor";
 
 const FileServices = {
   UploadFileForCkEditor: async (file: File) => {
     try {
-      // Di chuyển logic FormData ở đây
-      const formData = new FormData();
-      formData.append("file", file);
+      if (file instanceof File) {
+        console.log("Đây là một tệp tin:", file);
+      } else {
+        console.log("Đây không phải là một tệp tin.");
+      }
 
-      // Gửi request API
+      console.log("FILE:::", file);
+      const formData = new FormData();
+      formData.append("upload", file);
       const res: any = await fetch({
-        endpoint: `/${Service}/upload`, // Endpoint upload file
+        endpoint: `/${Service}`,
         method: "POST",
         data: formData,
-        contentType: "multipart/form-data", // Axios tự thêm boundary
+        responseType: "json",
+        contentType: "multipart/form-data",
       });
-
       return res;
     } catch (err) {
       console.error("Error during file upload:", err);

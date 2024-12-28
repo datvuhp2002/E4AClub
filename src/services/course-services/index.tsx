@@ -26,6 +26,17 @@ const CourseServices = {
       console.log("Request failed:", error);
     }
   },
+  GetAllCoursesWithCheckEnrolled: async () => {
+    try {
+      const res: any = await requestApi({
+        endpoint: `/${Service}/all-courses-with-check-enrolled`,
+        method: "GET",
+      });
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
+    }
+  },
   GetCourseById: async (course_id: string) => {
     try {
       const res: any = await requestApi({

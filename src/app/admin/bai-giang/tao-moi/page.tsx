@@ -72,7 +72,6 @@ const page = () => {
     if (courseParams) {
       data.courseId = courseParams;
     }
-    console.log(data);
     SectionServices.AddSection(data)
       .then((res) => {
         if (res.success) {
@@ -85,7 +84,6 @@ const page = () => {
         console.error(e);
         handleErrorToast("Tạo thất bại");
       });
-    console.log(data);
   };
   useEffect(() => {
     const searchParamsCourse = searchParams.get("course");

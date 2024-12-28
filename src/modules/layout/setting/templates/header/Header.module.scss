@@ -1,0 +1,27 @@
+.wrapper {
+  height: var(--header-height);
+  border-bottom: 1px solid var(--border-line);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  position: fixed;
+  z-index: 100 !important;
+  top: 0;
+  right: 0;
+  background-color: var(--header-background);
+  .title {
+    font-size: 2.2rem;
+    color: var(--header-color);
+    font-weight: bold;
+  }
+  &.toggleMenu {
+    color: var(--navlink-text-color);
+    background-color: #fff;
+  }
+}
+.logo {
+  flex: 1 1;
+}
+.action {
+  flex: 1 1;
+  justify-content: flex-end;
+}

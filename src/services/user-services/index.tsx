@@ -2,6 +2,28 @@ import fetch from "@/common/request";
 
 const Service = "user";
 const UserServices = {
+  UploadImage: async (file: File) => {
+    try {
+      if (!(file instanceof File)) {
+        console.error("Đây không phải là một tệp tin.");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("image", file);
+      const res: any = await fetch({
+        endpoint: `/${Service}/upload-image`,
+        method: "POST",
+        data: formData,
+        responseType: "json",
+        contentType: "multipart/form-data",
+      });
+      return res;
+    } catch (err) {
+      console.error("Error during file upload:", err);
+      throw err;
+    }
+  },
+
   GetAllUser: async () => {
     try {
       let res: any = await fetch({
@@ -61,6 +83,19 @@ const UserServices = {
         endpoint: `/${Service}/create-user-batch`,
         method: "POST",
         data,
+      });
+      return res;
+    } catch (err) {
+      console.log("ERRR::::", err);
+      throw err;
+    }
+  },
+  EnrollCourse: async (course_id: string) => {
+    try {
+      let res: any = await fetch({
+        endpoint: `/${Service}/enroll-course/${course_id}`,
+        method: "POST",
+        data: {},
       });
       return res;
     } catch (err) {

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import styles from "./RegisterLibrary.module.scss";
+import styles from "./login.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Box } from "@mui/material";
 import InputField from "@/modules/common/components/input-field";
@@ -8,6 +8,7 @@ import Button from "@/modules/common/components/Button";
 import { useRouter } from "next/navigation";
 import { useToastContext } from "@/lib/context/toast-context";
 import AuthServices from "@/services/auth-services";
+import Link from "next/link";
 interface LoginFormInputs {
   email: string;
   password: string;
@@ -128,6 +129,13 @@ const page = () => {
             Đăng nhập
           </Button>
         </Box>
+      </div>
+      <div className={`${styles.form_title}`}>
+        <p className={`${styles.sub_title} fs-5  mt-4 text-end text-link`}>
+          <Link href={`/auth/quen-mat-khau`}>
+            <i>Quên mật khẩu?</i>
+          </Link>
+        </p>
       </div>
     </div>
   );

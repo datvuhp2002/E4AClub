@@ -23,6 +23,30 @@ const AuthServices = {
       console.log("Login failed:", error);
     }
   },
+  RequestPasswordReset: async (data: Record<string, any>) => {
+    try {
+      const res: any = await requestApi({
+        endpoint: `/${Service}/request-password-reset`,
+        method: "POST",
+        data,
+      });
+      return res;
+    } catch (error) {
+      console.log("Login failed:", error);
+    }
+  },
+  ResetPassword: async (data: Record<string, any>) => {
+    try {
+      const res: any = await requestApi({
+        endpoint: `/${Service}/reset-password`,
+        method: "POST",
+        data,
+      });
+      return res;
+    } catch (error) {
+      console.log("Login failed:", error);
+    }
+  },
 
   // Hàm Logout
   Logout: () => {

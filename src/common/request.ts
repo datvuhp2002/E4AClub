@@ -33,9 +33,6 @@ apiService.interceptors.request.use(
       console.log("No token found in cookies");
     }
 
-    // Thêm các headers mặc định
-    config.headers.set("Accept", "application/json");
-    config.headers.set("Content-Type", "application/json");
     return config;
   },
   (error) => {

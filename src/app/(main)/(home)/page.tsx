@@ -6,8 +6,9 @@ import CardCourse from "@/modules/common/components/card-course";
 const Page = () => {
   const [course, setCourse] = useState([]);
   useEffect(() => {
-    CourseServices.GetAllCourse()
+    CourseServices.GetAllCoursesWithCheckEnrolled()
       .then((res) => {
+        console.log(res);
         setCourse(res.data);
       })
       .catch((e) => console.error(e));

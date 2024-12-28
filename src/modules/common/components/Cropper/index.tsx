@@ -28,8 +28,6 @@ interface ImageCropperModalProps {
   setError: any;
   clearErrors: any;
   errors: any;
-  setFileName: any;
-  fileName: any; // Image file name
 }
 
 const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
@@ -37,18 +35,18 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
   setError,
   clearErrors,
   errors,
-  setFileName,
-  fileName,
 }) => {
   const [image, setImage] = useState<string>(
     `${process.env.FILE_URL}/images/huongdancatanh.png`
   );
+  const [fileName, setFileName] = useState<string>("");
+
   const [croppedImage, setCroppedImage] = useState<string | null>(null); // Cropped image
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Modal visibility
   const cropperRef = useRef<any>(null); // Cropper reference
   const [scaleX, setScaleX] = useState<number>(1); // Flip X axis state
   const [scaleY, setScaleY] = useState<number>(1); // Flip Y axis state
-  const [isSelecteImag, SetIsSelecteImag] = useState<boolean>(false);
+  const [isSelectedImg, SetIsSelectedImg] = useState<boolean>(false);
   // Handle flipping the image horizontally
   const handleFlipX = () => {
     const newScaleX = scaleX === 1 ? -1 : 1;
@@ -101,8 +99,9 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
       // } else {
       //   clearErrors("photo");
       // }
+      console.log(file.name);
       setFileName(file.name);
-      SetIsSelecteImag(true);
+      SetIsSelectedImg(true);
       const reader = new FileReader();
       reader.onload = () => {
         setImage(reader.result as string);
@@ -117,16 +116,21 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
       width: 300,
       height: 400,
     });
+
     if (croppedCanvas) {
       const croppedDataUrl = croppedCanvas.toDataURL();
+
+      // Sử dụng fileName từ state ngay tại đây
+      const currentFileName = fileName || "default.png";
 
       // Chuyển đổi Data URL thành File
       fetch(croppedDataUrl)
         .then((res) => res.blob())
         .then((blob) => {
-          const croppedImageFile = new File([blob], fileName, {
+          const croppedImageFile = new File([blob], currentFileName, {
             type: blob.type,
           });
+          console.log("Cropped file name:", currentFileName); // Kiểm tra file name
           setCroppedImage(croppedDataUrl);
           onImageCrop(croppedImageFile);
           setIsModalOpen(false);
@@ -162,9 +166,23 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
   return (
     <div>
       {/* Input showing selected file name */}
+      <div>
+        {croppedImage && (
+          <img
+            src={croppedImage}
+            alt="Cropped"
+            style={{
+              maxWidth: "100%",
+              maxHeight: "200px",
+              objectFit: "contain",
+              marginBottom: "10px",
+            }}
+          />
+        )}
+      </div>
       <div className="mb-3 row">
         <div className="col-10">
-          <div className="d-flex">
+          <div className="d-flex ">
             <Input
               name="photo"
               value={fileName}
@@ -230,11 +248,7 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
           <div className={`${styles.action} d-flex align-items-center`}>
             {/* Button to upload a new image */}
             <div className={`${styles.btn_group}`}>
-              <Button
-                as="label"
-                htmlFor="fileInput"
-                onClick={() => console.log("abc")}
-              >
+              <Button as="label" htmlFor="fileInput">
                 Tải ảnh
                 <input
                   type="file"
@@ -318,7 +332,7 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
             </div>
           </div>
           <div className={`${styles.btn_group}`}>
-            <Button onClick={handleCrop} disabled={!isSelecteImag}>
+            <Button onClick={handleCrop} disabled={!isSelectedImg}>
               Hoàn thành
             </Button>
           </div>

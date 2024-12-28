@@ -9,6 +9,7 @@ interface ICourse {
   sections: ISection[];
   teacher: IUser;
   image: string;
+  isEnrolled: boolean;
 }
 
 interface ICreateCourse {

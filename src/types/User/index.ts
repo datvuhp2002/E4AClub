@@ -2,6 +2,9 @@ interface IUser {
   _id: string; // Unique identifier for the lesson
   email: string;
   name: string;
+  avatar: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface ICreateUserDto {
@@ -11,6 +14,7 @@ interface ICreateUserDto {
 interface IUpdateUser {
   name: string;
   email: string;
+  avatar: File;
   oldPassword: string;
   newPassword: string;
   checkNewPassword: string;
