@@ -166,14 +166,14 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
   return (
     <div>
       {/* Input showing selected file name */}
-      <div>
+      <div className="w-100 d-flex align-items-center justify-content-center">
         {croppedImage && (
           <img
             src={croppedImage}
             alt="Cropped"
             style={{
               maxWidth: "100%",
-              maxHeight: "200px",
+              maxHeight: "300px",
               objectFit: "contain",
               marginBottom: "10px",
             }}
@@ -222,7 +222,7 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
             placement="left"
             overlay={imageSamplePopover}
           >
-            <p className={`${styles.sample_img} m-0`}> xem ảnh</p>
+            <p className={`${styles.sample_img} m-0`}>Ảnh mẫu</p>
           </OverlayTrigger>
         </div>
       </div>

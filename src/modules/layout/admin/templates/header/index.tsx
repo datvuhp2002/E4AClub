@@ -95,7 +95,11 @@ const Header: React.FC<{ open: boolean; handleDrawerOpen: () => void }> = ({
           <Tooltip title="" sx={{ position: "relative" }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <span className="me-3 fs-3"> {email && email}</span>
-              <Avatar alt="Remy Sharp" src={user!.avatar} />
+              {user && user.avatar ? (
+                <Avatar alt="Remy Sharp" src={user!.avatar} />
+              ) : (
+                <Avatar alt="Remy Sharp" src="" />
+              )}
             </IconButton>
           </Tooltip>
           <Menu

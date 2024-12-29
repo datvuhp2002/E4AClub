@@ -13,6 +13,7 @@ import { useModalContext } from "@/lib/context/modal-context";
 import { SubmitHandler, useForm } from "react-hook-form";
 import InputField from "@/modules/common/components/input-field";
 import { useToastContext } from "@/lib/context/toast-context";
+import { useUser } from "@/lib/context/user-context";
 
 const page = () => {
   const {
@@ -25,7 +26,7 @@ const page = () => {
     control,
     formState: { errors },
   } = useForm<IUpdateUser>();
-  const [userData, setUserData] = useState<any>();
+  const { user, loading, refreshUser } = useUser();
   const { HandleOpenModal, HandleCloseModal } = useModalContext();
   const { HandleOpenToast } = useToastContext();
   const handleSuccessToast = (message: string) => {
@@ -72,23 +73,27 @@ const page = () => {
       ),
       footer: (
         <div className="d-flex">
-          <Button
-            success_btn
-            rounded
-            onClick={handleSubmit(handleSubmitUpdateUser)}
-          >
-            Cập nhật
-          </Button>
-          <Button
-            edit_btn
-            rounded
-            onClick={() => {
-              setValue("name", userData.name);
-              HandleCloseModal();
-            }}
-          >
-            Hủy
-          </Button>
+          <div>
+            <Button
+              success_btn
+              rounded
+              onClick={handleSubmit(handleSubmitUpdateUser)}
+            >
+              Cập nhật
+            </Button>
+          </div>
+          <div className="ms-2">
+            <Button
+              edit_btn
+              rounded
+              onClick={() => {
+                setValue("name", user!.name);
+                HandleCloseModal();
+              }}
+            >
+              Hủy
+            </Button>
+          </div>
         </div>
       ),
     });
@@ -114,23 +119,26 @@ const page = () => {
       ),
       footer: (
         <div className="d-flex">
-          <Button
-            success_btn
-            rounded
-            onClick={handleSubmit(handleSubmitUpdateAvatar)}
-          >
-            Cập nhật
-          </Button>
-          <Button
-            edit_btn
-            rounded
-            onClick={() => {
-              setValue("avatar", userData.avatar);
-              HandleCloseModal();
-            }}
-          >
-            Hủy
-          </Button>
+          <div>
+            <Button
+              success_btn
+              rounded
+              onClick={handleSubmit(handleSubmitUpdateAvatar)}
+            >
+              Cập nhật
+            </Button>
+          </div>
+          <div className="ms-2">
+            <Button
+              edit_btn
+              rounded
+              onClick={() => {
+                HandleCloseModal();
+              }}
+            >
+              Hủy
+            </Button>
+          </div>
         </div>
       ),
     });
@@ -171,25 +179,29 @@ const page = () => {
       ),
       footer: (
         <div className="d-flex">
-          <Button
-            success_btn
-            rounded
-            onClick={handleSubmit(handleSubmitUpdateUserPassword)}
-          >
-            Cập nhật
-          </Button>
-          <Button
-            edit_btn
-            rounded
-            onClick={() => {
-              setValue("oldPassword", "");
-              setValue("newPassword", "");
-              setValue("checkNewPassword", "");
-              HandleCloseModal();
-            }}
-          >
-            Hủy
-          </Button>
+          <div>
+            <Button
+              success_btn
+              rounded
+              onClick={handleSubmit(handleSubmitUpdateUserPassword)}
+            >
+              Cập nhật
+            </Button>
+          </div>
+          <div className="ms-2">
+            <Button
+              edit_btn
+              rounded
+              onClick={() => {
+                setValue("oldPassword", "");
+                setValue("newPassword", "");
+                setValue("checkNewPassword", "");
+                HandleCloseModal();
+              }}
+            >
+              Hủy
+            </Button>
+          </div>
         </div>
       ),
     });
@@ -199,7 +211,7 @@ const page = () => {
       const result = await UserServices.UpdateUser(data);
       if (result && result.success) {
         handleSuccessToast("Cập nhật người dùng thành công");
-        getUserInfo();
+        refreshUser();
         HandleCloseModal();
       } else {
         handleErrorToast("Cập nhật người dùng thất bại");
@@ -257,6 +269,7 @@ const page = () => {
       const result = await UserServices.ChangePasswordUser(data);
       if (result && result.success) {
         handleSuccessToast("Cập nhật người dùng thành công");
+        refreshUser();
         setValue("oldPassword", "");
         setValue("newPassword", "");
         setValue("checkNewPassword", "");
@@ -294,24 +307,15 @@ const page = () => {
       .then((res) => {
         if (res) {
           handleSuccessToast("Cập nhật thành công!");
+          refreshUser();
+          HandleCloseModal();
         } else {
           handleErrorToast("Tải ảnh không thành công");
         }
       })
       .catch((e) => handleErrorToast("Có lỗi sảy ra"));
   };
-  const getUserInfo = async () => {
-    await UserServices.Info()
-      .then((res) => {
-        console.log(res.user);
-        setUserData(res.user);
-        setValue("name", res.user.name);
-      })
-      .catch((err) => console.error(err));
-  };
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+
   return (
     <div className={styles.wrapper}>
       <Card title={<strong>Cài đặt</strong>}>
@@ -323,7 +327,7 @@ const page = () => {
             <div>Quản lý thông tin cá nhân của bạn</div>
           </div>
           <div>
-            {userData ? (
+            {user ? (
               <div className={`${styles.wrapper_content} mt-3`}>
                 <div
                   className={`${styles.content} d-flex justify-content-between`}
@@ -332,7 +336,7 @@ const page = () => {
                   <div className={`${styles.info}`}>
                     <h4 className=" m-0">Họ và tên</h4>
                     <p className={`${styles.value} fw-bolder m-0 mt-2`}>
-                      {userData.name ? userData.name : "Còn trống..."}
+                      {user.name ? user.name : "Còn trống..."}
                     </p>
                   </div>
                   <div className={`${styles.actions}`}>
@@ -345,12 +349,14 @@ const page = () => {
                 </div>
                 <div
                   className={`${styles.content} d-flex justify-content-between`}
-                  // onClick={() => setModalUsernameShow(true)}
+                  onClick={() =>
+                    handleErrorToast("Bạn không thể cập nhật Email")
+                  }
                 >
                   <div className={`${styles.info}`}>
                     <h4 className=" m-0">Email</h4>
                     <p className={`${styles.value} fw-bolder m-0 mt-2`}>
-                      {userData.email ? userData.email : "Còn trống..."}
+                      {user.email ? user.email : "Còn trống..."}
                     </p>
                   </div>
                   <div className={`${styles.actions}`}>
@@ -368,7 +374,7 @@ const page = () => {
                   <div className={`${styles.info}`}>
                     <h4 className=" m-0">Ảnh đại diện</h4>
                     <div className={`${styles.avatar} m-0`}>
-                      <Image alt="avatar" src={userData.avatar} />
+                      <Image alt="avatar" src={user!.avatar} />
                     </div>
                   </div>
                   <div className={`${styles.actions}`}>

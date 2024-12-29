@@ -73,23 +73,27 @@ const page = () => {
       ),
       footer: (
         <div className="d-flex">
-          <Button
-            success_btn
-            rounded
-            onClick={handleSubmit(handleSubmitUpdateUser)}
-          >
-            Cập nhật
-          </Button>
-          <Button
-            edit_btn
-            rounded
-            onClick={() => {
-              setValue("name", user!.name);
-              HandleCloseModal();
-            }}
-          >
-            Hủy
-          </Button>
+          <div>
+            <Button
+              success_btn
+              rounded
+              onClick={handleSubmit(handleSubmitUpdateUser)}
+            >
+              Cập nhật
+            </Button>
+          </div>
+          <div className="ms-2">
+            <Button
+              edit_btn
+              rounded
+              onClick={() => {
+                setValue("name", user!.name);
+                HandleCloseModal();
+              }}
+            >
+              Hủy
+            </Button>
+          </div>
         </div>
       ),
     });
@@ -115,22 +119,26 @@ const page = () => {
       ),
       footer: (
         <div className="d-flex">
-          <Button
-            success_btn
-            rounded
-            onClick={handleSubmit(handleSubmitUpdateAvatar)}
-          >
-            Cập nhật
-          </Button>
-          <Button
-            edit_btn
-            rounded
-            onClick={() => {
-              HandleCloseModal();
-            }}
-          >
-            Hủy
-          </Button>
+          <div>
+            <Button
+              success_btn
+              rounded
+              onClick={handleSubmit(handleSubmitUpdateAvatar)}
+            >
+              Cập nhật
+            </Button>
+          </div>
+          <div className="ms-2">
+            <Button
+              edit_btn
+              rounded
+              onClick={() => {
+                HandleCloseModal();
+              }}
+            >
+              Hủy
+            </Button>
+          </div>
         </div>
       ),
     });
@@ -171,25 +179,29 @@ const page = () => {
       ),
       footer: (
         <div className="d-flex">
-          <Button
-            success_btn
-            rounded
-            onClick={handleSubmit(handleSubmitUpdateUserPassword)}
-          >
-            Cập nhật
-          </Button>
-          <Button
-            edit_btn
-            rounded
-            onClick={() => {
-              setValue("oldPassword", "");
-              setValue("newPassword", "");
-              setValue("checkNewPassword", "");
-              HandleCloseModal();
-            }}
-          >
-            Hủy
-          </Button>
+          <div>
+            <Button
+              success_btn
+              rounded
+              onClick={handleSubmit(handleSubmitUpdateUserPassword)}
+            >
+              Cập nhật
+            </Button>
+          </div>
+          <div className="ms-2">
+            <Button
+              edit_btn
+              rounded
+              onClick={() => {
+                setValue("oldPassword", "");
+                setValue("newPassword", "");
+                setValue("checkNewPassword", "");
+                HandleCloseModal();
+              }}
+            >
+              Hủy
+            </Button>
+          </div>
         </div>
       ),
     });

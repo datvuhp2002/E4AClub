@@ -26,12 +26,14 @@ import { directAdminRoutes } from "@/config/router";
 import { usePathname } from "next/navigation";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLess from "@mui/icons-material/ExpandLess";
+import { useUser } from "@/lib/context/user-context";
 
 const Header = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
   const [showSidebar, setShowSidebar] = useState(false); // State to toggle sidebar
+  const { user, loading, refreshUser } = useUser();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -58,8 +60,8 @@ const Header = () => {
   return (
     <>
       <div className={`${styles.wrapper} container d-block d-sm-none `}>
-        <div className="d-flex align-items-center justify-content-center h-100">
-          <div className="row justify-content-between">
+        <div className="d-flex align-items-center justify-content-center h-100 w-100">
+          <div className="row d-flex justify-content-between w-100">
             <div className="col-4 d-flex align-items-center justify-content-start">
               <Button
                 icon_only
@@ -86,7 +88,11 @@ const Header = () => {
               <Box className={`pe-3 d-flex justify-content-end`}>
                 <Tooltip title="Open settings" sx={{ position: "relative" }}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="" />
+                    {user && user.avatar ? (
+                      <Avatar alt="Remy Sharp" src={user!.avatar} />
+                    ) : (
+                      <Avatar alt="Remy Sharp" src="" />
+                    )}
                   </IconButton>
                 </Tooltip>
                 <Menu
