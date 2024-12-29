@@ -290,7 +290,6 @@ const page = () => {
     } else {
       clearErrors("avatar");
     }
-    console.log(data.avatar);
     UserServices.UploadImage(data.avatar)
       .then((res) => {
         if (res) {
@@ -304,6 +303,7 @@ const page = () => {
   const getUserInfo = async () => {
     await UserServices.Info()
       .then((res) => {
+        console.log(res.user);
         setUserData(res.user);
         setValue("name", res.user.name);
       })
@@ -368,7 +368,7 @@ const page = () => {
                   <div className={`${styles.info}`}>
                     <h4 className=" m-0">Ảnh đại diện</h4>
                     <div className={`${styles.avatar} m-0`}>
-                      <Image alt="avatar" src={``} />
+                      <Image alt="avatar" src={userData.avatar} />
                     </div>
                   </div>
                   <div className={`${styles.actions}`}>

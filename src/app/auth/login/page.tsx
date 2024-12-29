@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./login.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Box } from "@mui/material";
@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useToastContext } from "@/lib/context/toast-context";
 import AuthServices from "@/services/auth-services";
 import Link from "next/link";
+import Cookies from "js-cookie";
 interface LoginFormInputs {
   email: string;
   password: string;
@@ -55,6 +56,12 @@ const page = () => {
       router.push("/");
     }
   };
+  useEffect(() => {
+    if (Cookies.get("access_token")) {
+      handleErrorToast("Không thể truy cập vào lúc này");
+      return router.push("/");
+    }
+  }, []);
   return (
     <div className={`${styles.wrapper} border-4 rounded-4 p-5 shadow-sm`}>
       <div className={`${styles.form_wrapper}`}>

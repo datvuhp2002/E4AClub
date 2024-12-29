@@ -12,10 +12,10 @@ import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import Link from "next/link";
 import Cookies from "js-cookie";
 import { menuOptionAdmin } from "@/common/consts";
 import Button from "@/modules/common/components/Button";
+import { useUser } from "@/lib/context/user-context";
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
   handleDrawerOpen?: () => void;
@@ -44,6 +44,7 @@ const Header: React.FC<{ open: boolean; handleDrawerOpen: () => void }> = ({
   handleDrawerOpen,
 }) => {
   const [email, setEmail] = useState<any>("");
+  const { user, loading, refreshUser } = useUser();
 
   useEffect(() => {
     // Lấy dữ liệu hoặc gán giá trị chỉ trên client-side
@@ -94,7 +95,7 @@ const Header: React.FC<{ open: boolean; handleDrawerOpen: () => void }> = ({
           <Tooltip title="" sx={{ position: "relative" }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <span className="me-3 fs-3"> {email && email}</span>
-              <Avatar alt="Remy Sharp" src="" />
+              <Avatar alt="Remy Sharp" src={user!.avatar} />
             </IconButton>
           </Tooltip>
           <Menu

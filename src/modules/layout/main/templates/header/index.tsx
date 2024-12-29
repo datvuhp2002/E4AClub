@@ -6,8 +6,12 @@ import Search from "@/modules/common/components/Search";
 import Menu from "@/modules/common/components/Popper/Menu";
 import AuthServices from "@/services/auth-services";
 import Cookies from "js-cookie";
+import UserServices from "@/services/user-services";
+import { useUser } from "@/lib/context/user-context";
 const Header = ({ theme }: any) => {
   const [logo, setLogo] = useState("");
+  const { user, loading, refreshUser } = useUser();
+
   const Menu_item = [
     [
       {
@@ -45,11 +49,11 @@ const Header = ({ theme }: any) => {
           {/* action */}
           <div className={`${styles.action} d-flex justify-content-end`}>
             <Menu items={Menu_item}>
-              {/* {userData.avatar ? (
-                <Image avatar rounded alt="" src={userData.avatar} />
-              ) : ( */}
-              <Image className="border" avatar rounded alt="" src={logo} />
-              {/* )} */}
+              {user ? (
+                <Image avatar rounded alt="" src={user.avatar} />
+              ) : (
+                <Image className="border" avatar rounded alt="" src={logo} />
+              )}
             </Menu>
           </div>
         </div>

@@ -6,24 +6,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "@/modules/common/components/Button";
 import { faChevronRight, faUser } from "@fortawesome/free-solid-svg-icons";
 import Image from "@/modules/common/components/Image";
-import ThemeToggle from "@/modules/common/components/theme-toggle";
+import ImageCropper from "@/modules/common/components/Cropper";
 import UserServices from "@/services/user-services";
 import { Skeleton } from "@mui/material";
 import { useModalContext } from "@/lib/context/modal-context";
 import { SubmitHandler, useForm } from "react-hook-form";
 import InputField from "@/modules/common/components/input-field";
 import { useToastContext } from "@/lib/context/toast-context";
+import { useUser } from "@/lib/context/user-context";
 
 const page = () => {
   const {
     register,
     handleSubmit,
     setValue,
+    clearErrors,
+    setError,
     watch,
     control,
     formState: { errors },
   } = useForm<IUpdateUser>();
-  const [userData, setUserData] = useState<any>();
+  const { user, loading, refreshUser } = useUser();
   const { HandleOpenModal, HandleCloseModal } = useModalContext();
   const { HandleOpenToast } = useToastContext();
   const handleSuccessToast = (message: string) => {
@@ -81,7 +84,48 @@ const page = () => {
             edit_btn
             rounded
             onClick={() => {
-              setValue("name", userData.name);
+              setValue("name", user!.name);
+              HandleCloseModal();
+            }}
+          >
+            Hủy
+          </Button>
+        </div>
+      ),
+    });
+  };
+  const handleOpenModalAvatar = () => {
+    HandleOpenModal({
+      title: "Cập nhật ảnh đại diện",
+      body: (
+        <div className="d-flex flex-column">
+          <ImageCropper
+            onImageCrop={(croppedImage: File) => {
+              setValue("avatar", croppedImage);
+              clearErrors("avatar");
+            }}
+            setError={setError}
+            clearErrors={clearErrors}
+            errors={errors}
+          />
+          {errors.avatar && (
+            <small className="text-danger">{errors.avatar.message}</small>
+          )}
+        </div>
+      ),
+      footer: (
+        <div className="d-flex">
+          <Button
+            success_btn
+            rounded
+            onClick={handleSubmit(handleSubmitUpdateAvatar)}
+          >
+            Cập nhật
+          </Button>
+          <Button
+            edit_btn
+            rounded
+            onClick={() => {
               HandleCloseModal();
             }}
           >
@@ -155,7 +199,7 @@ const page = () => {
       const result = await UserServices.UpdateUser(data);
       if (result && result.success) {
         handleSuccessToast("Cập nhật người dùng thành công");
-        getUserInfo();
+        refreshUser();
         HandleCloseModal();
       } else {
         handleErrorToast("Cập nhật người dùng thất bại");
@@ -206,7 +250,6 @@ const page = () => {
   const handleSubmitUpdateUserPassword: SubmitHandler<IUpdateUser> = async (
     data
   ) => {
-    console.log(data);
     if (!validatePasswordChange(data)) {
       return;
     }
@@ -214,6 +257,10 @@ const page = () => {
       const result = await UserServices.ChangePasswordUser(data);
       if (result && result.success) {
         handleSuccessToast("Cập nhật người dùng thành công");
+        refreshUser();
+        setValue("oldPassword", "");
+        setValue("newPassword", "");
+        setValue("checkNewPassword", "");
         HandleCloseModal();
       } else {
         handleErrorToast("Cập nhật người dùng thất bại");
@@ -223,17 +270,40 @@ const page = () => {
       handleErrorToast("Cập nhật người dùng thất bại");
     }
   };
-  const getUserInfo = async () => {
-    await UserServices.Info()
+  const handleSubmitUpdateAvatar: SubmitHandler<IUpdateUser> = async (
+    data: any
+  ) => {
+    if (!(data.avatar instanceof File)) {
+      setError("avatar", {
+        type: "invalid",
+        message: "Ảnh không hợp lệ. Vui lòng thử lại.",
+      });
+      handleErrorToast("Ảnh không hợp lệ. Vui lòng thử lại.");
+      return;
+    }
+    if (!data.avatar) {
+      setError("avatar", {
+        type: "required",
+        message: "Ảnh đại diện là bắt buộc",
+      });
+      handleErrorToast("Ảnh đại diện là bắt buộc");
+      return;
+    } else {
+      clearErrors("avatar");
+    }
+    UserServices.UploadImage(data.avatar)
       .then((res) => {
-        setUserData(res.user);
-        setValue("name", res.user.name);
+        if (res) {
+          handleSuccessToast("Cập nhật thành công!");
+          refreshUser();
+          HandleCloseModal();
+        } else {
+          handleErrorToast("Tải ảnh không thành công");
+        }
       })
-      .catch((err) => console.error(err));
+      .catch((e) => handleErrorToast("Có lỗi sảy ra"));
   };
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+
   return (
     <div className={styles.wrapper}>
       <Card title={<strong>Cài đặt</strong>}>
@@ -245,7 +315,7 @@ const page = () => {
             <div>Quản lý thông tin cá nhân của bạn</div>
           </div>
           <div>
-            {userData ? (
+            {user ? (
               <div className={`${styles.wrapper_content} mt-3`}>
                 <div
                   className={`${styles.content} d-flex justify-content-between`}
@@ -254,7 +324,7 @@ const page = () => {
                   <div className={`${styles.info}`}>
                     <h4 className=" m-0">Họ và tên</h4>
                     <p className={`${styles.value} fw-bolder m-0 mt-2`}>
-                      {userData.name ? userData.name : "Còn trống..."}
+                      {user.name ? user.name : "Còn trống..."}
                     </p>
                   </div>
                   <div className={`${styles.actions}`}>
@@ -272,7 +342,7 @@ const page = () => {
                   <div className={`${styles.info}`}>
                     <h4 className=" m-0">Email</h4>
                     <p className={`${styles.value} fw-bolder m-0 mt-2`}>
-                      {userData.email ? userData.email : "Còn trống..."}
+                      {user.email ? user.email : "Còn trống..."}
                     </p>
                   </div>
                   <div className={`${styles.actions}`}>
@@ -285,12 +355,12 @@ const page = () => {
                 </div>
                 <div
                   className={`${styles.content_hasImg} d-flex justify-content-between`}
-                  // onClick={() => setModalAvatarShow(true)}
+                  onClick={() => handleOpenModalAvatar()}
                 >
                   <div className={`${styles.info}`}>
                     <h4 className=" m-0">Ảnh đại diện</h4>
                     <div className={`${styles.avatar} m-0`}>
-                      <Image alt="avatar" src={``} />
+                      <Image alt="avatar" src={user!.avatar} />
                     </div>
                   </div>
                   <div className={`${styles.actions}`}>
