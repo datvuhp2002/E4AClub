@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faPersonCircleQuestion,
+  faPlus,
   faSpinner,
   faUser,
   faUserPlus,
@@ -106,10 +107,11 @@ const page = () => {
               <Button
                 onClick={handleSubmit(handleSubmitCreateUser)}
                 success_btn
-                leftIcon={<FontAwesomeIcon icon={faUserPlus} />}
-                className="btn ms-3 fs-5"
+                rounded
+                leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                className="ms-3 fs-5"
               >
-                Tạo
+                Tạo mới
               </Button>
             </div>
           </div>

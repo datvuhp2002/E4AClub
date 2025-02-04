@@ -59,7 +59,7 @@ const CardCourse: React.FC<any> = ({
     [className || ""]: className,
   });
   return (
-    <div className={`${classes} h-100 mt-2`}>
+    <div className={`${classes} h-100 mt-2 border card`}>
       <div
         className={cx(
           "thumbnail",
@@ -106,7 +106,7 @@ const CardCourse: React.FC<any> = ({
         )}
       >
         <h3 className="fw-bold ">{data.title}</h3>
-        <p className="fw-bold fs-6 fw-regular">{data.description}</p>
+        <p className="fw-bold fs-5 fw-regular">{data.description}</p>
         <div
           className={cx(
             "title",

@@ -12,9 +12,8 @@ import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import Link from "next/link";
 import Cookies from "js-cookie";
-import { menuOptionAdmin } from "@/common/consts";
+import { menuOptionTeacher } from "@/common/consts";
 import Button from "@/modules/common/components/Button";
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -118,7 +117,7 @@ const Header: React.FC<{ open: boolean; handleDrawerOpen: () => void }> = ({
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {menuOptionAdmin.map((setting, index) => (
+            {menuOptionTeacher.map((setting, index) => (
               <MenuItem
                 key={index}
                 onClick={handleCloseUserMenu}

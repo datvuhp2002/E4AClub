@@ -38,7 +38,8 @@ const ExcelUploader = () => {
     <div className="">
       <label
         htmlFor="formFile"
-        className="form-label btn btn-outline-success m-0 fs-5 fw-bold p-3"
+        style={{ borderRadius: "1rem", padding: "0.7rem" }}
+        className="form-label btn outline-none m-0 fs-5 fw-bold"
       >
         Upload file tạo người dùng
       </label>

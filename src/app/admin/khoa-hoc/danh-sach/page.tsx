@@ -73,7 +73,7 @@ const page = () => {
           <div className="d-flex align-items-center justify-content-between">
             <div className="fw-bold">Quản lý khóa học</div>
             <div>
-              <div className="col mt-2">
+              <div className="col">
                 <Button
                   success_btn
                   rounded

@@ -250,6 +250,13 @@ const menuOptionAdmin = [
     onclick: AuthServices.Logout,
   },
 ];
+const menuOptionTeacher = [
+  { title: "Cài đặt", path: "/teacher/setting" },
+  {
+    title: "Đăng xuất",
+    onclick: AuthServices.Logout,
+  },
+];
 export {
   WebMetadata,
   DefaultFilterCollection,
@@ -258,6 +265,7 @@ export {
   SearchDocBy,
   Tctl_SelectionGroup,
   Bst_SelectionGroup,
+  menuOptionTeacher,
   PageSize,
   PageSize_Search,
   SearchType,

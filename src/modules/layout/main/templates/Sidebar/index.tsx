@@ -26,11 +26,11 @@ const privateRoutes = [
     name: "Trang chủ",
     icon: <FontAwesomeIcon icon={faHome} />,
   },
-  {
-    path: route.khoa_hoc,
-    name: "Khóa học",
-    icon: <FontAwesomeIcon icon={faBook} />,
-  },
+  // {
+  //   path: route.khoa_hoc,
+  //   name: "Khóa học",
+  //   icon: <FontAwesomeIcon icon={faBook} />,
+  // },
   {
     path: route.gioi_thieu,
     name: "Giới thiệu",

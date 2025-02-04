@@ -10,6 +10,7 @@ import InputField from "@/modules/common/components/input-field";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCirclePlus,
+  faPlus,
   faQuoteLeft,
   faSignature,
   faSpinner,
@@ -104,12 +105,13 @@ const page = () => {
             </strong>
             <div className="d-flex align-items-center ">
               <Button
+                rounded
                 onClick={handleSubmit(handleSubmitCreateUser)}
                 success_btn
-                leftIcon={<FontAwesomeIcon icon={faCirclePlus} />}
-                className="btn ms-3 fs-5"
+                leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                className=" ms-3 fs-5"
               >
-                Tạo
+                Tạo mới
               </Button>
             </div>
           </div>

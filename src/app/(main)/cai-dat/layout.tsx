@@ -1,4 +1,5 @@
-import Layout from "@/modules/layout/setting/templates";
+import Layout from "@/modules/layout/profile/templates";
+
 export default function PageLayout({
   children,
 }: {

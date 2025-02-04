@@ -114,15 +114,15 @@ const page = () => {
         title={
           <div className="d-flex align-items-center justify-content-between">
             <div className=" mt-2 fw-bold">Tạo bài giảng</div>
-            <div className="d-flex mt-2">
+            <div className="d-flex">
               <Button
                 onClick={handleSubmit(handleSubmitFormUrlAdd)}
                 rounded
                 success_btn
                 leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                className="text-nowrap w-100 justify-content-around fs-4"
+                className="text-nowrap w-100 justify-content-around fs-5"
               >
-                Tạo
+                Tạo mới
               </Button>
             </div>
           </div>

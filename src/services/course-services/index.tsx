@@ -15,6 +15,18 @@ const CourseServices = {
       throw err;
     }
   },
+  GetMyCourse: async () => {
+    try {
+      let res: any = await requestApi({
+        endpoint: `/${Service}/my-courses}`,
+        method: "GET",
+      });
+      return res;
+    } catch (err) {
+      console.log("ERRR::::", err);
+      throw err;
+    }
+  },
   GetAllCourse: async () => {
     try {
       const res: any = await requestApi({

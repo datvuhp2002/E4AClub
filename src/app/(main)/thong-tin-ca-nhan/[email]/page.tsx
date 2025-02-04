@@ -6,43 +6,51 @@ import Image from "@/modules/common/components/Image";
 import Card from "@/modules/common/components/Card";
 import moment from "moment";
 import "moment/locale/vi";
+import CourseServices from "@/services/course-services";
+import { useUser } from "@/lib/context/user-context";
 const ThongTinCaNhan = () => {
-  const [profile, setProfile] = useState<IUser>();
+  const { user, loading, refreshUser } = useUser();
+
   moment.locale("vi");
   useEffect(() => {
     try {
-      UserServices.Info().then((res) => {
-        setProfile(res.user);
-      });
+      CourseServices.GetMyCourse()
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => console.log(e));
     } catch (err) {
       console.log("ERRR::::", err);
     }
   }, []);
   return (
     <div className={`${styles.wrapper} mt-5 `}>
-      {profile && (
+      {user && (
         <div className="w-100 h-100 row">
           <div className="col-md-6">
             <Card title="Ảnh đại diện">
-              <Image
-                alt="avatar"
-                src={`${process.env.API_URL}/${profile?.avatar}`}
-              />
+              {user.avatar && (
+                <Image
+                  style={{ maxHeight: "30rem" }}
+                  alt="avatar"
+                  src={`${user!.avatar}`}
+                />
+              )}
             </Card>
           </div>
           <div className="col-md-6">
             <Card title={"Giới thiệu"}>
               <div>
                 <strong className="me-1">Họ và tên:</strong>
-                {profile.name}
+                {user.name}
               </div>
               <div className="mt-2">
                 <strong className="me-1">Email:</strong>
-                {profile.email}
+                {user.email}
               </div>
               <div className="mt-2">
                 <strong className="me-1">Đã tham gia:</strong>
-                {moment(profile.createdAt).fromNow()}
+                {moment(user.createdAt).fromNow()}
               </div>
             </Card>
             <div className="mt-3">

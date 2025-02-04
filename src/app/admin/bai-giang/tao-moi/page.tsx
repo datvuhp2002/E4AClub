@@ -120,9 +120,9 @@ const page = () => {
                 rounded
                 success_btn
                 leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                className="text-nowrap w-100 justify-content-around fs-4"
+                className="text-nowrap w-100 justify-content-around fs-5"
               >
-                Tạo
+                Tạo mới
               </Button>
             </div>
           </div>

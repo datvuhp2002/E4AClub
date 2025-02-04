@@ -14,6 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import InputField from "@/modules/common/components/input-field";
 import { useToastContext } from "@/lib/context/toast-context";
 import { useUser } from "@/lib/context/user-context";
+import ThemeToggle from "@/modules/common/components/theme-toggle";
 
 const page = () => {
   const {

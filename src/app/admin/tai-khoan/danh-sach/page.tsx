@@ -42,7 +42,7 @@ const page = () => {
     setOnLoading(true);
     UserServices.GetAllUser()
       .then((res) => {
-        setList(res.result);
+        setList(res.data);
         setOnLoading(false);
       })
       .catch((errors) => {});
@@ -66,7 +66,7 @@ const page = () => {
           <div className="d-flex align-items-center justify-content-between">
             <div className="fw-bold">Quản lý tài khoản</div>
             <div>
-              <div className="col mt-2">
+              <div className="col ">
                 <Button
                   success_btn
                   rounded

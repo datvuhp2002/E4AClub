@@ -69,7 +69,7 @@ const page = () => {
   }, []);
   return (
     <div className={`${styles.wrapper} mb-5`}>
-      <div className="">
+      <div className="d-flex align-items-center justify-content-between">
         <ol className="breadcrumb mb-3 ">
           <li className="breadcrumb-item">
             <Link href="/admin">Trang chủ</Link>
@@ -82,42 +82,37 @@ const page = () => {
             Chi tiết
           </li>
         </ol>
-      </div>
-      <Card
-        title={
-          <div className="d-flex align-items-center justify-content-between">
-            <strong>
-              Quản lý khóa học{" - "}
-              <span className="text-secondary">{course.title}</span>
-            </strong>
-            <div className=" d-flex fs-5">
-              <Button
-                rounded
-                success_btn
-                leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
-                className="text-nowrap w-100 justify-content-around fs-4"
-                to={`/admin/khoa-hoc/chinh-sua/${params.id}`}
-              >
-                Cập nhật
-              </Button>
-              <Button
-                rounded
-                leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
-                className="text-nowrap w-100 justify-content-around"
-                transparent_btn
-                onClick={() => router.back()}
-              >
-                Quay lại
-              </Button>
-            </div>
+        <div className="d-flex align-items-center justify-content-between">
+          <div className=" d-flex fs-5">
+            <Button
+              rounded
+              leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+              className="text-nowrap w-100 justify-content-around"
+              transparent_btn
+              onClick={() => router.back()}
+            >
+              Quay lại
+            </Button>
+            <Button
+              rounded
+              success_btn
+              leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
+              className="text-nowrap w-100 justify-content-around fs-5"
+              to={`/admin/khoa-hoc/chinh-sua/${params.id}`}
+            >
+              Cập nhật
+            </Button>
           </div>
-        }
-      >
-        <div className="mb-3">
+        </div>
+      </div>
+
+      <div>
+        {/* Course info */}
+        <div className="my-3">
           <Card
             title={
-              <label className="form-label text-danger fw-bold fs-3 ">
-                Thông tin khóa học:
+              <label className="form-label  fw-bold fs-3 ">
+                Thông tin khóa học
               </label>
             }
           >
@@ -193,6 +188,7 @@ const page = () => {
           </Card>
         </div>
         <hr></hr>
+        {/* Students */}
         <div className="mb-3">
           <Card
             title={
@@ -216,6 +212,7 @@ const page = () => {
           </Card>
         </div>
         <hr></hr>
+        {/* Sections */}
         <div className="mb-3">
           <Card
             title={
@@ -247,7 +244,7 @@ const page = () => {
             )}
           </Card>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };

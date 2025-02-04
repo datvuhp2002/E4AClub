@@ -6,7 +6,6 @@ import Search from "@/modules/common/components/Search";
 import Menu from "@/modules/common/components/Popper/Menu";
 import AuthServices from "@/services/auth-services";
 import Cookies from "js-cookie";
-import UserServices from "@/services/user-services";
 import { useUser } from "@/lib/context/user-context";
 const Header = ({ theme }: any) => {
   const [logo, setLogo] = useState("");
@@ -45,7 +44,7 @@ const Header = ({ theme }: any) => {
             {logo && <Image alt="logo" src={logo} logo />}
           </div>
           {/* search */}
-          <Search />
+          {/* <Search /> */}
           {/* action */}
           <div className={`${styles.action} d-flex justify-content-end`}>
             <Menu items={Menu_item}>
