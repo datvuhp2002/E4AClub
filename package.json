@@ -86,10 +86,17 @@
     "@ckeditor/ckeditor5-link": "^44.0.0",
     "@ckeditor/ckeditor5-react": "^9.4.0",
     "@ckeditor/ckeditor5-table": "^44.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/diff-match-patch": "^1.0.36",
+    "@types/fast-levenshtein": "^0.0.4",
     "@types/js-cookie": "^3.0.6",
     "@types/react-beforeunload": "^2.1.5",
     "@types/react-datepicker": "^6.0.1",
     "@types/react-google-recaptcha": "^2.1.9",
-    "copy-webpack-plugin": "^11.0.0"
+    "copy-webpack-plugin": "^11.0.0",
+    "cors": "^2.8.5",
+    "diff-match-patch": "^1.0.5",
+    "fast-levenshtein": "^3.0.0",
+    "natural": "^8.0.1"
   }
 }

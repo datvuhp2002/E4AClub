@@ -13,6 +13,7 @@ import SectionServices from "@/services/section-services";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const CKEditorComponent = dynamic(
   () => import("@/modules/common/components/ck-editor"),

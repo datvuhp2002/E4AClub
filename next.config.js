@@ -12,6 +12,9 @@ const nextConfig = {
     SITE_SECRET: process.env.SITE_SECRET,
     TENANT: process.env.TENANT,
   },
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     const rootDir = path.join(__dirname, "./");
     config.externals.push({

@@ -18,7 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/modules/common/components/Button";
 import UserServices from "@/services/user-services";
-import SelectField from "@/modules/common/components/select-field-register-library ";
+import SelectField from "@/modules/common/components/select-field-register-library";
 import { role } from "@/common/static_variable";
 interface CreateUserForm {
   email: string;
