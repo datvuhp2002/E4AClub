@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div lang="en">
       <div>
         <Header theme={theme} />
-        <Sidebar />
+        {/* <Sidebar /> */}
         <div
           className={`${styles.wrapper_body}`}
           style={{
