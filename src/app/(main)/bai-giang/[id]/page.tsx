@@ -40,7 +40,6 @@ const Page = () => {
     if (current_section) {
       SectionServices.GetSectionByOrder(params.id, current_section)
         .then((res) => {
-          console.log(res.section);
           setSectionData(res.section);
           setHtml(res.section.content || "");
         })

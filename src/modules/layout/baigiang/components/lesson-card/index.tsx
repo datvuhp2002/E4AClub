@@ -2,14 +2,17 @@ import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBookOpenReader,
   faCheckCircle,
   faChevronDown,
   faChevronUp,
   faFileLines,
+  faLinesLeaning,
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./LessonCard.module.scss";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import ExercisesServices from "@/services/exercises-services";
 
 const cx = classNames.bind(styles);
 
@@ -28,7 +31,7 @@ const LessonCard: React.FC<LessonCardProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [show, setShow] = useState<boolean>(false);
-
+  const [exercises, setExercises] = useState<IExercise[]>();
   const [isLearned, setIsLearned] = useState<boolean>(false);
 
   const createQueryString = useCallback(
@@ -47,6 +50,16 @@ const LessonCard: React.FC<LessonCardProps> = ({
   const onShow = () => {
     setShow(!show);
   };
+  useEffect(() => {
+    ExercisesServices.GetExercisesBySection(data._id)
+      .then((res) => {
+        if (res.success) {
+          console.log(res);
+          setExercises(res.exercises);
+        }
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
   return (
     <div className={cx("wrapper")} key={index}>
@@ -69,9 +82,17 @@ const LessonCard: React.FC<LessonCardProps> = ({
       {show && (
         <div>
           <div className={cx("info_card_item")} onClick={onNavigate}>
-            <div className={cx("name", "d-flex align-items-center")}>
-              <h3 className="m-0 me-2">{data.title}</h3>
-              {/* <FontAwesomeIcon icon={faCheckCircle} /> */}
+            <div
+              className={cx(
+                "name",
+                "d-flex align-items-center justify-content-between"
+              )}
+            >
+              <span className="d-flex  align-items-center ">
+                <FontAwesomeIcon icon={faBookOpenReader} className="me-4" />
+                <h3 className="m-0 me-2">{data.title}</h3>
+              </span>
+              {/* <FontAwesomeIcon icon={faCheckCircle} className="" /> */}
             </div>
             {isLearned && (
               <div className={cx("icon")}>
@@ -82,31 +103,31 @@ const LessonCard: React.FC<LessonCardProps> = ({
               </div>
             )}
           </div>
-          {/* {quiz &&
-            quiz.length > 0 &&
-            quiz.map((item, idx) => (
+          {exercises &&
+            exercises.length > 0 &&
+            exercises.map((item, idx) => (
               <div
                 key={idx}
                 className={cx("info_card_item")}
                 onClick={() =>
-                  //  onSelectedQuiz(item.id)}
-                  console.log(item.id)
+                  //  onSelectedexercises(item.id)}
+                  console.log(item._id)
                 }
               >
                 <div className={cx("name", "d-flex align-items-center")}>
-                  <h3 className="m-0 me-2">{item.title}</h3>
-                  <FontAwesomeIcon icon={faFileLines} />
+                  <FontAwesomeIcon icon={faFileLines} className="me-4" />
+                  <h3 className="m-0 me-2">Bài tập {idx + 1}</h3>
                 </div>
-                {quizCompletionStatus[item.id] && (
+                {/* {exercisesCompletionStatus[item.id] && (
                   <div className={cx("icon")}>
                     <FontAwesomeIcon
                       icon={faCheckCircle}
                       className="text-success"
                     />
                   </div>
-                )}
+                )} */}
               </div>
-            ))} */}
+            ))}
         </div>
       )}
     </div>

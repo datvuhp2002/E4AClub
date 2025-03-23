@@ -6,7 +6,7 @@ interface ISection {
   order: number; // Order of the lesson in a course
   createdAt: string; // Timestamp of when the lesson was created
   updatedAt: string; // Timestamp of when the lesson was last updated
-  exercises: Exercise[];
+  exercises?: IExercise[];
   __v: number; // Version key for the document
   video: string; // Video ID associated with the lesson
 }
