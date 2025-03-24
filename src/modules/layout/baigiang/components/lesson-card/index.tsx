@@ -1,15 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
-import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBookOpenReader,
   faCheckCircle,
   faChevronDown,
   faChevronUp,
-  faFileLines,
-  faLinesLeaning,
+  faPenRuler,
 } from "@fortawesome/free-solid-svg-icons";
-
+import classNames from "classnames/bind";
 import styles from "./LessonCard.module.scss";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ExercisesServices from "@/services/exercises-services";
@@ -38,14 +36,26 @@ const LessonCard: React.FC<LessonCardProps> = ({
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-
       return params.toString();
     },
     [searchParams]
   );
-
+  const onSelectedexercises = (quiz_id: string) => {
+    router.push(pathname + "?" + createQueryString("quiz", `${quiz_id}`));
+    // if (!isLearned) {
+    //   onCreateUserProgress(data.id);
+    // } else {
+    //   console.log(data.id);
+    // }
+  };
   const onNavigate = () => {
-    router.push(pathname + "?" + createQueryString("section", `${data.order}`));
+    const params = new URLSearchParams(window.location.search);
+    // Xóa tham số "quiz" nếu có
+    params.delete("quiz");
+    // Thêm hoặc cập nhật tham số "section"
+    params.set("section", `${data.order}`);
+    // Điều hướng đến URL mới
+    router.push(`${pathname}?${params.toString()}`);
   };
   const onShow = () => {
     setShow(!show);
@@ -54,7 +64,6 @@ const LessonCard: React.FC<LessonCardProps> = ({
     ExercisesServices.GetExercisesBySection(data._id)
       .then((res) => {
         if (res.success) {
-          console.log(res);
           setExercises(res.exercises);
         }
       })
@@ -109,13 +118,10 @@ const LessonCard: React.FC<LessonCardProps> = ({
               <div
                 key={idx}
                 className={cx("info_card_item")}
-                onClick={() =>
-                  //  onSelectedexercises(item.id)}
-                  console.log(item._id)
-                }
+                onClick={() => onSelectedexercises(item._id)}
               >
                 <div className={cx("name", "d-flex align-items-center")}>
-                  <FontAwesomeIcon icon={faFileLines} className="me-4" />
+                  <FontAwesomeIcon icon={faPenRuler} className="me-4" />
                   <h3 className="m-0 me-2">Bài tập {idx + 1}</h3>
                 </div>
                 {/* {exercisesCompletionStatus[item.id] && (

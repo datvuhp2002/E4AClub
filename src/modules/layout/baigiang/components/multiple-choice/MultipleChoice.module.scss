@@ -1,0 +1,30 @@
+.option_answer {
+  padding: 1.2rem;
+  font-size: 1.6rem;
+  border-radius: 8px;
+  background-color: #f6f7f9;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+  text-align: center;
+
+  &:hover {
+    background-color: #e8f0fe;
+  }
+
+  &.selected {
+    border-color: #0056b3;
+  }
+
+  &.border-success {
+    border: 2px solid #28a745 !important;
+  }
+
+  &.border-danger {
+    border: 2px solid #dc3545 !important;
+  }
+
+  + .option_answer {
+    margin-top: 1rem;
+  }
+}
