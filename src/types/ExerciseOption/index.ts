@@ -1,6 +1,7 @@
 interface IExerciseOption {
   text: string;
-  isCorrect?: boolean;
+  isCorrect: boolean;
+  _id: string;
 }
 
 interface IExercise {

@@ -175,10 +175,7 @@
   &.login_btn {
     background: var(--header-admin-bg-color) !important;
   }
-  &.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
+
   &.rounded {
     border-radius: 1rem;
   }
@@ -329,5 +326,10 @@
   }
   &:hover {
     opacity: 0.8;
+  }
+  .disabled {
+    pointer-events: none;
+    color: var(--text-color) !important;
+    opacity: 0.5;
   }
 }
