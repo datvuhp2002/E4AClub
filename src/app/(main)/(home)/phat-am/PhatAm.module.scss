@@ -1,6 +1,93 @@
 .wrapper {
-  font-size: calc(var(--fs-text-primary) + 0.1rem);
+    font-size: calc(var(--fs-text-primary) + 0.1rem);
+    margin-top: 28px;
+    height: 100%;
 }
 .container {
-  position: relative;
+    position: relative;
 }
+
+.wrapper-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  padding: 36px 0;
+}
+
+// loader
+/* From Uiverse.io by pradipkaityuiux */ 
+.wrapper-body-rate {
+  --width-rate: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: var(--width-rate);
+  height: var(--width-rate);
+  background: transparent;
+  border-radius: 50%;
+  text-align: center;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .15);
+}
+.wrapper-body-rate p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(var(--fs-text-primary) + 3rem);
+  font-weight: 500;
+  color: var(--color-rate);
+  letter-spacing: 2px;
+}
+
+.wrapper-body-rate svg {
+  width: var(--width-rate);
+  height: var(--width-rate);
+  transform-origin: center;
+  transform: rotate(-90deg) scaleY(-1);
+}
+
+.wrapper-body-rate circle {
+  fill: none;
+  stroke: var(--color-rate);
+  stroke-width: 4;
+  stroke-dasharray: 126; 
+  stroke-dashoffset: calc(126 * (1 - var(--progress) / 100));
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+// end loader
+
+.wrapper-body-voice {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.wrapper-body-voice-button {
+  background-color: var(--statistics-card-img-bg-blue);
+  border: none;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.wrapper-body-voice-button svg {
+  width: 40px;
+  height: 40px;
+}
+
+.wrapper-body-voice-text {
+  display: block;
+  font-size: calc(var(--fs-text-primary) + 0.3rem);
+  font-weight: 500px;
+  color: var(--text-color-primary);
+  margin: 0;
+  padding: 12px 16px;
+  border: 2px solid var(--grey-color);
+  border-radius: 6px;
+  min-width: 50vw;
+}
+

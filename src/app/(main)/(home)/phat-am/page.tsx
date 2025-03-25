@@ -1,98 +1,147 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import DiffMatchPatch from "diff-match-patch";
-import useSpeechRecognition from "@/modules/common/components/useSpeechRecognition";
+import { useState } from 'react';
+import DiffMatchPatch from 'diff-match-patch';
+import useSpeechRecognition from '@/modules/common/components/useSpeechRecognition';
+import classNames from 'classnames/bind';
+
+import styles from './PhatAm.module.scss';
+const cx = classNames.bind(styles);
 
 export default function Home() {
-  const { text, isListening, startListening } = useSpeechRecognition();
-  const [score, setScore] = useState<number | null>(null);
-  const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(
-    null
-  );
+    const { text, isListening, startListening } = useSpeechRecognition();
+    const [isActive, setIsActive] = useState(false); // Thêm state để kiểm soát trạng thái nghe
+    const [score, setScore] = useState<number | null>(null);
+    const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(null);
 
-  const correctText = "Hello, how are you?";
+    const correctText = 'Hello, how are you?';
+    
+    const normalizeText = (str: string) => {
+        return str.toLowerCase().replace(/[.,!?;:"'()]/g, ""); // Bỏ dấu câu
+    };
+    
+    const calculateScore = async () => {
+        const dmp = new DiffMatchPatch();
+    
+        // 1️⃣ Chuẩn hóa văn bản để chấm điểm
+        const normalizedCorrectText = normalizeText(correctText);
+        const normalizedText = normalizeText(text);
+        
+        // 2️⃣ So sánh trên văn bản chuẩn hóa
+        const diffs = dmp.diff_main(normalizedCorrectText, normalizedText);
+        dmp.diff_cleanupSemantic(diffs);
+    
+        let equalLength = 0;
+        diffs.forEach((diff: any) => {
+            const [op, segment] = diff;
+            if (op === 0) equalLength += segment.length;
+        });
+    
+        // 3️⃣ Tính điểm
+        const similarity = (equalLength / normalizedCorrectText.length) * 100;
+        setScore(Math.round(similarity));
+    
+        // 4️⃣ **Tạo highlight trực tiếp trên văn bản gốc**
+        const diffsOriginal = dmp.diff_main(correctText, text);
+        dmp.diff_cleanupSemantic(diffsOriginal);
+    
+        setHighlightedText(
+            <>
+                {diffsOriginal.map((diff: any, index: number) => {
+                    const [op, segment] = diff;
+                    return (
+                        <span
+                            key={index}
+                            style={{
+                                color: op === -1 ? "red" : "black", // Chỉ highlight phần thiếu trong input
+                            }}
+                        >
+                            {segment}
+                        </span>
+                    );
+                })}
+            </>
+        );
+    };
 
-  // Hàm tính điểm và tạo markup hiển thị các chỗ sai (được đánh dấu màu đỏ)
-  const calculateScore = async () => {
-    // Tạo đối tượng diff-match-patch
-    const dmp = new DiffMatchPatch();
-    // Tính sự khác biệt giữa câu mẫu và câu người học nói
-    const diffs = dmp.diff_main(correctText, text);
-    dmp.diff_cleanupSemantic(diffs);
+    // Hàm bật/tắt nghe
+    const handleToggleListening = () => {
+        if (isActive) {
+            calculateScore(); // Sau khi dừng nghe, tiến hành chấm điểm
+        } else {
+            startListening();
+        }
+        setIsActive(!isActive); // Cập nhật trạng thái
+    };
 
-    // Tính điểm dựa trên độ khớp: tính tổng độ dài của các phần bằng nhau chia cho độ dài câu mẫu
-    let equalLength = 0;
-    diffs.forEach((diff: any) => {
-      const [op, segment] = diff;
-      if (op === 0) {
-        equalLength += segment.length;
-      }
-    });
-    const similarity = (equalLength / correctText.length) * 100;
-    setScore(Math.round(similarity));
+    const getColorForScore = (score: number) => {
+        if (score == null) return "#D3D3D3"; 
+        if (score <= 50) return "#FF4D4D"; 
+        if (score < 80) return "#FFC107";
+        return "#28A745"; 
+    };
+    
+    // Áp dụng vào style
+    const dynamicStyles = {
+        "--progress": score ? score : 0,
+        "--color-rate": getColorForScore(score),
+    } as React.CSSProperties;
 
-    // Tạo markup hiển thị: các phần có sự khác biệt (op != 0) được đánh dấu màu đỏ
-    setHighlightedText(
-      <>
-        {diffs.map((diff: any, index: any) => {
-          const [op, segment] = diff;
-          // Nếu op == 0 (khớp hoàn toàn), hiển thị bình thường
-          // Nếu không, hiển thị với màu đỏ
-          return op === 0 ? (
-            <span key={index}>{segment}</span>
-          ) : (
-            <span key={index} style={{ color: "red" }}>
-              {segment}
-            </span>
-          );
-        })}
-      </>
-    );
-  };
+    return (
+        <div className={cx('wrapper')}>
+            <h1 className="text-2xl font-bold mb-4">Chấm điểm phát âm tiếng Anh</h1>
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">
-        Chấm điểm phát âm tiếng Anh 🎤
-      </h1>
+            <div
+                className={cx('wrapper-body')}
+                style={dynamicStyles}
+            >
+                <div className={cx('wrapper-body-rate')}>
+                    <svg viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="21" />
+                    </svg>
+                    <p>{score ? score : 0}</p>
+                </div>
 
-      <button
-        onClick={startListening}
-        className="px-4 py-2 bg-blue-500 text-white rounded-md mb-4"
-        disabled={isListening}
-      >
-        {isListening ? "Đang nghe..." : "Bắt đầu nói"}
-      </button>
+                <div className={cx('wrapper-body-voice')}>
+                    <button onClick={handleToggleListening} className={cx('wrapper-body-voice-button')}>
+                        {isActive ? (
+                            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    fill="#fff"
+                                    d="m400 32h-352c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-352c0-26.5-21.5-48-48-48z"
+                                />
+                            </svg>
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path
+                                    fill="#fff"
+                                    d="M12 15c1.66 0 2.99-1.34 2.99-3L15 6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 15 6.7 12H5c0 3.42 2.72 6.23 6 6.72V22h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"
+                                />
+                            </svg>
+                        )}
+                    </button>
+                    <p className={cx('wrapper-body-voice-text')}>{score !== null ? highlightedText : correctText}</p>
+                </div>
+            </div>
 
-      <p className="text-lg font-semibold">
-        Bạn nói: {text || <i>Chưa có dữ liệu</i>}
-      </p>
+            {/* <p className="text-lg font-semibold">Bạn nói: {text || <i>Chưa có dữ liệu</i>}</p>
 
-      <button
-        onClick={calculateScore}
-        className="mt-4 px-4 py-2 bg-green-500 text-white rounded-md"
-        disabled={!text}
-      >
-        Chấm điểm
-      </button>
-
-      {score !== null && (
-        <div className="mt-4">
-          <p className="text-xl font-bold">Điểm: {score}/100</p>
-          <p className="mt-2">
-            <strong>Câu chuẩn:</strong> {correctText}
-          </p>
-          <p className="mt-2">
-            <strong>So sánh:</strong> {highlightedText}
-          </p>
-          <p className="mt-2 text-sm text-gray-600">
-            Các phần hiển thị bằng{" "}
-            <span style={{ color: "red", fontWeight: "bold" }}>màu đỏ</span> cho
-            biết bạn đã phát âm sai.
-          </p>
+            {score !== null && (
+                <div className="mt-4">
+                    <p className="text-xl font-bold">Điểm: {score}/100</p>
+                    <p className="mt-2">
+                        <strong>Câu chuẩn:</strong> {correctText}
+                    </p>
+                    <p className="mt-2">
+                        <strong>So sánh:</strong> {highlightedText}
+                    </p>
+                    <p className="mt-2 text-sm text-gray-600">
+                        Các phần hiển thị bằng <span style={{ color: 'red', fontWeight: 'bold' }}>màu đỏ</span> cho biết
+                        bạn đã phát âm sai.
+                    </p>
+                </div>
+            )} */}
         </div>
-      )}
-    </div>
-  );
+    );
 }
