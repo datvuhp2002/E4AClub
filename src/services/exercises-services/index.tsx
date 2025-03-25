@@ -5,7 +5,7 @@ const ExercisesServices = {
   GetExercisesBySection: async (id: string) => {
     try {
       let res: any = await fetch({
-        endpoint: `/${Service}/bySection/${id}`,
+        endpoint: `/${Service}/by-section/${id}`,
         method: "GET",
       });
       return res;

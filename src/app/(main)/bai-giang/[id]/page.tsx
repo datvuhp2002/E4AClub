@@ -101,6 +101,7 @@ const Page = () => {
     SectionServices.GetSectionFromCourse(params.id)
       .then((res) => {
         if (res.success) {
+          console.log(res);
           setMaxSection(res.sections.length);
           setLessonData(res.sections);
         }
