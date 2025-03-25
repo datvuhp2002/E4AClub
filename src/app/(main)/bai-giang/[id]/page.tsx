@@ -47,7 +47,6 @@ const Page = () => {
       setIsExercise(true);
       ExercisesServices.GetSection(currentExercise)
         .then((res) => {
-          console.log(res.exercise);
           setExercises(res.exercise);
         })
         .catch((e) => {
@@ -74,7 +73,6 @@ const Page = () => {
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-      console.log(params.toString());
       return params.toString();
     },
     [searchParams]
