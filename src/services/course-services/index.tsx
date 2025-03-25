@@ -18,7 +18,7 @@ const CourseServices = {
   GetMyCourse: async () => {
     try {
       let res: any = await requestApi({
-        endpoint: `/${Service}/my-courses}`,
+        endpoint: `/${Service}/my-courses`,
         method: "GET",
       });
       return res;
