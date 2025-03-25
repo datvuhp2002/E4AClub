@@ -8,8 +8,19 @@ import moment from "moment";
 import "moment/locale/vi";
 import CourseServices from "@/services/course-services";
 import { useUser } from "@/lib/context/user-context";
+import CardCourse from "@/modules/common/components/card-course";
+import CardCourseStyle2 from "@/modules/common/components/card-course-style-2";
 const ThongTinCaNhan = () => {
   const { user, loading, refreshUser } = useUser();
+  const [myCourse, setMyCourse] = useState([]);
+
+  useEffect(() => {
+    CourseServices.GetMyCourse()
+      .then((res) => {
+        setMyCourse(res.data);
+      })
+      .catch((e) => console.error(e));
+  }, []);
 
   moment.locale("vi");
   useEffect(() => {
@@ -55,7 +66,15 @@ const ThongTinCaNhan = () => {
             </Card>
             <div className="mt-3">
               <Card title={"Khóa học đã tham gia"}>
-                <div>Chưa tham gia khóa học nào</div>
+                {myCourse && myCourse.length > 0 ? (
+                  myCourse.map((item, index) => (
+                    <div key={index} className="col-12 d-flex flex-column">
+                      <CardCourseStyle2 data={item} />
+                    </div>
+                  ))
+                ) : (
+                  <div>Chưa tham gia khóa học nào</div>
+                )}
               </Card>
             </div>
           </div>
