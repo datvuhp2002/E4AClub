@@ -3,6 +3,7 @@ import { useState } from "react";
 const useSpeechRecognition = () => {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
+  let recognition: SpeechRecognition | null = null;
 
   const startListening = () => {
     if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
@@ -12,14 +13,14 @@ const useSpeechRecognition = () => {
 
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition() as any; // Ép kiểu tránh lỗi TypeScript
+    recognition = new SpeechRecognition();
 
     recognition.lang = "en-US"; // Nhận diện giọng Anh Mỹ
     recognition.interimResults = false;
     recognition.start();
     setIsListening(true);
 
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       const speechText = event.results[0][0].transcript;
       setText(speechText);
     };
@@ -27,7 +28,14 @@ const useSpeechRecognition = () => {
     recognition.onend = () => setIsListening(false);
   };
 
-  return { text, isListening, startListening };
+  const stopListening = () => {
+    if (recognition) {
+      recognition.stop();
+      setIsListening(false);
+    }
+  };
+
+  return { text, isListening, startListening, stopListening };
 };
 
 export default useSpeechRecognition;
