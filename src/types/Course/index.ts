@@ -15,5 +15,5 @@ interface ICourse {
 interface ICreateCourse {
   title: string;
   description: string;
-  image: string;
+  image: File;
 }

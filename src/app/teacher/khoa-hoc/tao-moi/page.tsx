@@ -152,10 +152,6 @@ const page = () => {
               register={register}
               validation={{
                 required: "Miêu tả không để trống",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Miêu tả không hợp lệ",
-                },
                 maxLength: {
                   value: 500,
                   message: "Miêu tả có tối đa 500 ký tự",

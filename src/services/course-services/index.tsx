@@ -74,10 +74,39 @@ const CourseServices = {
   },
   CreateCourse: async (data: ICreateCourse) => {
     try {
+      // Kiểm tra nếu image không tồn tại
+      if (!data.image) {
+        console.error("Không có ảnh được chọn.");
+        return;
+      }
+
+      // Kiểm tra nếu image là FileList và có ít nhất một phần tử
+      if (data.image instanceof FileList && data.image.length > 0) {
+        data.image = data.image[0]; // Lấy file đầu tiên từ FileList
+      }
+
+      // Kiểm tra lại nếu image không phải File
+      if (!(data.image instanceof File)) {
+        console.error("Đây không phải là một tệp tin.");
+        return;
+      }
+
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        const value = (data as any)[key];
+
+        if (key === "image" && value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, String(value));
+        }
+      });
       const res: any = await requestApi({
-        endpoint: `/${Service}}`,
-        method: "DELETE",
-        data: data,
+        endpoint: `/${Service}`,
+        method: "POST",
+        data: formData,
+        responseType: "json",
+        contentType: "multipart/form-data",
       });
       return res;
     } catch (error) {
