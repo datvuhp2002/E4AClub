@@ -59,7 +59,6 @@ const page = () => {
       });
     CourseServices.GetEnrolledUsers(params.id)
       .then((res) => {
-        console.log(res);
         setEnrollUser(res.enrolledUsers);
         setOnLoadingEnrollUser(false);
       })
