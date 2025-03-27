@@ -57,6 +57,7 @@ const page = () => {
   useEffect(() => {
     SectionServices.GetSection(params.id)
       .then((res) => {
+        console.log(res.section);
         setSectionData(res.section);
       })
       .catch((err) => {
@@ -179,37 +180,39 @@ const page = () => {
               </div>
             </Card>
             <div className="mt-3">
-              <Card
-                title={
-                  <div className="d-flex align-items-center justify-content-between">
-                    Danh sách bài tập
-                    <div className="d-flex mt-2">
-                      <Button
-                        success_btn
-                        rounded
-                        className="fs-5"
-                        to={`/admin/bai-tap/tao-moi?learning=${params.id}`}
-                        leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                      >
-                        Tạo mới
-                      </Button>
+              {sectionData.course && (
+                <Card
+                  title={
+                    <div className="d-flex align-items-center justify-content-between">
+                      Danh sách bài tập
+                      <div className="d-flex mt-2">
+                        <Button
+                          success_btn
+                          rounded
+                          className="fs-5"
+                          to={`/admin/bai-tap/tao-moi?learning=${params.id}`}
+                          leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                        >
+                          Tạo mới
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                }
-              >
-                {!onLoading ? (
-                  <DataTable
-                    data={list}
-                    selectedColumn={selectedColumn}
-                    edit_direction={"chi-tiet"}
-                    delete_handle={() => {
-                      return Promise.resolve({ success: true });
-                    }}
-                  />
-                ) : (
-                  <TableSkeleton />
-                )}
-              </Card>
+                  }
+                >
+                  {!onLoading ? (
+                    <DataTable
+                      data={list}
+                      selectedColumn={selectedColumn}
+                      edit_direction={"chi-tiet"}
+                      delete_handle={() => {
+                        return Promise.resolve({ success: true });
+                      }}
+                    />
+                  ) : (
+                    <TableSkeleton />
+                  )}
+                </Card>
+              )}
             </div>
           </div>
         ) : (

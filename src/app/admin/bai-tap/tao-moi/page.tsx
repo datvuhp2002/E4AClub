@@ -1,115 +1,83 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./TaoMoi.module.scss";
-import { Controller, useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import Card from "@/modules/common/components/Card";
-import { Autocomplete, TextField } from "@mui/material";
-import dynamic from "next/dynamic";
-import CourseServices from "@/services/course-services";
 import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
-import SectionServices from "@/services/section-services";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTableList } from "@fortawesome/free-solid-svg-icons";
-import { useParams, useSearchParams } from "next/navigation";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Select from "@/modules/common/components/Select";
 import { exercisesType } from "@/common/static_variable";
+import ExercisesServices from "@/services/exercises-services";
 
-const CKEditorComponent = dynamic(
-  () => import("@/modules/common/components/ck-editor"),
-  { ssr: false }
-);
 interface FormValues {
-  type: String;
+  type: string;
+  question: string;
+  fillQuestion?: string; // ✅ Thêm ô nhập câu hỏi điền từ khuyết thiếu
+  options?: { text: string; isCorrect: boolean }[];
+  correctAnswers?: string;
 }
+
 const page = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     setValue,
     watch,
-    clearErrors,
-    setError,
+    control,
     formState: { errors },
-  } = useForm<FormValues>({ mode: "all" });
-  const { HandleOpenToast } = useToastContext();
-  const searchParams = useSearchParams();
-  const handleSuccessToast = (message: string) => {
-    HandleOpenToast({
-      type: "success",
-      content: message,
-    });
-  };
-  const handleErrorToast = (message: string) => {
-    HandleOpenToast({
-      type: "error",
-      content: `${message}! Vui lòng thử lại`,
-    });
-  };
-  const [sectionParams, setSectionParams] = useState<string>("");
-  const [courses, setCourses] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const [hasCourse, setHasCourse] = useState(false);
-  const [type, setType] = useState<any>(exercisesType);
-  const [cardObjectTypeChange, setCardObjectTypeChange] = useState<any>([]);
-  const [cardObjectType, setCardObjectType] = useState<any>([]);
+  } = useForm<FormValues>({
+    mode: "all",
+    defaultValues: {
+      type: "options",
+      options: [
+        { text: "", isCorrect: false },
+        { text: "", isCorrect: false },
+      ],
+    },
+  });
 
-  const handleSubmitFormUrlAdd = async (data: any) => {
-    if (sectionParams) {
-      data.courseId = sectionParams;
-    }
-    SectionServices.AddSection(data)
-      .then((res) => {
-        if (res.success) {
-          handleSuccessToast("Tạo thành công");
-        } else {
-          handleErrorToast("Tạo thất bại");
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-        handleErrorToast("Tạo thất bại");
-      });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "options",
+  });
+
+  const { HandleOpenToast } = useToastContext();
+  const [selectedType, setSelectedType] = useState<string>("options");
+
+  const handleSuccessToast = (message: string) => {
+    HandleOpenToast({ type: "success", content: message });
   };
-  const resetFormValues = () => {
-    const currentValues = getValues();
-    Object.keys(currentValues).forEach((key) => {
-      if (key !== "type" && key !== "nation" && key !== "gender") {
-        setValue(key as keyof FormValues, "");
+
+  const handleErrorToast = (message: string) => {
+    HandleOpenToast({ type: "error", content: `${message}! Vui lòng thử lại` });
+  };
+
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const res = await ExercisesServices.createExercise(data);
+      if (res.success) {
+        handleSuccessToast("Tạo bài tập thành công");
+      } else {
+        handleErrorToast("Tạo bài tập thất bại");
       }
-    });
-    Object.keys(currentValues).forEach((key) => {
-      clearErrors(key as keyof FormValues);
-    });
-  };
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    if (name === "type") {
-      const selectedOption = type.find((option: any) => option.value === value);
-      if (selectedOption) {
-        setValue("type", value.toString());
-      }
+    } catch (error) {
+      console.error(error);
+      handleErrorToast("Lỗi khi tạo bài tập");
     }
-    resetFormValues();
   };
-  useEffect(() => {
-    const searchParamsCourse = searchParams.get("learning");
-    if (searchParamsCourse) {
-      setSectionParams(searchParamsCourse);
-    }
-    CourseServices.GetAllCourse()
-      .then((res) => {
-        setCourses(res.data);
-      })
-      .catch((errors) => {
-        console.error(errors);
-      });
-  }, []);
+
+  const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newType = e.target.value;
+    setSelectedType(newType);
+    setValue("type", newType);
+  };
+
   return (
     <div className={`${styles.wrapper} mb-5`}>
-      <div className="">
+      <div>
         <ol className="breadcrumb mb-3">
           <li className="breadcrumb-item">
             <Link href="/admin">Trang chủ</Link>
@@ -119,14 +87,13 @@ const page = () => {
           <li className="breadcrumb-item breadcrumb-active fw-bold">Tạo mới</li>
         </ol>
       </div>
-      {/* Data Table */}
       <Card
         title={
           <div className="d-flex align-items-center justify-content-between">
-            <div className=" mt-2 fw-bold">Tạo bài tập</div>
+            <div className="mt-2 fw-bold">Tạo bài tập</div>
             <div className="d-flex mt-2">
               <Button
-                onClick={handleSubmit(handleSubmitFormUrlAdd)}
+                onClick={handleSubmit(onSubmit)}
                 rounded
                 success_btn
                 leftIcon={<FontAwesomeIcon icon={faPlus} />}
@@ -140,86 +107,97 @@ const page = () => {
       >
         <form>
           <div className="row">
+            {/* Chọn loại bài tập */}
             <div className="col-12 col-md-6 mb-3">
-              {!sectionParams && (
-                <div className="mb-3 ">
-                  <label className="form-label">Bài giảng:</label>
-                  {/* <Controller
-                    name="courseId"
-                    control={control}
-                    rules={{ required: "Vui lòng chọn Bài giảng" }}
-                    render={({ field }) => (
-                      <Autocomplete
-                        {...field}
-                        value={selectedCourse}
-                        options={courses}
-                        getOptionLabel={(option) =>
-                          `${option.title} - ${option._id}`
-                        }
-                        isOptionEqualToValue={(option: any, value: any) =>
-                          option._id === value._id
-                        }
-                        onChange={(event, value) => {
-                          field.onChange(value ? value._id : null);
-                          setSelectedCourse(value);
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label="Bài giảng"
-                            error={!!errors._id}
-                            helperText={
-                              errors._id?.message
-                                ? String(errors._id.message)
-                                : ""
-                            }
-                            InputProps={{
-                              ...params.InputProps,
-                              readOnly: hasCourse,
-                            }}
-                          />
-                        )}
-                      />
-                    )}
-                  />
-                  {errors.courseId && (
-                    <p className="text-danger mt-2">
-                      {String(errors.courseId?.message)}
-                    </p>
-                  )} */}
-                </div>
-              )}
-              <div className="mb-3 ">
-                <label className="form-label">Bài giảng:</label>
-              </div>
+              <label className="fw-bold">Loại bài tập (*)</label>
+              <Select
+                register={register}
+                name="type"
+                validation={{ required: "Loại bài tập là bắt buộc" }}
+                errors={errors}
+                onChange={handleTypeChange}
+              >
+                {exercisesType.map((item: any, index: number) => (
+                  <option key={index} value={item.value}>
+                    {item.title}
+                  </option>
+                ))}
+              </Select>
             </div>
-            <div className="col-12 col-md-6 mb-3">
-              <div className={`${styles.form_item} row align-items-center`}>
-                <label className="col-sm-4 col-xs-12 mb-2 mb-md-0">
-                  Loại thẻ<span className="text-danger ms-1">(*)</span>
-                </label>
-                <div className="col-sm-8 col-xs-12">
-                  <Select
-                    register={register}
-                    name="type"
-                    validation={{ required: "Loại thẻ là bắt buộc" }}
-                    onChange={handleChange}
-                    leftIcon={<FontAwesomeIcon icon={faTableList} />}
-                    errors={errors}
+            <div className="col-12 mb-3">
+              <label className="fw-bold">Câu hỏi (*)</label>
+              <input
+                type="text"
+                className="form-control"
+                {...register("question", {
+                  required: "Câu hỏi là bắt buộc",
+                })}
+              />
+              {errors.question && (
+                <small className="text-danger">{errors.question.message}</small>
+              )}
+            </div>
+
+            {/* Nếu loại bài tập là trắc nghiệm (options) */}
+            {selectedType === "options" && (
+              <>
+                <div className="col-12 mb-3">
+                  <label className="fw-bold">Đáp án</label>
+                  {fields.map((field, index) => (
+                    <div
+                      key={field.id}
+                      className="d-flex align-items-center mb-2"
+                    >
+                      <input
+                        type="text"
+                        className="form-control me-2"
+                        {...register(`options.${index}.text` as const, {
+                          required: "Đáp án không được để trống",
+                        })}
+                      />
+                      <input
+                        type="checkbox"
+                        {...register(`options.${index}.isCorrect` as const)}
+                      />
+                      <Button danger_btn onClick={() => remove(index)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    success_btn
+                    onClick={(e) => {
+                      e.preventDefault();
+                      append({ text: "", isCorrect: false });
+                    }}
                   >
-                    {type &&
-                      type.map((item: any, index: string) => (
-                        <option key={index} value={item.value}>
-                          {item.title}
-                        </option>
-                      ))}
-                  </Select>
-                  {errors.type && (
-                    <small className="text-danger">{errors.type.message}</small>
+                    <FontAwesomeIcon icon={faPlus} /> Thêm đáp án
+                  </Button>
+                </div>
+              </>
+            )}
+
+            {/* Nếu loại bài tập là điền từ khuyết thiếu (fill) */}
+            {selectedType === "fill-in" && (
+              <>
+                <div className="col-12 mb-3">
+                  <label className="fw-bold">Đáp án đúng (*)</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    {...register("correctAnswers", {
+                      required: "Đáp án đúng là bắt buộc",
+                    })}
+                    placeholder="Ví dụ: Việt Nam"
+                  />
+                  {errors.correctAnswers && (
+                    <small className="text-danger">
+                      {errors.correctAnswers.message}
+                    </small>
                   )}
                 </div>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </form>
       </Card>
