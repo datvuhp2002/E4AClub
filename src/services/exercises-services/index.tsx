@@ -2,6 +2,19 @@ import fetch from "@/common/request";
 
 const Service = "exercises";
 const ExercisesServices = {
+  createExercise: async (data: any) => {
+    try {
+      let res: any = await fetch({
+        endpoint: `/${Service}`,
+        method: "POST",
+        data,
+      });
+      return res;
+    } catch (err) {
+      console.log("ERRR::::", err);
+      throw err;
+    }
+  },
   GetExercisesBySection: async (id: string) => {
     try {
       let res: any = await fetch({
