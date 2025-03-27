@@ -13,7 +13,6 @@ import SectionServices from "@/services/section-services";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTableList } from "@fortawesome/free-solid-svg-icons";
 import { useParams, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 import Select from "@/modules/common/components/Select";
 import { exercisesType } from "@/common/static_variable";
 
