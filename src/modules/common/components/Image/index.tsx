@@ -25,6 +25,7 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   h50?: boolean; // Optional height 50% prop
   minh30?: boolean; // Optional min-height 30% prop
   course_img?: boolean; // Optional min-height 30% prop
+  course_img_publish?: boolean; // Optional min-height 30% prop
 }
 
 const Image: React.FC<ImageProps> = ({
@@ -44,6 +45,7 @@ const Image: React.FC<ImageProps> = ({
   h50,
   minh30,
   course_img,
+  course_img_publish,
   avatar,
   ...props
 }) => {
@@ -72,6 +74,7 @@ const Image: React.FC<ImageProps> = ({
     minh30,
     rounded,
     course_img,
+    course_img_publish,
     [className!]: className, // Use non-null assertion
   });
 

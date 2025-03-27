@@ -94,8 +94,9 @@ const CardCourse: React.FC<any> = ({
           </Button>
         )}
         <Image
+          course_img_publish
           alt=""
-          src={`${process.env.API_URL}/${data.thumbnail}`}
+          src={`${data.image}`}
           className="object-fit-fill"
         />
       </div>
@@ -105,8 +106,8 @@ const CardCourse: React.FC<any> = ({
           "d-flex flex-column w-100 p-3 justify-content-between "
         )}
       >
-        <h3 className="fw-bold ">{data.title}</h3>
-        <p className="fw-bold fs-5 fw-regular">{data.description}</p>
+        <h3 className=" ">{data.title}</h3>
+        <p className="fs-5 fw-regular">{data.description}</p>
         <div
           className={cx(
             "title",

@@ -90,7 +90,7 @@ const page = () => {
       setOnLoading(false);
       handleErrorToast("Tạo khóa học thất bại");
     }
-    // resetFormValues();
+    resetFormValues();
   };
   useEffect(() => {}, []);
   return (

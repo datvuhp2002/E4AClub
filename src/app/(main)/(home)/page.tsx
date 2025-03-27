@@ -10,7 +10,6 @@ const Page = () => {
   useEffect(() => {
     CourseServices.GetAllCoursesWithCheckEnrolled()
       .then((res) => {
-        console.log(res);
         setCourse(res.data);
       })
       .catch((e) => console.error(e));
