@@ -1,4 +1,5 @@
-import FillBlank from '@/modules/common/components/FillBlank';
+import FillBlank from '@/modules/layout/baigiang/components/FillBlank';
+import Speaking from '@/modules/layout/baigiang/components/Speaking';
 import { useState } from 'react';
 
 export default function Home() {
@@ -7,10 +8,11 @@ export default function Home() {
 
     return (
         <div className='mt-5' style={{width: '65%'}}>
-            <FillBlank
+            {/* <FillBlank
                 question="I _____ to school every day."
                 correctAnswer="go" 
-            />
+            /> */}
+            <Speaking question='Where did you go?'/>
         </div>
     );
 }
