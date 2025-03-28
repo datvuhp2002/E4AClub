@@ -27,6 +27,11 @@ const FillBlank: React.FC<FillBlankProps> = ({ question, correctAnswer }) => {
                 type="text"
                 value={userAnswer}
                 onChange={(e) => setUserAnswer(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        checkAnswer(); 
+                    }
+                }}
                 placeholder="Nhập đáp án..."
             />
            <div className={cx("wrapper-check-answer")}>
