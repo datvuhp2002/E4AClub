@@ -15,45 +15,64 @@ export default function Home() {
     const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(null);
 
     const correctText = 'Hello, how are you?';
-    
+
     const normalizeText = (str: string) => {
-        return str.toLowerCase().replace(/[.,!?;:"'()]/g, ""); // Bỏ dấu câu
+        return str.toLowerCase().replace(/[.,!?;:"'()]/g, ''); // Bỏ dấu câu
     };
-    
+
     const calculateScore = async () => {
         const dmp = new DiffMatchPatch();
     
-        // 1️⃣ Chuẩn hóa văn bản để chấm điểm
-        const normalizedCorrectText = normalizeText(correctText);
-        const normalizedText = normalizeText(text);
-        
-        // 2️⃣ So sánh trên văn bản chuẩn hóa
-        const diffs = dmp.diff_main(normalizedCorrectText, normalizedText);
-        dmp.diff_cleanupSemantic(diffs);
+        // Hàm chuẩn hóa văn bản để so sánh
+        const normalizeTextForDiff = (str: string) => {
+            return str
+                .toLowerCase()
+                .replace(/[.,!?;:"'()]/g, "") // Bỏ dấu câu
+                .replace(/\s+/g, " ") // Bỏ khoảng trắng thừa
+                .trim();
+        };
+    
+        // 1️⃣ Chuẩn hóa văn bản
+        const normalizedCorrectText = normalizeTextForDiff(correctText);
+        const normalizedText = normalizeTextForDiff(text);
+    
+        // 2️⃣ Tạo diff trên văn bản chuẩn hóa
+        const diffsNormalized = dmp.diff_main(normalizedCorrectText, normalizedText);
+        dmp.diff_cleanupSemantic(diffsNormalized);
     
         let equalLength = 0;
-        diffs.forEach((diff: any) => {
+        diffsNormalized.forEach((diff: any) => {
             const [op, segment] = diff;
             if (op === 0) equalLength += segment.length;
         });
     
-        // 3️⃣ Tính điểm
+        // 3️⃣ Tính điểm chính xác
         const similarity = (equalLength / normalizedCorrectText.length) * 100;
         setScore(Math.round(similarity));
     
-        // 4️⃣ **Tạo highlight trực tiếp trên văn bản gốc**
-        const diffsOriginal = dmp.diff_main(correctText, text);
+        // 4️⃣ **So sánh trên văn bản gốc**
+        const diffsOriginal = dmp.diff_main(correctText.toLowerCase(), text.toLowerCase());
         dmp.diff_cleanupSemantic(diffsOriginal);
+        console.log(diffsOriginal);
+        console.log(text);
     
         setHighlightedText(
             <>
                 {diffsOriginal.map((diff: any, index: number) => {
                     const [op, segment] = diff;
+                    const cleanedSegment = segment.replace(/\s+/g, "").replace(/[.,!?;:"'()]/g, ""); // Bỏ khoảng trắng và dấu câu
+    
+                    // Nếu phần khác biệt chỉ chứa khoảng trắng hoặc dấu câu, không highlight
+                    if (!/[a-zA-Z0-9]/.test(cleanedSegment)) {
+                        return <span key={index}>{segment}</span>;
+                    }
+    
                     return (
                         <span
                             key={index}
                             style={{
-                                color: op === -1 ? "red" : "black", // Chỉ highlight phần thiếu trong input
+                                color: op === -1 ? "red" : "black", // Highlight nếu là từ bị thiếu
+                                textDecoration: op === 1 ? "underline" : "none", // Gạch chân nếu là từ thêm vào
                             }}
                         >
                             {segment}
@@ -62,7 +81,7 @@ export default function Home() {
                 })}
             </>
         );
-    };
+    };        
 
     // Hàm bật/tắt nghe
     const handleToggleListening = () => {
@@ -75,29 +94,26 @@ export default function Home() {
     };
 
     const getColorForScore = (score: number) => {
-        if (score == null) return "#D3D3D3"; 
-        if (score <= 50) return "#FF4D4D"; 
-        if (score < 80) return "#FFC107";
-        return "#28A745"; 
+        if (score == null) return '#D3D3D3';
+        if (score <= 50) return '#FF4D4D';
+        if (score < 80) return '#FFC107';
+        return '#28A745';
     };
-    
+
     // Áp dụng vào style
     const dynamicStyles = {
-        "--progress": score ? score : 0,
-        "--color-rate": getColorForScore(score),
+        '--progress': score ? score : 0,
+        '--color-rate': getColorForScore(score)
     } as React.CSSProperties;
 
     return (
         <div className={cx('wrapper')}>
             <h1 className="text-2xl font-bold mb-4">Chấm điểm phát âm tiếng Anh</h1>
 
-            <div
-                className={cx('wrapper-body')}
-                style={dynamicStyles}
-            >
+            <div className={cx('wrapper-body')} style={dynamicStyles}>
                 <div className={cx('wrapper-body-rate')}>
                     <svg viewBox="0 0 50 50">
-                        <circle cx="25" cy="25" r="21" />
+                        <circle cx="25" cy="25" r="20" />
                     </svg>
                     <p>{score ? score : 0}</p>
                 </div>
