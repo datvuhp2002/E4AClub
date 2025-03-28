@@ -6,11 +6,10 @@ export default function Home() {
     const correct_answer = 'go';
 
     return (
-        <div className='mt-5'>
+        <div className='mt-5' style={{width: '65%'}}>
             <FillBlank
-                sentence="I _____ to school every day."
-                correctAnswer="go"
-                options={['go', 'goes', 'going', 'went']}
+                question="I _____ to school every day."
+                correctAnswer="go" 
             />
         </div>
     );

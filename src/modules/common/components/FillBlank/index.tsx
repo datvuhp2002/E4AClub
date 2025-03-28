@@ -1,93 +1,49 @@
 'use client';
 
 import { useState } from 'react';
+import styles from './FillBlank.module.scss';
+import classNames from 'classnames/bind';
+import Button from '../Button';
 
+const cx = classNames.bind(styles);
 interface FillBlankProps {
-    sentence: string; // Câu có chứa "_____"
+    question: string; // Câu hỏi
     correctAnswer: string; // Đáp án đúng
-    options: string[]; // Danh sách đáp án để chọn
 }
 
-const FillBlank: React.FC<FillBlankProps> = ({ sentence, correctAnswer, options = [] }) => {
-    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+const FillBlank: React.FC<FillBlankProps> = ({ question, correctAnswer }) => {
+    const [userAnswer, setUserAnswer] = useState('');
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
-    const handleSelectAnswer = (answer: string) => {
-        setSelectedAnswer(answer);
-        setIsCorrect(null); // Reset trạng thái đúng/sai khi chọn đáp án mới
-    };
-
     const checkAnswer = () => {
-        setIsCorrect(selectedAnswer === correctAnswer);
+        setIsCorrect(userAnswer.trim().toLowerCase() === correctAnswer.toLowerCase());
     };
-
-    const parts = sentence.split('_____'); // Tách câu thành hai phần
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            {/* Hiển thị câu với đáp án được chọn */}
-            <p style={{ fontSize: '18px' }}>
-                {parts[0]}{' '}
-                <span
-                    style={{
-                        display: 'inline-block',
-                        minWidth: '80px',
-                        borderBottom: '2px solid black',
-                        padding: '5px',
-                        fontWeight: 'bold'
-                    }}
-                >
-                    {selectedAnswer || '_____'}
-                </span>{' '}
-                {parts[1]}
-            </p>
-
-            {/* Hiển thị danh sách các lựa chọn dưới dạng button */}
-            <div style={{ marginTop: '10px' }}>
-                {options.map((option, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handleSelectAnswer(option)}
-                        style={{
-                            margin: '5px',
-                            padding: '10px',
-                            fontSize: '16px',
-                            backgroundColor: selectedAnswer === option ? '#007bff' : '#f0f0f0',
-                            color: selectedAnswer === option ? '#fff' : '#000',
-                            border: '1px solid #ccc',
-                            borderRadius: '5px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        {option}
-                    </button>
-                ))}
-            </div>
-
-            {/* Nút kiểm tra đáp án */}
-            <div style={{ marginTop: '15px' }}>
-                <button
-                    onClick={checkAnswer}
-                    style={{
-                        padding: '10px 15px',
-                        fontSize: '16px',
-                        backgroundColor: '#28a745',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Kiểm tra
-                </button>
-            </div>
-
-            {/* Hiển thị kết quả */}
-            {isCorrect !== null && (
-                <p style={{ color: isCorrect ? 'green' : 'red', fontSize: '18px', marginTop: '10px' }}>
-                    {isCorrect ? '✔ Chính xác!' : '❌ Sai, hãy thử lại!'}
-                </p>
-            )}
+        <div className={cx("wrapper")}>
+            <h2 className={cx("wrapper-question")}>{question}</h2>
+            <input
+                className={cx("wrapper-input")}
+                type="text"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                placeholder="Nhập đáp án..."
+            />
+           <div className={cx("wrapper-check-answer")}>
+                <div>
+                    <Button 
+                        success_btn
+                        className={cx("wrapper-check-answer-btn", { disabled: !userAnswer })}
+                        onClick={checkAnswer}
+                        disabled={userAnswer ? false : true}
+                    >Kiểm tra</Button>
+                </div>
+                {isCorrect !== null && (
+                    <p className={cx("wrapper-check-answer-result")} style={{ color: isCorrect ? 'green' : 'red'}}>
+                        {isCorrect ? '✔ Chính xác!' : '❌ Chưa đúng, hãy thử lại!'}
+                    </p>
+                )}
+           </div>
         </div>
     );
 };
