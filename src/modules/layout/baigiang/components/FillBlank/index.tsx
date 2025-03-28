@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import styles from './FillBlank.module.scss';
 import classNames from 'classnames/bind';
-import Button from '../Button';
+import Button from '../../../../common/components/Button';
 
 const cx = classNames.bind(styles);
 interface FillBlankProps {
