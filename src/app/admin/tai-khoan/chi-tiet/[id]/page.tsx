@@ -33,7 +33,7 @@ const page = () => {
   useEffect(() => {
     UserServices.GetUserById(params.id)
       .then((res) => {
-        setUserData(res.user);
+        setUserData(res.data.user);
       })
       .catch((err) => {
         handleErrorToast("Đã xảy ra lỗi");

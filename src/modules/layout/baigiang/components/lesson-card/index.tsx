@@ -64,7 +64,6 @@ const LessonCard: React.FC<LessonCardProps> = ({
     ExercisesServices.GetExercisesBySection(data._id)
       .then((res) => {
         if (res.success) {
-          console.log("Exercises", res);
           setExercises(res.exercises);
         }
       })
