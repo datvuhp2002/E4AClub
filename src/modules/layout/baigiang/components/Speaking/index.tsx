@@ -16,105 +16,81 @@ interface SpeakingProps {
 }
 
 const Speaking: React.FC<SpeakingProps> = ({ question }) => {
-    const { text, isListening, startListening, stopListening, mediaBlobUrl } = useSpeechRecognition();
-    const [isActive, setIsActive] = useState(false); // Thêm state để kiểm soát trạng thái nghe
     const [score, setScore] = useState<number | null>(null);
     const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(null);
 
-    const normalizeText = (str: string) => {
-        return str.toLowerCase().replace(/[.,!?;:"'()]/g, ''); // Bỏ dấu câu
-    };
+    const calculateScore = async (inputText: string) => {
+        // Hàm loại bỏ dấu câu và tách câu thành từ + lưu vị trí dấu câu
+        const splitTextWithPunctuation = (text: string) => {
+            const words = [];
+            const punctuations = [];
+            const regex = /(\w+)|([^\w\s])/g; // Bắt cả từ và dấu câu
+            let match;
+            let index = 0;
 
-    const calculateScore = async () => {
-        const dmp = new DiffMatchPatch();
+            while ((match = regex.exec(text)) !== null) {
+                if (match[1]) {
+                    words.push({ index, value: match[1] });
+                } else if (match[2]) {
+                    punctuations.push({ index, value: match[2] });
+                }
+                index++;
+            }
 
-        // Hàm chuẩn hóa văn bản để so sánh
-        const normalizeTextForDiff = (str: string) => {
-            return str
-                .toLowerCase()
-                .replace(/[.,!?;:"'()]/g, '') // Bỏ dấu câu
-                .replace(/\s+/g, ' ') // Bỏ khoảng trắng thừa
-                .trim();
+            return { words, punctuations };
         };
 
-        // 1️⃣ Chuẩn hóa văn bản
-        const normalizedCorrectText = normalizeTextForDiff(question);
-        const normalizedText = normalizeTextForDiff(text);
+        // Tách `question` và `inputText`
+        const questionData = splitTextWithPunctuation(question);
+        const inputData = splitTextWithPunctuation(inputText.toLowerCase()); // Không phân biệt hoa thường
 
-        // 2️⃣ Tạo diff trên văn bản chuẩn hóa
-        const diffsNormalized = dmp.diff_main(normalizedCorrectText, normalizedText);
-        dmp.diff_cleanupSemantic(diffsNormalized);
+        // So sánh từ theo vị trí
+        let incorrectIndexes = new Set<number>(); // Chứa index của từ sai
+        let correctCount = 0;
 
-        let equalLength = 0;
-        diffsNormalized.forEach((diff: any) => {
-            const [op, segment] = diff;
-            if (op === 0) equalLength += segment.length;
+        questionData.words.forEach((qWord, i) => {
+            if (inputData.words[i] && qWord.value.toLowerCase() === inputData.words[i].value) {
+                correctCount++;
+            } else {
+                incorrectIndexes.add(qWord.index); // Đánh dấu từ sai
+            }
         });
 
-        // 3️⃣ Tính điểm chính xác
-        const similarity = (equalLength / normalizedCorrectText.length) * 100;
+        // Tính điểm
+        const totalWords = questionData.words.length;
+        const similarity = (1 - incorrectIndexes.size / totalWords) * 100;
         setScore(Math.round(similarity));
 
-        // 4️⃣ **So sánh trên văn bản gốc**
-        const diffsOriginal = dmp.diff_main(question.toLowerCase(), text.toLowerCase());
-        dmp.diff_cleanupSemantic(diffsOriginal);
-        console.log(diffsOriginal);
-        console.log(text);
+        // Tạo highlight text với khoảng trắng trước các từ không phải từ đầu tiên
+        const highlightedText = questionData.words.map((word, i) => {
+            const isIncorrect = incorrectIndexes.has(word.index);
+            return (
+                <span key={i} style={{ color: isIncorrect ? 'red' : 'black' }}>
+                    {i > 0 && ' '}
+                    {word.value}
+                </span>
+            );
+        });
 
-        setHighlightedText(
-            <>
-                {diffsOriginal.map((diff: any, index: number) => {
-                    const [op, segment] = diff;
-                    const cleanedSegment = segment.replace(/\s+/g, '').replace(/[.,!?;:"'()]/g, ''); // Bỏ khoảng trắng và dấu câu
+        // Chèn dấu câu vào vị trí ban đầu
+        questionData.punctuations.forEach((punc) => {
+            highlightedText.splice(
+                punc.index,
+                0,
+                <span key={`p-${punc.index}`} style={{ color: 'black' }}>
+                    {punc.value}
+                </span>
+            );
+        });
 
-                    // Nếu phần khác biệt chỉ chứa khoảng trắng hoặc dấu câu, không highlight
-                    if (!/[a-zA-Z0-9]/.test(cleanedSegment)) {
-                        return <span key={index}>{segment}</span>;
-                    }
-
-                    return (
-                        <span
-                            key={index}
-                            style={{
-                                color: op === -1 ? 'red' : 'black', // Highlight nếu là từ bị thiếu
-                                textDecoration: op === 1 ? 'underline' : 'none' // Gạch chân nếu là từ thêm vào
-                            }}
-                        >
-                            {segment}
-                        </span>
-                    );
-                })}
-            </>
-        );
+        setHighlightedText(<>{highlightedText}</>);
     };
 
-    // Hàm bật/tắt nghe
-    const handleToggleListening = () => {
-        if (isActive) {
-            stopListening();
-            calculateScore(); // Sau khi dừng nghe, tiến hành chấm điểm
-        } else {
-            startListening();
-        }
-        setIsActive(!isActive); // Cập nhật trạng thái
-    };
-
-    const getColorForScore = (score: number | null) => {
-        if (score == null) return '#D3D3D3';
-        if (score <= 50) return '#FF4D4D';
-        if (score < 80) return '#FFC107';
-        return '#28A745';
-    };
-
-    // Áp dụng vào style
-    const dynamicStyles = {
-        '--progress': score ? score : 0,
-        '--color-rate': getColorForScore(score)
-    } as React.CSSProperties;
+    const { isListening, startListening, audioURL } = useSpeechRecognition(calculateScore);
 
     const handlePlayAudio = () => {
-        if (mediaBlobUrl) {
-            const audio = new Audio(mediaBlobUrl);
+        if (audioURL) {
+            const audio = new Audio(audioURL);
             audio.play();
         }
     };
@@ -123,17 +99,31 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
         <div className={cx('wrapper')}>
             <h1 className="text-2xl font-bold mb-4">Chấm điểm phát âm tiếng Anh</h1>
 
-            <div className={cx('wrapper-body')} style={dynamicStyles}>
+            <div
+                className={cx('wrapper-body')}
+                style={
+                    {
+                        '--progress': score || 0,
+                        '--color-rate': score
+                            ? score < 50
+                                ? '#FF4D4D'
+                                : score < 80
+                                  ? '#FFC107'
+                                  : '#28A745'
+                            : '#D3D3D3'
+                    } as React.CSSProperties
+                }
+            >
                 <div className={cx('wrapper-body-rate')}>
                     <svg viewBox="0 0 50 50">
                         <circle cx="25" cy="25" r="20" />
                     </svg>
-                    <p>{score ? score : 0}</p>
+                    <p>{score || 0}</p>
                 </div>
 
                 <div className={cx('wrapper-body-voice')}>
-                    <button onClick={handleToggleListening} className={cx('wrapper-body-voice-button')}>
-                        {isActive ? (
+                    <button onClick={startListening} className={cx('wrapper-body-voice-button')} disabled={isListening}>
+                        {isListening ? (
                             <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     fill="#fff"
@@ -153,7 +143,7 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
                     <button
                         className={cx('wrapper-body-voice-replay-btn')}
                         onClick={handlePlayAudio}
-                        disabled={!mediaBlobUrl}
+                        disabled={!audioURL}
                     >
                         <FontAwesomeIcon icon={faVolumeHigh} />
                     </button>
