@@ -21,7 +21,6 @@ const FillBlank: React.FC<FillBlankProps> = ({ question, correctAnswer }) => {
 
     return (
         <div className={cx("wrapper")}>
-            <h2 className={cx("wrapper-question")}>{question}</h2>
             <input
                 className={cx("wrapper-input")}
                 type="text"

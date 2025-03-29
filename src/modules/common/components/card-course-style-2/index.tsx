@@ -8,8 +8,9 @@ import Image from '@/modules/common/components/Image';
 const cx = classNames.bind(styles);
 
 const CardCourseStyle2: React.FC<any> = ({ data, className }) => {
+    useEffect(()=> {console.log(data)},[])
     return (
-        <Link href="/bai-giang/${data._id}?section=1" className={cx('wrapper', '')}>
+        <Link href={`/bai-giang/${data._id}?section=1`} className={cx('wrapper', '')}>
             <div className={cx("wrapper-img")}>
                 <Image alt={data.title} src={`${data.image}`} h100 w100 />
             </div>
