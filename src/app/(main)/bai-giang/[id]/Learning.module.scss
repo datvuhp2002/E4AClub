@@ -111,3 +111,35 @@
     }
   }
 }
+
+@media (max-width: 992px) {
+  .wrapper {
+    .course {
+      width: 100%;
+    }
+    .info {
+      position: fixed;
+      top: var(--header-height);
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      width: 600px;
+      max-width: 100%;
+      margin-top: 0;
+      padding-bottom: 5rem;
+    }
+  }
+}
+
+@media (max-width: 569px) {
+  .wrapper {
+    .vid {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 12 / 10;
+      position: relative;
+    }
+  }
+}
+

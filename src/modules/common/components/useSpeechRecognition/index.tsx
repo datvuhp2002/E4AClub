@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useReactMediaRecorder } from "react-media-recorder";
 
 const useSpeechRecognition = () => {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
+
   let recognition: SpeechRecognition | null = null;
 
   const startListening = () => {
@@ -35,7 +37,21 @@ const useSpeechRecognition = () => {
     }
   };
 
-  return { text, isListening, startListening, stopListening };
+  // 📌 Sử dụng react-media-recorder để thu âm giọng nói
+  const { startRecording, stopRecording, mediaBlobUrl } =
+    useReactMediaRecorder({
+      audio: true,
+    });
+
+  return {
+    text,
+    isListening,
+    startListening,
+    stopListening,
+    startRecording,
+    stopRecording,
+    mediaBlobUrl, // URL của file ghi âm
+  };
 };
 
 export default useSpeechRecognition;
