@@ -5,6 +5,9 @@ import DiffMatchPatch from 'diff-match-patch';
 import useSpeechRecognition from '@/modules/common/components/useSpeechRecognition';
 import classNames from 'classnames/bind';
 import styles from './Speaking.module.scss';
+import Button from '@/modules/common/components/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -13,7 +16,7 @@ interface SpeakingProps {
 }
 
 const Speaking: React.FC<SpeakingProps> = ({ question }) => {
-    const { text, isListening, startListening } = useSpeechRecognition();
+    const { text, isListening, startListening, stopListening, mediaBlobUrl } = useSpeechRecognition();
     const [isActive, setIsActive] = useState(false); // Thêm state để kiểm soát trạng thái nghe
     const [score, setScore] = useState<number | null>(null);
     const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(null);
@@ -24,57 +27,57 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
 
     const calculateScore = async () => {
         const dmp = new DiffMatchPatch();
-    
+
         // Hàm chuẩn hóa văn bản để so sánh
         const normalizeTextForDiff = (str: string) => {
             return str
                 .toLowerCase()
-                .replace(/[.,!?;:"'()]/g, "") // Bỏ dấu câu
-                .replace(/\s+/g, " ") // Bỏ khoảng trắng thừa
+                .replace(/[.,!?;:"'()]/g, '') // Bỏ dấu câu
+                .replace(/\s+/g, ' ') // Bỏ khoảng trắng thừa
                 .trim();
         };
-    
+
         // 1️⃣ Chuẩn hóa văn bản
         const normalizedCorrectText = normalizeTextForDiff(question);
         const normalizedText = normalizeTextForDiff(text);
-    
+
         // 2️⃣ Tạo diff trên văn bản chuẩn hóa
         const diffsNormalized = dmp.diff_main(normalizedCorrectText, normalizedText);
         dmp.diff_cleanupSemantic(diffsNormalized);
-    
+
         let equalLength = 0;
         diffsNormalized.forEach((diff: any) => {
             const [op, segment] = diff;
             if (op === 0) equalLength += segment.length;
         });
-    
+
         // 3️⃣ Tính điểm chính xác
         const similarity = (equalLength / normalizedCorrectText.length) * 100;
         setScore(Math.round(similarity));
-    
+
         // 4️⃣ **So sánh trên văn bản gốc**
         const diffsOriginal = dmp.diff_main(question.toLowerCase(), text.toLowerCase());
         dmp.diff_cleanupSemantic(diffsOriginal);
         console.log(diffsOriginal);
         console.log(text);
-    
+
         setHighlightedText(
             <>
                 {diffsOriginal.map((diff: any, index: number) => {
                     const [op, segment] = diff;
-                    const cleanedSegment = segment.replace(/\s+/g, "").replace(/[.,!?;:"'()]/g, ""); // Bỏ khoảng trắng và dấu câu
-    
+                    const cleanedSegment = segment.replace(/\s+/g, '').replace(/[.,!?;:"'()]/g, ''); // Bỏ khoảng trắng và dấu câu
+
                     // Nếu phần khác biệt chỉ chứa khoảng trắng hoặc dấu câu, không highlight
                     if (!/[a-zA-Z0-9]/.test(cleanedSegment)) {
                         return <span key={index}>{segment}</span>;
                     }
-    
+
                     return (
                         <span
                             key={index}
                             style={{
-                                color: op === -1 ? "red" : "black", // Highlight nếu là từ bị thiếu
-                                textDecoration: op === 1 ? "underline" : "none", // Gạch chân nếu là từ thêm vào
+                                color: op === -1 ? 'red' : 'black', // Highlight nếu là từ bị thiếu
+                                textDecoration: op === 1 ? 'underline' : 'none' // Gạch chân nếu là từ thêm vào
                             }}
                         >
                             {segment}
@@ -83,11 +86,12 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
                 })}
             </>
         );
-    };        
+    };
 
     // Hàm bật/tắt nghe
     const handleToggleListening = () => {
         if (isActive) {
+            stopListening();
             calculateScore(); // Sau khi dừng nghe, tiến hành chấm điểm
         } else {
             startListening();
@@ -107,6 +111,13 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
         '--progress': score ? score : 0,
         '--color-rate': getColorForScore(score)
     } as React.CSSProperties;
+
+    const handlePlayAudio = () => {
+        if (mediaBlobUrl) {
+            const audio = new Audio(mediaBlobUrl);
+            audio.play();
+        }
+    };
 
     return (
         <div className={cx('wrapper')}>
@@ -138,6 +149,13 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
                                 />
                             </svg>
                         )}
+                    </button>
+                    <button
+                        className={cx('wrapper-body-voice-replay-btn')}
+                        onClick={handlePlayAudio}
+                        disabled={!mediaBlobUrl}
+                    >
+                        <FontAwesomeIcon icon={faVolumeHigh} />
                     </button>
                     <p className={cx('wrapper-body-voice-text')}>{score !== null ? highlightedText : question}</p>
                 </div>
