@@ -26,9 +26,7 @@ const page = () => {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const [onLoading, setOnLoading] = useState<boolean>(true);
-  const [sectionData, setSectionData] = useState<IGetSectionRes>(
-    {} as IGetSectionRes
-  );
+  const [exerciseData, setExerciseData] = useState<IExercise>({} as IExercise);
   const [list, setList] = useState<IExercise>();
   const selectedColumn = [
     { title: "Câu hỏi", data: "question" },
@@ -55,29 +53,26 @@ const page = () => {
   };
 
   useEffect(() => {
-    SectionServices.GetSection(params.id)
+    ExercisesServices.GetExerciseById(params.id)
       .then((res) => {
-        setSectionData(res.section);
+        console.log(res);
+        setExerciseData(res.exercise);
       })
       .catch((err) => {
         handleErrorToast("Đã xảy ra lỗi");
       });
-    ExercisesServices.GetExercisesBySection(params.id).then((res) => {
-      setOnLoading(false);
-      setList(res.exercises);
-    });
   }, []);
   return (
     <Suspense fallback={<div>Đang tải...</div>}>
       <div className={styles.wrapper}>
-        {sectionData ? (
+        {exerciseData ? (
           <div className={`${styles.wrapper} mb-5`}>
             <div className="">
               <ol className="breadcrumb mb-3">
                 <li className="breadcrumb-item">
                   <Link href="/admin">Trang chủ</Link>
                 </li>
-                <li className="breadcrumb-item">Bài giảng</li>
+                <li className="breadcrumb-item">Bài tập</li>
                 <li className="breadcrumb-item breadcrumb-active fw-bold">
                   Chi tiết
                 </li>
@@ -89,33 +84,32 @@ const page = () => {
                 <div className="d-flex align-items-center justify-content-between">
                   <div className="row w-100">
                     <div className="col-sm-12 col-md-9 mt-2">
-                      Chi tiết bài giảng -
-                      <strong className="ms-2 text-danger">
-                        {sectionData.title}
-                      </strong>
+                      Chi tiết bài tập
                     </div>
-                    <div className="col-sm-12 col-md-3 row d-flex fs-5">
-                      <div className="col mt-2">
-                        <Button
-                          rounded
-                          success_btn
-                          leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
-                          className="text-nowrap w-100 justify-content-around fs-4"
-                          to={`/admin/bai-giang/chinh-sua/${params.id}`}
-                        >
-                          sửa
-                        </Button>
-                      </div>
-                      <div className="col mt-2">
-                        <Button
-                          rounded
-                          leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
-                          className="text-nowrap w-100 justify-content-around"
-                          transparent_btn
-                          onClick={() => router.back()}
-                        >
-                          Quay lại
-                        </Button>
+                    <div className="col-sm-12 col-md-3 d-flex fs-5 align-items-center justify-content-end">
+                      <div className="row">
+                        <div className="col">
+                          <Button
+                            rounded
+                            success_btn
+                            leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
+                            className="text-nowrap w-100 justify-content-around fs-4"
+                            to={`/admin/bai-giang/chinh-sua/${params.id}`}
+                          >
+                            sửa
+                          </Button>
+                        </div>
+                        <div className="col">
+                          <Button
+                            rounded
+                            leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+                            className="text-nowrap w-100 justify-content-around"
+                            transparent_btn
+                            onClick={() => router.back()}
+                          >
+                            Quay lại
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -123,59 +117,8 @@ const page = () => {
               }
             >
               <div className="row">
-                <div className="col-12 col-md-6 mb-3">
-                  <div className="mb-3 ">
-                    <label className="form-label">Khóa học:</label>
-                    <strong className="ms-2">
-                      {sectionData.course && sectionData.course.title}
-                    </strong>
-                  </div>
-                  <div className="mb-3 ">
-                    <label className="form-label">
-                      Bài số:
-                      <strong className="ms-2">{sectionData.order}</strong>
-                    </label>
-                    <div></div>
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Tiêu đề:</label>
-                    <strong className="fs-4 ms-2">{sectionData.title}</strong>
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">YouTube Video:</label>
-                  </div>
-                  <div className={`${styles.video_thumbnail}`}>
-                    <div className="mb-3 w-100 h-100">
-                      <div className="w-100 h-100">
-                        <iframe
-                          className={`${styles.video_preview} w-100`}
-                          src={`https://www.youtube.com/embed/${sectionData.video}`}
-                          allowFullScreen
-                          title="YouTube video preview"
-                          style={{
-                            height: "calc(30vh + 10rem)",
-                          }}
-                        ></iframe>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12 col-md-6 mb-3">
-                  <div className="mb-3">
-                    <label className="form-label">Nội dung:</label>
-                  </div>
-                  <div className={`${styles.video_thumbnail}`}>
-                    <div className="mb-3 w-100 h-100">
-                      <div className="w-100 h-100">
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: sectionData.content,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div className="col-12 col-md-6 mb-3"></div>
+                <div className="col-12 col-md-6 mb-3"></div>
               </div>
             </Card>
             <div className="mt-3">

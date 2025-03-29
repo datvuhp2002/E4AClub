@@ -45,7 +45,7 @@ const Page = () => {
     const currentExercise = searchParams.get("quiz");
     if (currentExercise) {
       setIsExercise(true);
-      ExercisesServices.GetSection(currentExercise)
+      ExercisesServices.GetExerciseById(currentExercise)
         .then((res) => {
           setExercises(res.exercise);
         })

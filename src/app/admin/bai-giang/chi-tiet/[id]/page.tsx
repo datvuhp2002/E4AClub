@@ -57,7 +57,6 @@ const page = () => {
   useEffect(() => {
     SectionServices.GetSection(params.id)
       .then((res) => {
-        console.log(res.section);
         setSectionData(res.section);
       })
       .catch((err) => {
@@ -95,28 +94,34 @@ const page = () => {
                         {sectionData.title}
                       </strong>
                     </div>
-                    <div className="col-sm-12 col-md-3 row d-flex fs-5">
-                      <div className="col mt-2">
-                        <Button
-                          rounded
-                          success_btn
-                          leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
-                          className="text-nowrap w-100 justify-content-around fs-4"
-                          to={`/admin/bai-giang/chinh-sua/${params.id}`}
-                        >
-                          sửa
-                        </Button>
-                      </div>
-                      <div className="col mt-2">
-                        <Button
-                          rounded
-                          leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
-                          className="text-nowrap w-100 justify-content-around"
-                          transparent_btn
-                          onClick={() => router.back()}
-                        >
-                          Quay lại
-                        </Button>
+                    <div className="col-sm-12 col-md-3 d-flex fs-5 align-items-center justify-content-end mt-2">
+                      <div className="row">
+                        <div className="col">
+                          <Button
+                            rounded
+                            success_btn
+                            leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
+                            className="text-nowrap w-100 justify-content-around fs-4"
+                            to={`/admin/bai-giang/chinh-sua/${params.id}`}
+                          >
+                            sửa
+                          </Button>
+                        </div>
+                        <div className="col">
+                          <Button
+                            rounded
+                            leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+                            className="text-nowrap w-100 justify-content-around"
+                            transparent_btn
+                            onClick={() =>
+                              router.push(
+                                `/admin/khoa-hoc/chi-tiet/${sectionData.course._id}`
+                              )
+                            }
+                          >
+                            Quay lại
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -203,10 +208,8 @@ const page = () => {
                     <DataTable
                       data={list}
                       selectedColumn={selectedColumn}
-                      edit_direction={"chi-tiet"}
-                      delete_handle={() => {
-                        return Promise.resolve({ success: true });
-                      }}
+                      edit_direction={"/admin/bai-tap/chi-tiet"}
+                      delete_handle={ExercisesServices.DeleteSection}
                     />
                   ) : (
                     <TableSkeleton />

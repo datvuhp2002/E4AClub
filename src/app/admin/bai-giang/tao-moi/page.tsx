@@ -11,8 +11,8 @@ import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
 import SectionServices from "@/services/section-services";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useParams, useSearchParams } from "next/navigation";
+import { faLeftLong, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 const CKEditorComponent = dynamic(
@@ -29,6 +29,7 @@ const page = () => {
     control,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
   const { HandleOpenToast } = useToastContext();
   const searchParams = useSearchParams();
   const handleSuccessToast = (message: string) => {
@@ -115,16 +116,33 @@ const page = () => {
         title={
           <div className="d-flex align-items-center justify-content-between">
             <div className=" mt-2 fw-bold">Tạo bài giảng</div>
-            <div className="d-flex mt-2">
-              <Button
-                onClick={handleSubmit(handleSubmitFormUrlAdd)}
-                rounded
-                success_btn
-                leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                className="text-nowrap w-100 justify-content-around fs-5"
-              >
-                Tạo mới
-              </Button>
+            <div className="d-flex mt-2 row align-items-center ">
+              <div className="col">
+                <Button
+                  onClick={handleSubmit(handleSubmitFormUrlAdd)}
+                  rounded
+                  success_btn
+                  leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                  className="text-nowrap w-100 justify-content-around fs-5"
+                >
+                  Tạo mới
+                </Button>
+              </div>
+              {courseParams && (
+                <div className="col">
+                  <Button
+                    rounded
+                    leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+                    className="text-nowrap w-100 justify-content-around fs-5"
+                    transparent_btn
+                    onClick={() =>
+                      router.push(`/admin/khoa-hoc/chi-tiet/${courseParams}`)
+                    }
+                  >
+                    Quay lại
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         }
