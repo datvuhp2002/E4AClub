@@ -4,13 +4,7 @@ import Card from "@/modules/common/components/Card";
 import React, { Suspense, useEffect, useState } from "react";
 import Button from "@/modules/common/components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCakeCandles,
-  faLeftLong,
-  faMailBulk,
-  faPhone,
-  faVenusMars,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLeftLong } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ChiTiet.module.scss";
 import Image from "@/modules/common/components/Image";
 import SkeletonData from "@/modules/common/components/skeleton-data";
@@ -22,8 +16,6 @@ const page = () => {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const [userData, setUserData] = useState<any>();
-  const [status, setStatus] = useState<string>("4");
-  const [isPayment, setIsPayment] = useState<boolean>();
   const { HandleOpenToast } = useToastContext();
   const handleSuccessToast = (message: string) => {
     HandleOpenToast({
@@ -86,8 +78,9 @@ const page = () => {
                       <div className={`shadow-sm w-100`}>
                         <Image
                           w100
+                          course_img_publish
                           alt="Ảnh thẻ"
-                          src={process.env.FLIPBOOK_URL + "/" + userData.avatar}
+                          src={userData.avatar}
                         />
                       </div>
                     </div>

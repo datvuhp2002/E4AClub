@@ -6,26 +6,25 @@ import classNames from "classnames/bind";
 // Bind styles with classNames
 const cx = classNames.bind(styles);
 
-// Define the props interface for the Image component
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-  src: string; // Required src prop
-  alt: string; // Required alt prop
-  logo?: boolean; // Optional logo prop
-  login_logo?: boolean; // Optional logo prop
-  admin_logo?: boolean; // Optional logo prop
-  className?: string; // Optional className prop
-  fallback?: string; // Optional fallback image URL
-  w100?: boolean; // Optional width 100% prop
-  w50?: boolean; // Optional width 50% prop
-  w30?: boolean; // Optional height 30% prop
-  minw30?: boolean; // Optional min-width 30% prop
-  avatar?: boolean; // Optional min-width 30% prop
-  rounded?: boolean; // Optional min-width 30% prop
-  h100?: boolean; // Optional height 100% prop
-  h50?: boolean; // Optional height 50% prop
-  minh30?: boolean; // Optional min-height 30% prop
-  course_img?: boolean; // Optional min-height 30% prop
-  course_img_publish?: boolean; // Optional min-height 30% prop
+  src: string;
+  alt: string;
+  logo?: boolean;
+  login_logo?: boolean;
+  admin_logo?: boolean;
+  className?: string;
+  fallback?: string;
+  w100?: boolean;
+  w50?: boolean;
+  w30?: boolean;
+  minw30?: boolean;
+  avatar?: boolean;
+  rounded?: boolean;
+  h100?: boolean;
+  h50?: boolean;
+  minh30?: boolean;
+  course_img?: boolean;
+  course_img_publish?: boolean;
 }
 
 const Image: React.FC<ImageProps> = ({
@@ -49,17 +48,15 @@ const Image: React.FC<ImageProps> = ({
   avatar,
   ...props
 }) => {
-  const [fallback, setFallback] = useState<string>(""); // State for fallback image
+  const defaultFallback = process.env.FILE_URL + "images/no_img.svg";
+  const [fallback, setFallback] = useState<string>(src || defaultFallback);
 
-  // Loading component can be implemented as needed
-  const Loading = () => <div className={cx("lds-dual-ring")}></div>;
-
-  // Handle image error and set fallback image
-  function handleError() {
-    setFallback(customFallback);
+  function handleError(event: React.SyntheticEvent<HTMLImageElement, Event>) {
+    if (fallback !== defaultFallback) {
+      setFallback(defaultFallback);
+      event.currentTarget.src = defaultFallback;
+    }
   }
-
-  // Generate class names for the component
   const classes = cx("wrapper", {
     admin_logo,
     avatar,
@@ -75,16 +72,15 @@ const Image: React.FC<ImageProps> = ({
     rounded,
     course_img,
     course_img_publish,
-    [className!]: className, // Use non-null assertion
+    [className!]: className,
   });
-
   return (
     <img
-      className={classes} // Use the generated classes
-      src={fallback || src} // Fallback to custom or default image
+      src={fallback}
+      onError={handleError}
+      className={classes}
       alt={alt}
-      {...props} // Spread other props
-      onError={handleError} // Handle image load error
+      {...props}
     />
   );
 };
