@@ -89,9 +89,14 @@ const Page = () => {
       case "single-choice":
         return <SingleChoice quizData={exercise.options} />;
       case "fill-in-the-blank":
-        return <FillBlank question={exercise.question} correctAnswer={exercise.blankAnswer}/>;
+        return (
+          <FillBlank
+            question={exercise.question}
+            correctAnswer={exercise.blankAnswer}
+          />
+        );
       case "speaking":
-        return <Speaking question={exercise.question}/>;
+        return <Speaking question={exercise.question} />;
 
       default:
         return <p>Loại bài tập không xác định</p>;
@@ -145,14 +150,14 @@ const Page = () => {
         <div className={cx("course", `${!showLesson ? "w-100" : ""}`)}>
           {exercises && (
             <div className={cx("content", "mt-5 container")}>
-             <div className={cx("content_top")}>
-              {exercises.type !== "speaking" ? (
-                <>
-                  <h1>{exercises.question}</h1>
-                  <p>Cập nhật {moment(exercises.updatedAt).fromNow()}</p>
-                </>
-              ) : null}
-            </div>
+              <div className={cx("content_top")}>
+                {exercises.type !== "speaking" ? (
+                  <>
+                    <h1>{exercises.question}</h1>
+                    <p>Cập nhật {moment(exercises.updatedAt).fromNow()}</p>
+                  </>
+                ) : null}
+              </div>
               {/* nội dung bài tập */}
               <div>{renderExercise(exercises)}</div>
             </div>
