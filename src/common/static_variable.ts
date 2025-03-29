@@ -250,8 +250,8 @@ const countries = [
 ];
 
 const exercisesType = [
-  { value: "options", title: "Trắc nghiệm" },
-  { value: "fill-in", title: "Điền từ khuyết thiếu" },
+  { value: "choice", title: "Trắc nghiệm" },
+  { value: "fill-in-the-blank", title: "Điền từ khuyết thiếu" },
   { value: "speaking", title: "Phát âm" },
 ];
 const role = [

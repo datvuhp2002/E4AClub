@@ -222,7 +222,7 @@ const page = () => {
                 <Button
                   success_btn
                   rounded
-                  className="fs-4"
+                  className="fs-5"
                   to={`/admin/bai-giang/tao-moi?course=${params.id}`}
                   leftIcon={<FontAwesomeIcon icon={faPlus} />}
                 >
