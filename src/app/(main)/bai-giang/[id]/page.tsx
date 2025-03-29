@@ -23,6 +23,8 @@ import SectionServices from "@/services/section-services";
 import ExercisesServices from "@/services/exercises-services";
 import MultipleChoice from "@/modules/layout/baigiang/components/multiple-choice";
 import SingleChoice from "@/modules/layout/baigiang/components/single-choice";
+import FillBlank from "@/modules/layout/baigiang/components/FillBlank";
+import Speaking from "@/modules/layout/baigiang/components/Speaking";
 const cx = classNames.bind(styles);
 
 const Page = () => {
@@ -87,9 +89,9 @@ const Page = () => {
       case "single-choice":
         return <SingleChoice quizData={exercise.options} />;
       case "fill-in-the-blank":
-        return <p>Bài tập điền vào chỗ trống</p>;
+        return <FillBlank question={exercise.question} correctAnswer={exercise.blankAnswer}/>;
       case "speaking":
-        return <p>Bài tập trả lời ngắn</p>;
+        return <Speaking question={exercise.question}/>;
 
       default:
         return <p>Loại bài tập không xác định</p>;
@@ -143,10 +145,14 @@ const Page = () => {
         <div className={cx("course", `${!showLesson ? "w-100" : ""}`)}>
           {exercises && (
             <div className={cx("content", "mt-5 container")}>
-              <div className={cx("content_top")}>
-                <h1>{exercises.question}</h1>
-                <p>Cập nhật {moment(exercises.updatedAt).fromNow()}</p>
-              </div>
+             <div className={cx("content_top")}>
+              {exercises.type !== "speaking" ? (
+                <>
+                  <h1>{exercises.question}</h1>
+                  <p>Cập nhật {moment(exercises.updatedAt).fromNow()}</p>
+                </>
+              ) : null}
+            </div>
               {/* nội dung bài tập */}
               <div>{renderExercise(exercises)}</div>
             </div>
