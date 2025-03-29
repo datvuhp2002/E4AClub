@@ -64,6 +64,7 @@ const LessonCard: React.FC<LessonCardProps> = ({
     ExercisesServices.GetExercisesBySection(data._id)
       .then((res) => {
         if (res.success) {
+          console.log("Exercises", res);
           setExercises(res.exercises);
         }
       })
@@ -103,7 +104,7 @@ const LessonCard: React.FC<LessonCardProps> = ({
               </span>
               {/* <FontAwesomeIcon icon={faCheckCircle} className="" /> */}
             </div>
-            {isLearned && (
+            {data.isCompleted && (
               <div className={cx("icon")}>
                 <FontAwesomeIcon
                   icon={faCheckCircle}
