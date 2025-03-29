@@ -2,141 +2,166 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styles from "./ChinhSua.module.scss";
-import { Controller, useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import Card from "@/modules/common/components/Card";
-import { Autocomplete, TextField } from "@mui/material";
-import dynamic from "next/dynamic";
-import CourseServices from "@/services/course-services";
 import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
-import SectionServices from "@/services/section-services";
-import { youtubeParser } from "@/helpers";
-import { useParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLeftLong, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import SkeletonData from "@/modules/common/components/skeleton-data";
-import { useRouter } from "next/navigation";
-const CKEditorComponent = dynamic(
-  () => import("@/modules/common/components/ck-editor"),
-  { ssr: false }
-);
+import {
+  faLeftLong,
+  faPenToSquare,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import Select from "@/modules/common/components/Select";
+import { exercisesType } from "@/common/static_variable";
+import ExercisesServices from "@/services/exercises-services";
+import { useParams, useRouter } from "next/navigation";
+
+interface FormValues {
+  sectionId: string;
+  type: string;
+  question: string;
+  options?: { text: string; isCorrect: boolean }[];
+  blankAnswer?: string;
+}
 
 const page = () => {
+  const params = useParams<{ id: string }>();
   const {
     register,
     handleSubmit,
     setValue,
     watch,
     control,
+    clearErrors,
+    getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValues>({
+    mode: "all",
+    defaultValues: {
+      options: [
+        { text: "", isCorrect: false },
+        { text: "", isCorrect: false },
+      ],
+    },
+  });
   const router = useRouter();
-  const params = useParams<{ id: string }>();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "options",
+  });
+
   const { HandleOpenToast } = useToastContext();
+  const [selectedType, setSelectedType] = useState<string>("choice");
   const handleSuccessToast = (message: string) => {
-    HandleOpenToast({
-      type: "success",
-      content: message,
-    });
+    HandleOpenToast({ type: "success", content: message });
   };
+  const [exerciseData, setExerciseData] = useState<IExercise>();
+  const [sectionParams, setSectionParams] = useState<string>();
   const handleErrorToast = (message: string) => {
-    HandleOpenToast({
-      type: "error",
-      content: `${message}! Vui lòng thử lại`,
+    HandleOpenToast({ type: "error", content: `${message}! Vui lòng thử lại` });
+  };
+  const resetFormValues = () => {
+    const currentValues = getValues();
+    Object.keys(currentValues).forEach((key) => {
+      if (key !== "type" && key != "sectionId") {
+        setValue(key as keyof FormValues, "");
+      }
+    });
+    Object.keys(currentValues).forEach((key) => {
+      clearErrors(key as keyof FormValues);
     });
   };
-  const [courses, setCourses] = useState([]);
-  const [totalSections, setTotalSections] = useState(0);
-  const [videoId, setVideoId] = useState<string | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<any>(null);
-  const [hasCourse, setHasCourse] = useState(false);
-  const [isLoading, setLoading] = useState(true);
-  const videoUrl = watch("video");
+  const onSubmit = async (data: FormValues) => {
+    const payload: IExercise = {
+      _id: params.id,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      sectionId: exerciseData?.sectionId ?? "",
+      type: exerciseData?.type as
+        | "multiple-choice"
+        | "single-choice"
+        | "fill-in-the-blank"
+        | "speaking",
+      question: data.question,
+      options:
+        data.options?.map((option) => ({
+          text: option.text,
+          isCorrect: option.isCorrect,
+        })) ?? [], // Không gửi `_id`
+      blankAnswer: data.blankAnswer ?? "",
+    };
+    if (data.type === "choice" && (!data.options || data.options.length < 2)) {
+      handleErrorToast("Câu trả lời phải có ít nhất 2 đáp án");
+      return;
+    }
+    if (
+      exerciseData?.type !== "multiple-choice" &&
+      exerciseData?.type !== "single-choice"
+    ) {
+      payload.options = [];
+    }
+    console.log(payload);
+    try {
+      const res = await ExercisesServices.UpdateExercise(params.id, payload);
+      if (res.success) {
+        handleSuccessToast("Cập nhật bài tập thành công");
+      } else {
+        handleErrorToast("Cập nhật bài tập thất bại");
+      }
+    } catch (error) {
+      console.error(error);
+      handleErrorToast("Lỗi khi cập nhật bài tập");
+    }
+  };
 
   useEffect(() => {
-    const id = youtubeParser(videoUrl);
-    if (id) {
-      setVideoId(id);
-      setValue("video", `https://www.youtube.com/embed/${id}`);
-    } else {
-      setVideoId(null);
-    }
-  }, [videoUrl, setValue]);
-  const handleSubmitFormUpdate = async (data: any) => {
-    if (videoId !== null) {
-      data.video = videoId;
-    }
-    SectionServices.UpdateSection(params.id, data)
-      .then((res) => {
-        if (res.success) {
-          handleSuccessToast("Cập nhật thành công");
-        } else {
-          handleErrorToast("Cập nhật thất bại");
+    ExercisesServices.GetExerciseById(params.id).then((res) => {
+      console.log(res);
+      setExerciseData(res.exercise);
+      setValue("question", res.exercise.question);
+
+      if (
+        res.exercise.type === "single-choice" ||
+        res.exercise.type === "multiple-choice"
+      ) {
+        setSelectedType("choice");
+        if (res.exercise.options) {
+          setValue("options", res.exercise.options);
         }
-      })
-      .catch((e) => {
-        console.error(e);
-        handleErrorToast("Cập nhật thất bại");
-      });
-  };
-  useEffect(() => {
-    CourseServices.GetAllCourse()
-      .then((res) => {
-        setCourses(res.data);
-      })
-      .catch((errors) => {
-        console.error(errors);
-      });
-    SectionServices.GetSection(params.id)
-      .then((res) => {
-        if (res.success) {
-          setTotalSections(res.totalSections);
-          setLoading(false);
-          setValue("title", res.section.title);
-          setValue("order", res.section.order);
-          setValue("content", res.section.content);
-          setValue(
-            "video",
-            `https://www.youtube.com/embed/${res.section.video}`
-          );
-          setSelectedCourse({
-            title: `${res.section.course.title}`,
-            _id: res.section.course._id,
-          });
-          setVideoId(res.section.video);
-        }
-      })
-      .catch((e) => console.log(e));
+      } else if (res.exercise.type === "fill-in-the-blank") {
+        setSelectedType(res.exercise.type);
+        setValue("blankAnswer", res.exercise.blankAnswer);
+      } else {
+        setSelectedType(res.exercise.type);
+      }
+    });
   }, []);
   return (
     <div className={`${styles.wrapper} mb-5`}>
-      <div className="">
+      <div>
         <ol className="breadcrumb mb-3">
           <li className="breadcrumb-item">
             <Link href="/admin">Trang chủ</Link>
           </li>
-          <li className="breadcrumb-item">Bài giảng</li>
-          <li className="breadcrumb-item">Chi tiết</li>
-          <li className="breadcrumb-item breadcrumb-active fw-bold">
-            Chỉnh sửa
-          </li>
+          <li className="breadcrumb-item">Chi tiết bài giảng</li>
+          <li className="breadcrumb-item">Bài tập</li>
+          <li className="breadcrumb-item breadcrumb-active fw-bold">Tạo mới</li>
         </ol>
       </div>
-      {/* Data Table */}
-      {isLoading ? (
-        <SkeletonData />
-      ) : (
-        <Card
-          title={
-            <div className="d-flex align-items-center justify-content-between">
-              <div className=" mt-2 fw-bold">Chỉnh sửa bài giảng</div>
-              <div className="d-flex mt-2">
+      <Card
+        title={
+          <div className="d-flex align-items-center justify-content-between">
+            <div className=" fw-bold">Tạo bài tập</div>
+            <div className="d-flex  row align-items-center">
+              <div className="d-flex ">
                 <Button
+                  onClick={handleSubmit(onSubmit)}
                   rounded
                   success_btn
                   leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
-                  className="text-nowrap w-100 justify-content-around fs-4"
-                  onClick={handleSubmit(handleSubmitFormUpdate)}
+                  className="text-nowrap w-100 justify-content-around fs-5"
                 >
                   sửa
                 </Button>
@@ -145,150 +170,128 @@ const page = () => {
                   leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
                   className="text-nowrap w-100 justify-content-around fs-5"
                   transparent_btn
-                  onClick={() => router.back()}
+                  onClick={() =>
+                    router.push(`/admin/bai-tap/chi-tiet/${params.id}`)
+                  }
                 >
                   Quay lại
                 </Button>
               </div>
+              {sectionParams && (
+                <div className="col ">
+                  <Button
+                    rounded
+                    leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+                    className="text-nowrap w-100 justify-content-around fs-5"
+                    transparent_btn
+                    onClick={() =>
+                      router.push(`/admin/bai-giang/chi-tiet/${sectionParams}`)
+                    }
+                  >
+                    Quay lại
+                  </Button>
+                </div>
+              )}
             </div>
-          }
-        >
-          <form>
-            <div className="row">
-              <div className="col-12 col-md-6 mb-3">
-                <div className="mb-3 ">
-                  <label className="form-label">Khóa học:</label>
-                  <Controller
-                    name="courseId"
-                    control={control}
-                    render={({ field }) => (
-                      <Autocomplete
-                        {...field}
-                        value={selectedCourse}
-                        options={courses}
-                        getOptionLabel={(option) =>
-                          `${option.title} - ${option._id}`
-                        }
-                        isOptionEqualToValue={(option: any, value: any) =>
-                          option._id === value._id
-                        }
-                        onChange={(event, value) => {
-                          field.onChange(value ? value._id : null);
-                          setSelectedCourse(value);
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label="Khóa học"
-                            error={!!errors._id}
-                            helperText={
-                              errors._id?.message
-                                ? String(errors._id.message)
-                                : ""
-                            }
-                            InputProps={{
-                              ...params.InputProps,
-                              readOnly: hasCourse,
-                            }}
-                          />
-                        )}
-                      />
-                    )}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Tiêu đề:</label>
-                  <input
-                    type="text"
-                    className="form-control p-3 fs-5"
-                    placeholder="Tiều đề bài giảng"
-                    {...register("title", {
-                      required: "Vui lòng nhập tiêu đề bài giảng",
-                    })}
-                  />
-                  {errors.title && (
-                    <p className="text-danger mt-2">
-                      {String(errors.title?.message)}
-                    </p>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Tập:</label>
-                  <input
-                    type="number"
-                    min={1}
-                    max={totalSections}
-                    className="form-control p-3 fs-5"
-                    placeholder="Tập khóa học"
-                    {...register("order", {
-                      required: "Vui lòng nhập tập",
-                    })}
-                    onBlur={(e) => {
-                      let value = Number(e.target.value);
-                      if (value < 1) {
-                        value = 1;
-                        handleErrorToast(`Số tập không được nhỏ hơn 1`);
-                      }
-                      if (value > totalSections) {
-                        handleErrorToast(
-                          `Số tập không được lớn hơn ${totalSections}`
-                        );
-                        value = totalSections;
-                      }
-                      e.target.value = value.toString();
-                    }}
-                  />
-                  {errors.number && (
-                    <p className="text-danger mt-2">
-                      {String(errors.number?.message)}
-                    </p>
-                  )}
-                </div>
-                <CKEditorComponent
-                  value={watch("content")}
-                  onChange={(data) => setValue("content", data)}
-                  register={register}
-                  setValue={setValue}
-                  errors={errors}
+          </div>
+        }
+      >
+        <form>
+          <div className="row">
+            <div className="col-12 col-md-6 mb-3">
+              <div className="col-12">
+                <label className="fw-bold">
+                  Câu hỏi <span className="text-danger">(*)</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  {...register("question", {
+                    required: "Câu hỏi là bắt buộc",
+                  })}
                 />
-              </div>
-              <div className="col-12 col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">YouTube Video URL:</label>
-                  <input
-                    type="text"
-                    className="form-control p-3 fs-5"
-                    placeholder="URL của video YouTube"
-                    {...register("video", {})}
-                  />
-                </div>
-                {videoId ? (
-                  <div className={`${styles.video_thumbnail}`}>
-                    <div className="mb-3 w-100 h-100">
-                      <label className="form-label">Xem trước:</label>
-                      <div className="w-100 h-100">
-                        <iframe
-                          className={`${styles.video_preview} w-100`}
-                          src={`https://www.youtube.com/embed/${videoId}`}
-                          allowFullScreen
-                          title="YouTube video preview"
-                          style={{
-                            height: "calc(30vh + 10rem)", // Example, you can customize the calculation
-                          }}
-                        ></iframe>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-danger fw-bold">
-                    Không có video hợp lệ để hiển thị.
-                  </p>
+                {errors.question && (
+                  <small className="text-danger">
+                    {errors.question.message}
+                  </small>
                 )}
               </div>
             </div>
-          </form>
-        </Card>
-      )}
+            {/* Nếu loại bài tập là trắc nghiệm (choice) */}
+            {selectedType === "choice" && (
+              <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 mb-3">
+                  <label className="fw-bold">Đáp án</label>
+                  {fields.map((field, index) => (
+                    <div
+                      key={field.id}
+                      className="d-flex align-items-center mb-2"
+                    >
+                      <input
+                        type="text"
+                        className="form-control me-2"
+                        {...register(`options.${index}.text`, {
+                          required: "Đáp án không được để trống",
+                        })}
+                        defaultValue={field.text} // Thêm giá trị mặc định
+                      />
+                      <div className="d-flex align-items-center">
+                        <div className="mx-2">
+                          <input
+                            type="checkbox"
+                            {...register(`options.${index}.isCorrect`)}
+                            defaultChecked={field.isCorrect} // Thêm giá trị mặc định
+                          />
+                        </div>
+                        <Button
+                          rounded
+                          danger_btn
+                          onClick={() => remove(index)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                  <Button
+                    success_btn
+                    className="rounded-1"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      append({ text: "", isCorrect: false });
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faPlus} /> Thêm đáp án
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Nếu loại bài tập là điền từ khuyết thiếu (fill) */}
+            {selectedType === "fill-in-the-blank" && (
+              <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 mb-3">
+                  <label className="fw-bold">
+                    Từ khuyết thiếu <span className="text-danger">(*)</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    {...register("blankAnswer", {
+                      required: "Từ khuyết thiếu là bắt buộc",
+                    })}
+                  />
+                  {errors.blankAnswer && (
+                    <small className="text-danger">
+                      {errors.blankAnswer.message}
+                    </small>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </form>
+      </Card>
     </div>
   );
 };

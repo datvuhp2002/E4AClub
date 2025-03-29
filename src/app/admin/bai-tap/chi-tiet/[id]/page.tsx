@@ -6,18 +6,14 @@ import Button from "@/modules/common/components/Button";
 import styles from "./ChiTiet.module.scss";
 import SkeletonData from "@/modules/common/components/skeleton-data";
 import { useToastContext } from "@/lib/context/toast-context";
-import SectionServices from "@/services/section-services";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLeftLong,
-  faPenToSquare,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLeftLong, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import TableSkeleton from "@/modules/common/components/table-skeleton";
 import dynamic from "next/dynamic";
 import ExercisesServices from "@/services/exercises-services";
-import formatDateTime from "@/common/format_date";
+import moment from "moment";
+import "moment/locale/vi";
 const DataTable = dynamic(
   () => import("@/modules/common/components/data-table"),
   { ssr: false }
@@ -25,16 +21,20 @@ const DataTable = dynamic(
 const page = () => {
   const params = useParams<{ id: string }>();
   const router = useRouter();
+  moment.locale("vi");
   const [onLoading, setOnLoading] = useState<boolean>(true);
   const [exerciseData, setExerciseData] = useState<IExercise>({} as IExercise);
-  const [list, setList] = useState<IExercise>();
+  const [list, setList] = useState<IExerciseOption[]>();
+  const [isOptions, setIsOptions] = useState<boolean>(false);
+  const [isPlankAnswer, setIsPlankAnswer] = useState<boolean>(false);
+  const [type, setType] = useState<string>("Trắch nghiệm");
   const selectedColumn = [
-    { title: "Câu hỏi", data: "question" },
+    { title: "Câu trả lời", data: "text" },
     {
-      title: "Ngày tạo",
-      data: "createdAt",
-      render: (data: string) => {
-        return formatDateTime.formatDate(data);
+      title: "Đáp án",
+      data: "isCorrect",
+      render: (data: boolean) => {
+        return data === true ? "Đúng" : "Sai";
       },
     },
   ];
@@ -51,12 +51,40 @@ const page = () => {
       content: `${message}! Vui lòng thử lại`,
     });
   };
-
+  const handleDeleteOptions = async (id: string) => {
+    try {
+      const updatedList = list ? list.filter((item) => item._id !== id) : [];
+      const updatedExercise: IExercise = {
+        ...exerciseData,
+        options: updatedList,
+      };
+      return await ExercisesServices.UpdateExercise(params.id, updatedExercise);
+    } catch (error) {
+      console.error("Lỗi khi cập nhật bài tập", error);
+    }
+  };
   useEffect(() => {
     ExercisesServices.GetExerciseById(params.id)
       .then((res) => {
-        console.log(res);
+        if (
+          res.exercise.type === "single-choice" ||
+          res.exercise.type === "multiple-choice"
+        ) {
+          setType("Trắc nghiệm");
+          setIsOptions(true);
+          setIsPlankAnswer(false);
+        } else if (res.exercise.type === "fill-in-the-blank") {
+          setType("Điền từ khuyết thiếu");
+          setIsOptions(false);
+          setIsPlankAnswer(true);
+        } else {
+          setType("Phát âm");
+          setIsOptions(false);
+          setIsPlankAnswer(false);
+        }
+        setOnLoading(false);
         setExerciseData(res.exercise);
+        setList(res.exercise.options);
       })
       .catch((err) => {
         handleErrorToast("Đã xảy ra lỗi");
@@ -93,8 +121,8 @@ const page = () => {
                             rounded
                             success_btn
                             leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
-                            className="text-nowrap w-100 justify-content-around fs-4"
-                            to={`/admin/bai-giang/chinh-sua/${params.id}`}
+                            className="text-nowrap w-100 justify-content-around fs-5"
+                            to={`/admin/bai-tap/chinh-sua/${params.id}`}
                           >
                             sửa
                           </Button>
@@ -105,7 +133,11 @@ const page = () => {
                             leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
                             className="text-nowrap w-100 justify-content-around"
                             transparent_btn
-                            onClick={() => router.back()}
+                            onClick={() =>
+                              router.push(
+                                `/admin/bai-giang/chi-tiet/${exerciseData.sectionId}`
+                              )
+                            }
                           >
                             Quay lại
                           </Button>
@@ -116,44 +148,62 @@ const page = () => {
                 </div>
               }
             >
-              <div className="row">
-                <div className="col-12 col-md-6 mb-3"></div>
-                <div className="col-12 col-md-6 mb-3"></div>
-              </div>
-            </Card>
-            <div className="mt-3">
-              <Card
-                title={
-                  <div className="d-flex align-items-center justify-content-between">
-                    Danh sách bài tập
-                    <div className="d-flex mt-2">
-                      <Button
-                        success_btn
-                        rounded
-                        className="fs-5"
-                        to={`/admin/bai-tap/tao-moi?learning=${params.id}`}
-                        leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                      >
-                        Tạo mới
-                      </Button>
+              <div className="">
+                {exerciseData && (
+                  <div className=" mb-3">
+                    <div className="mb-3 ">
+                      <label className="form-label">Câu hỏi:</label>
+                      <strong className="ms-2">{exerciseData.question}</strong>
+                    </div>
+                    {isPlankAnswer && (
+                      <div className="mb-3 ">
+                        <label className="form-label">Câu trả lời:</label>
+                        <strong className="ms-2 text-success">
+                          {exerciseData.blankAnswer}
+                        </strong>
+                      </div>
+                    )}
+                    {type && (
+                      <div className="mb-3 ">
+                        <label className="form-label">Loại câu hỏi:</label>
+                        <strong className="ms-2">{type}</strong>
+                      </div>
+                    )}
+                    <div className="mb-3 ">
+                      <label className="form-label">Ngày tạo:</label>
+                      <strong className="ms-2">
+                        {moment(exerciseData.createdAt).calendar()}
+                      </strong>
+                    </div>
+                    <div className="mb-3 ">
+                      <label className="form-label">Ngày cập nhật:</label>
+                      <strong className="ms-2">
+                        {moment(exerciseData.updatedAt).calendar()}
+                      </strong>
                     </div>
                   </div>
-                }
-              >
-                {!onLoading ? (
-                  <DataTable
-                    data={list}
-                    selectedColumn={selectedColumn}
-                    edit_direction={"chi-tiet"}
-                    delete_handle={() => {
-                      return Promise.resolve({ success: true });
-                    }}
-                  />
-                ) : (
-                  <TableSkeleton />
                 )}
-              </Card>
-            </div>
+                {isOptions && (
+                  <div>
+                    <hr />
+                    <label className="form-label fw-bold fs-3 my-3">
+                      Danh sách câu trả lời:
+                    </label>
+                    {!onLoading && list ? (
+                      <DataTable
+                        data={list}
+                        selectedColumn={selectedColumn}
+                        edit_direction={"chi-tiet"}
+                        show_detail={false}
+                        delete_handle={handleDeleteOptions}
+                      />
+                    ) : (
+                      <TableSkeleton />
+                    )}
+                  </div>
+                )}
+              </div>
+            </Card>
           </div>
         ) : (
           <SkeletonData />

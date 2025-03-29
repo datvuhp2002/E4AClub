@@ -17,14 +17,14 @@ const ExercisesServices = {
   },
   DeleteSection: async (id: string) => {
     try {
-      let res: any = await fetch({
+      const res: any = await fetch({
         endpoint: `/${Service}/${id}`,
         method: "DELETE",
+        data: {},
       });
       return res;
-    } catch (err) {
-      console.log("ERRR::::", err);
-      throw err;
+    } catch (error) {
+      console.log("Request failed:", error);
     }
   },
   GetExercisesBySection: async (id: string) => {
@@ -40,7 +40,6 @@ const ExercisesServices = {
     }
   },
   GetExerciseById: async (id: string) => {
-    console.log(id);
     try {
       let res: any = await fetch({
         endpoint: `/${Service}/${id}`,
@@ -50,6 +49,18 @@ const ExercisesServices = {
     } catch (err) {
       console.log("ERRR::::", err);
       throw err;
+    }
+  },
+  UpdateExercise: async (id: string, data: IExercise) => {
+    try {
+      const res: any = await fetch({
+        endpoint: `/${Service}/${id}`,
+        method: "PUT",
+        data: data,
+      });
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
     }
   },
 };
