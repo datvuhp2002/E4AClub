@@ -27,40 +27,26 @@ const selectedColumnSections = [
   { title: "Tập", data: "order" },
   { title: "Tiêu đề", data: "title" },
 ];
-const selectedColumnEnrollUser = [
-  { title: "Email", data: "email" },
-  { title: "Họ và tên", data: "name" },
-];
+
 const page = () => {
   const router = useRouter();
 
   moment.locale("vi");
   const params = useParams<{ id: string }>();
   const [course, setCourse] = useState<ICourse>({} as ICourse);
-  const [enrollUser, setEnrollUser] = useState<ICourse>({} as ICourse);
   const [sections, setSections] = useState<ICourse>({} as ICourse);
-
-  const [List, setList] = useState<any>();
+  const [totalEnrolledUsers, setTotalEnrolledUsers] = useState<number>(0);
   const [onLoading, setOnLoading] = useState<boolean>(true);
-  const [onLoadingEnrollUser, setOnLoadingEnrollUser] = useState<boolean>(true);
   useEffect(() => {
     setOnLoading(true);
-    setOnLoadingEnrollUser(true);
     CourseServices.GetCourseById(params.id).then((res) => {
       setCourse(res.data);
+      setTotalEnrolledUsers(res.data.enrolledUsers.length);
       setOnLoading(false);
     });
     SectionServices.GetSectionFromCourse(params.id)
       .then((res) => {
         setSections(res.sections);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    CourseServices.GetEnrolledUsers(params.id)
-      .then((res) => {
-        setEnrollUser(res.enrolledUsers);
-        setOnLoadingEnrollUser(false);
       })
       .catch((err) => {
         console.log(err);
@@ -88,7 +74,7 @@ const page = () => {
               leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
               className="text-nowrap w-100 justify-content-around"
               transparent_btn
-              onClick={() => router.back()}
+              onClick={() => router.push("/admin/khoa-hoc/danh-sach")}
             >
               Quay lại
             </Button>
@@ -104,7 +90,6 @@ const page = () => {
           </div>
         </div>
       </div>
-
       <div>
         {/* Course info */}
         <div className="my-3">
@@ -124,11 +109,7 @@ const page = () => {
                     className={`${styles.card_img_wrapper} rounded mb-2 w-100 mt-3`}
                   >
                     <div className={`shadow-sm w-100`}>
-                      <Image
-                        w100
-                        alt="Ảnh khóa học"
-                        src={process.env.FLIPBOOK_URL + "/" + course.image}
-                      />
+                      <Image w100 alt="Ảnh khóa học" src={course.image} />
                     </div>
                   </div>
                 </div>
@@ -163,6 +144,22 @@ const page = () => {
                       </div>
                     </div>
                   )}
+                  {totalEnrolledUsers && (
+                    <div className={`row d-flex align-items-center mb-2`}>
+                      <div className="col text-end">Tổng học viên</div>
+                      <div className="col d-flex">
+                        <div className=" fw-bold ">
+                          {totalEnrolledUsers}
+                          <Link
+                            className="text-link ms-2 fs-5 "
+                            href={`/admin/khoa-hoc/danh-sach-hoc-vien/${params.id}`}
+                          >
+                            <i>(Danh sách học viên)</i>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   {/* ngày tạo */}
                   <div className={`row d-flex align-items-center mb-2`}>
                     <div className="col text-end">Ngày tạo</div>
@@ -186,30 +183,7 @@ const page = () => {
             </div>
           </Card>
         </div>
-        <hr></hr>
-        {/* Students */}
-        <div className="mb-3">
-          <Card
-            title={
-              <label className="form-label fw-bold fs-3 ">
-                Danh sách người tham gia
-              </label>
-            }
-          >
-            {!onLoadingEnrollUser && enrollUser ? (
-              <DataTable
-                data={enrollUser}
-                selectedColumn={selectedColumnEnrollUser}
-                edit_direction={"/admin/tai-khoan/chi-tiet"}
-                delete_handle={() => {
-                  return Promise.resolve({ success: true });
-                }}
-              />
-            ) : (
-              <TableSkeleton />
-            )}
-          </Card>
-        </div>
+
         <hr></hr>
         {/* Sections */}
         <div className="mb-3">
@@ -233,6 +207,7 @@ const page = () => {
           >
             {!onLoading && sections ? (
               <DataTable
+                key={`sections-table-${params.id}`}
                 data={sections}
                 selectedColumn={selectedColumnSections}
                 edit_direction={`/admin/bai-giang/chi-tiet`}
