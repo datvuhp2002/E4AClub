@@ -101,26 +101,28 @@ const page = () => {
                             rounded
                             success_btn
                             leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
-                            className="text-nowrap w-100 justify-content-around fs-4"
+                            className="text-nowrap w-100 justify-content-around fs-5"
                             to={`/admin/bai-giang/chinh-sua/${params.id}`}
                           >
                             sửa
                           </Button>
                         </div>
                         <div className="col">
-                          <Button
-                            rounded
-                            leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
-                            className="text-nowrap w-100 justify-content-around"
-                            transparent_btn
-                            onClick={() =>
-                              router.push(
-                                `/admin/khoa-hoc/chi-tiet/${sectionData.course._id}`
-                              )
-                            }
-                          >
-                            Quay lại
-                          </Button>
+                          {sectionData.course && (
+                            <Button
+                              rounded
+                              leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+                              className="text-nowrap w-100 justify-content-around"
+                              transparent_btn
+                              onClick={() =>
+                                router.push(
+                                  `/admin/khoa-hoc/chi-tiet/${sectionData.course._id}`
+                                )
+                              }
+                            >
+                              Quay lại
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -128,7 +130,7 @@ const page = () => {
                 </div>
               }
             >
-              <div className="row">
+              <div className={`${styles.wrapper_learning_card} row`}>
                 <div className="col-12 col-md-6 mb-3">
                   <div className="mb-3 ">
                     <label className="form-label">Khóa học:</label>
@@ -204,7 +206,7 @@ const page = () => {
                     </div>
                   }
                 >
-                  {!onLoading ? (
+                  {!onLoading && list ? (
                     <DataTable
                       data={list}
                       selectedColumn={selectedColumn}

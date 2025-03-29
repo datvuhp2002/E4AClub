@@ -20,6 +20,7 @@ interface DataTableProps {
   edit_direction: string;
   action?: (id: any) => any;
   delete_handle: (id: any) => Promise<{ success: boolean }>;
+  show_detail?: boolean;
 }
 function App({
   data: initialData,
@@ -27,6 +28,7 @@ function App({
   edit_direction,
   action,
   delete_handle,
+  show_detail = true,
 }: DataTableProps) {
   const route = useRouter();
   const [data, setData] = useState(initialData); // Quản lý dữ liệu bằng state
@@ -194,16 +196,18 @@ function App({
       >
         <Stack spacing={1} padding={0.4} className="bg-white">
           <div>
-            <Button
-              className="w-100 justify-content start "
-              transparent_btn
-              rounded
-              edit_btn
-              onClick={handleView}
-              leftIcon={<FontAwesomeIcon icon={faEye} />}
-            >
-              Chi tiết
-            </Button>
+            {show_detail === true && (
+              <Button
+                className="w-100 justify-content start "
+                transparent_btn
+                rounded
+                edit_btn
+                onClick={handleView}
+                leftIcon={<FontAwesomeIcon icon={faEye} />}
+              >
+                Chi tiết
+              </Button>
+            )}
             <Button
               className="w-100 justify-content start m-0 mt-2"
               transparent_btn

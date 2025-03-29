@@ -196,7 +196,7 @@ const page = () => {
               </label>
             }
           >
-            {!onLoadingEnrollUser ? (
+            {!onLoadingEnrollUser && enrollUser ? (
               <DataTable
                 data={enrollUser}
                 selectedColumn={selectedColumnEnrollUser}
@@ -231,7 +231,7 @@ const page = () => {
               </div>
             }
           >
-            {!onLoading ? (
+            {!onLoading && sections ? (
               <DataTable
                 data={sections}
                 selectedColumn={selectedColumnSections}
