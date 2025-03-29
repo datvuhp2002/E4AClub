@@ -105,13 +105,15 @@ const page = () => {
               <div className="row">
                 <div className=" col-md-6 col-lg-6">
                   {/* img */}
-                  <div
-                    className={`${styles.card_img_wrapper} rounded mb-2 w-100 mt-3`}
-                  >
-                    <div className={`shadow-sm w-100`}>
-                      <Image w100 alt="Ảnh khóa học" src={course.image} />
+                  {course.image && (
+                    <div
+                      className={`${styles.card_img_wrapper} rounded mb-2 w-100 mt-3`}
+                    >
+                      <div className={`shadow-sm w-100`}>
+                        <Image w100 alt="Ảnh khóa học" src={course.image} />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
                 <div className="col-md-6 col-lg-6 mt-3">
                   {/* tiêu đề */}
