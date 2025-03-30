@@ -5,6 +5,10 @@ import {
   faCheckCircle,
   faChevronDown,
   faChevronUp,
+  faCircleDot,
+  faKeyboard,
+  faListCheck,
+  faMicrophone,
   faPenRuler,
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
@@ -70,6 +74,21 @@ const LessonCard: React.FC<LessonCardProps> = ({
       .catch((e) => console.log(e));
   }, []);
 
+  const renderExerciseType = (type : string) => {
+    switch (type) {
+      case "multiple-choice":
+        return <FontAwesomeIcon width={17} icon={faListCheck} className="me-4" />;
+      case "single-choice":
+        return <FontAwesomeIcon width={17} icon={faCircleDot} className="me-4" />;
+      case "fill-in-the-blank":
+        return <FontAwesomeIcon width={17} icon={faKeyboard} className="me-4" />;
+      case "speaking":
+        return <FontAwesomeIcon width={17} icon={faMicrophone} className="me-4" />;
+      default:
+        return <FontAwesomeIcon width={17} icon={faBookOpenReader} className="me-4" />;
+    }
+  };
+
   return (
     <div className={cx("wrapper")} key={index}>
       <div
@@ -98,7 +117,7 @@ const LessonCard: React.FC<LessonCardProps> = ({
               )}
             >
               <span className="d-flex  align-items-center ">
-                <FontAwesomeIcon icon={faBookOpenReader} className="me-4" />
+                <FontAwesomeIcon width={17} icon={faBookOpenReader} className="me-4" />
                 <h3 className="m-0 me-2">{data.title}</h3>
               </span>
               {/* <FontAwesomeIcon icon={faCheckCircle} className="" /> */}
@@ -121,7 +140,7 @@ const LessonCard: React.FC<LessonCardProps> = ({
                 onClick={() => onSelectedexercises(item._id)}
               >
                 <div className={cx("name", "d-flex align-items-center")}>
-                  <FontAwesomeIcon icon={faPenRuler} className="me-4" />
+                  {renderExerciseType(item.type)}
                   <h3 className="m-0 me-2">Bài tập {idx + 1}</h3>
                 </div>
                 {/* {exercisesCompletionStatus[item.id] && (

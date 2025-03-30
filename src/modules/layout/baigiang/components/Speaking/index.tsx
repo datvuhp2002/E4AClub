@@ -8,6 +8,7 @@ import styles from './Speaking.module.scss';
 import Button from '@/modules/common/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
+import { SoundIcon } from '@/modules/common/components/IconSVG/IconSVG';
 
 const cx = classNames.bind(styles);
 
@@ -124,12 +125,7 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
                 <div className={cx('wrapper-body-voice')}>
                     <button onClick={startListening} className={cx('wrapper-body-voice-button')} disabled={isListening}>
                         {isListening ? (
-                            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    fill="#fff"
-                                    d="m400 32h-352c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-352c0-26.5-21.5-48-48-48z"
-                                />
-                            </svg>
+                            <SoundIcon width={40} height={40} color='white'/>
                         ) : (
                             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                                 <path d="M0 0h24v24H0V0z" fill="none" />

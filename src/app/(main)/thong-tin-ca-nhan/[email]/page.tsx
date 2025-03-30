@@ -14,14 +14,6 @@ const ThongTinCaNhan = () => {
   const { user, loading, refreshUser } = useUser();
   const [myCourse, setMyCourse] = useState([]);
 
-  useEffect(() => {
-    CourseServices.GetMyCourse()
-      .then((res) => {
-        setMyCourse(res.data);
-      })
-      .catch((e) => console.error(e));
-  }, []);
-
   moment.locale("vi");
   useEffect(() => {
     try {
@@ -29,7 +21,7 @@ const ThongTinCaNhan = () => {
         .then((res) => {
           console.log(res);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => console.log(e));thithi
     } catch (err) {
       console.log("ERRR::::", err);
     }
