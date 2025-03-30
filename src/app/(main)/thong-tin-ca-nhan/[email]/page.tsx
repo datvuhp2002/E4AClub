@@ -23,17 +23,6 @@ const ThongTinCaNhan = () => {
   }, []);
 
   moment.locale("vi");
-  useEffect(() => {
-    try {
-      CourseServices.GetMyCourse()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => console.log(e));
-    } catch (err) {
-      console.log("ERRR::::", err);
-    }
-  }, []);
   return (
     <div className={`${styles.wrapper} mt-5 `}>
       {user && (
