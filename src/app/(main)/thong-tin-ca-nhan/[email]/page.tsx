@@ -14,18 +14,15 @@ const ThongTinCaNhan = () => {
   const { user, loading, refreshUser } = useUser();
   const [myCourse, setMyCourse] = useState([]);
 
-  moment.locale("vi");
   useEffect(() => {
-    try {
-      CourseServices.GetMyCourse()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => console.log(e));thithi
-    } catch (err) {
-      console.log("ERRR::::", err);
-    }
+    CourseServices.GetMyCourse()
+      .then((res) => {
+        setMyCourse(res.data);
+      })
+      .catch((e) => console.error(e));
   }, []);
+
+  moment.locale("vi");
   return (
     <div className={`${styles.wrapper} mt-5 `}>
       {user && (
