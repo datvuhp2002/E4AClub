@@ -60,6 +60,17 @@ const CourseServices = {
       console.log("Request failed:", error);
     }
   },
+  GetCourseByUserId: async (id: string) => {
+    try {
+      const res: any = await requestApi({
+        endpoint: `/${Service}/user/${id}`,
+        method: "GET",
+      });
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
+    }
+  },
   DeleteCourse: async (course_id: string) => {
     try {
       const res: any = await requestApi({
