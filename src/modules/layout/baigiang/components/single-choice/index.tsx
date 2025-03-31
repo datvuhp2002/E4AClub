@@ -3,14 +3,16 @@ import classNames from "classnames/bind";
 import styles from "./SingleChoice.module.scss";
 import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
+import CourseServices from "@/services/course-services";
 
 const cx = classNames.bind(styles);
 
 interface SingleChoiceProps {
   quizData: IExerciseOption[];
+  exerciseId: string;
 }
 
-const SingleChoice: React.FC<SingleChoiceProps> = ({ quizData }) => {
+const SingleChoice: React.FC<SingleChoiceProps> = ({ quizData, exerciseId }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showBorder, setShowBorder] = useState(false);
   const { HandleOpenToast } = useToastContext();
@@ -29,6 +31,12 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({ quizData }) => {
       HandleOpenToast({
         type: "success",
         content: `Câu trả lời chính xác!!!`,
+      });
+
+      CourseServices.UpdateProgressExercise({
+        exercise: exerciseId,
+        answers: [`${selectedAnswer}`],
+        score: 100,
       });
     } else {
       HandleOpenToast({

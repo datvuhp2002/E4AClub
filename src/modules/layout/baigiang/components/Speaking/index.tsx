@@ -9,14 +9,16 @@ import Button from '@/modules/common/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import { SoundIcon } from '@/modules/common/components/IconSVG/IconSVG';
+import CourseServices from '@/services/course-services';
 
 const cx = classNames.bind(styles);
 
 interface SpeakingProps {
     question: string;
+    exerciseId: string;
 }
 
-const Speaking: React.FC<SpeakingProps> = ({ question }) => {
+const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
     const [score, setScore] = useState<number | null>(null);
     const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(null);
 
@@ -61,6 +63,12 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
         const totalWords = questionData.words.length;
         const similarity = (1 - incorrectIndexes.size / totalWords) * 100;
         setScore(Math.round(similarity));
+
+        CourseServices.UpdateProgressExercise({
+            exercise: exerciseId,
+            answers: [`${inputText}`],
+            score: Math.round(similarity)
+        });
 
         // Tạo highlight text với khoảng trắng trước các từ không phải từ đầu tiên
         const highlightedText = questionData.words.map((word, i) => {
@@ -125,7 +133,7 @@ const Speaking: React.FC<SpeakingProps> = ({ question }) => {
                 <div className={cx('wrapper-body-voice')}>
                     <button onClick={startListening} className={cx('wrapper-body-voice-button')} disabled={isListening}>
                         {isListening ? (
-                            <SoundIcon width={40} height={40} color='white'/>
+                            <SoundIcon width={40} height={40} color="white" />
                         ) : (
                             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                                 <path d="M0 0h24v24H0V0z" fill="none" />
