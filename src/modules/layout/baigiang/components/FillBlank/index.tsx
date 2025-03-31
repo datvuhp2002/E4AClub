@@ -4,21 +4,30 @@ import { useState } from "react";
 import styles from "./FillBlank.module.scss";
 import classNames from "classnames/bind";
 import Button from "../../../../common/components/Button";
+import CourseServices from "@/services/course-services";
 
 const cx = classNames.bind(styles);
 interface FillBlankProps {
   question: string; // Câu hỏi
   correctAnswer: string; // Đáp án đúng
+  exerciseId: string;
 }
 
-const FillBlank: React.FC<FillBlankProps> = ({ question, correctAnswer }) => {
+const FillBlank: React.FC<FillBlankProps> = ({ question, correctAnswer, exerciseId }) => {
   const [userAnswer, setUserAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
-  const checkAnswer = () => {
-    setIsCorrect(
-      userAnswer.trim().toLowerCase() === correctAnswer.toLowerCase()
-    );
+  const checkAnswer = async () => {
+    const isSuccess = userAnswer.trim().toLowerCase() === correctAnswer.toLowerCase();
+    setIsCorrect(isSuccess);
+
+    if (isSuccess) {
+      CourseServices.UpdateProgressExercise({
+        exercise: exerciseId,
+        answers: [`${userAnswer.trim()}`],
+        score: 100,
+      });
+    }
   };
 
   return (

@@ -143,6 +143,14 @@ const LessonCard: React.FC<LessonCardProps> = ({
                   {renderExerciseType(item.type)}
                   <h3 className="m-0 me-2">Bài tập {idx + 1}</h3>
                 </div>
+                {data.isCompleted && (
+                  <div className={cx("icon")}>
+                    <FontAwesomeIcon
+                      icon={faCheckCircle}
+                      className="text-success"
+                    />
+                  </div>
+                )}
                 {/* {exercisesCompletionStatus[item.id] && (
                   <div className={cx("icon")}>
                     <FontAwesomeIcon
