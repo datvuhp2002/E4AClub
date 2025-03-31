@@ -84,7 +84,7 @@ const page = () => {
                       <div
                         className={`${styles.card_img_wrapper} rounded mb-2 w-100 mt-3`}
                       >
-                        <div className={`shadow-sm w-100`}>
+                        <div className={`d-flex align-items-center m-auto`}>
                           <Image
                             w100
                             course_img_publish
@@ -147,7 +147,7 @@ const page = () => {
                       </div>
                     ))
                   ) : (
-                    <div>Chưa tham gia khóa học nào</div>
+                    <div>Học viên chưa tham gia khóa học nào</div>
                   )}
                 </div>
               </div>
