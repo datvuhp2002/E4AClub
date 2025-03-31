@@ -125,6 +125,19 @@ const CourseServices = {
       console.log("Request failed:", error);
     }
   },
+  UpdateProgressExercise: async (data: IUpdateProgressExercise) => {
+    try {
+      const res: any = await requestApi({
+        endpoint: `/submissions`,
+        method: "POST",
+        data: data,
+      });
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
+    }
+  }
 };
 
 export default CourseServices;

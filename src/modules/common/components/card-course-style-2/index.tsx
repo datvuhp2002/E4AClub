@@ -17,7 +17,7 @@ const CardCourseStyle2: React.FC<any> = ({ data, className }) => {
             <div className={cx("wrapper-info")}>
                 <h6 className={cx("wrapper-title")}>{data.title}</h6>
                 <p className={cx("wrapper-desc", "mb-0")}>{data.description}</p>
-                <div className={cx("wrapper-progress")} style={{'--progress': '80%'} as React.CSSProperties }></div>
+                <div className={cx("wrapper-progress")} style={{'--progress': `${data.progress}%`} as React.CSSProperties }></div>
             </div>
         </Link>
     );
