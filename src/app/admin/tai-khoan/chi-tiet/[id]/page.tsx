@@ -13,7 +13,6 @@ import { useToastContext } from "@/lib/context/toast-context";
 import UserServices from "@/services/user-services";
 import CardCourseStyle2 from "@/modules/common/components/card-course-style-2";
 import CourseServices from "@/services/course-services";
-// import ReaderPublishSearchServices from "@/services/reader-publish-search-services";
 const page = () => {
   const params = useParams<{ id: string }>();
   const router = useRouter();
