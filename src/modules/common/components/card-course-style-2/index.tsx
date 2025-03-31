@@ -8,6 +8,7 @@ import Image from "@/modules/common/components/Image";
 const cx = classNames.bind(styles);
 
 const CardCourseStyle2: React.FC<any> = ({ data, className }) => {
+
   useEffect(() => {
     console.log(data);
   }, []);
@@ -35,6 +36,7 @@ const CardCourseStyle2: React.FC<any> = ({ data, className }) => {
       </div>
     </Link>
   );
+
 };
 
 export default CardCourseStyle2;
