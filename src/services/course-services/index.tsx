@@ -66,7 +66,6 @@ const CourseServices = {
         endpoint: `/${Service}/user/${id}`,
         method: "GET",
       });
-      console.log(res);
       return res;
     } catch (error) {
       console.log("Request failed:", error);
@@ -149,7 +148,7 @@ const CourseServices = {
     } catch (error) {
       console.log("Request failed:", error);
     }
-  }
+  },
 };
 
 export default CourseServices;

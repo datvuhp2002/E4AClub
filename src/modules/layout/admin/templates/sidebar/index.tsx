@@ -192,7 +192,7 @@ const Sidebar: React.FC<{
         <DrawerHeader
           className={`${styles.logo} d-flex align-items-center justify-content-center `}
         >
-          <Link href="/admin">
+          <Link href="/admin/khoa-hoc/danh-sach">
             <Image
               alt="logo"
               src={process.env.FILE_URL + "svg/Logo.svg"}

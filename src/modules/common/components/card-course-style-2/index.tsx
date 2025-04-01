@@ -44,7 +44,6 @@ const CardCourseStyle2: React.FC<any> = ({ data, className }) => {
       </div>
     </Link>
   );
-
 };
 
 export default CardCourseStyle2;

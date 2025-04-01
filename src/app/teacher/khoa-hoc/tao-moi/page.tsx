@@ -5,11 +5,9 @@ import styles from "./TaoMoi.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Card from "@/modules/common/components/Card";
 import { useToastContext } from "@/lib/context/toast-context";
-import formatDateTime from "@/common/format_date";
 import InputField from "@/modules/common/components/input-field";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCirclePlus,
   faPlus,
   faQuoteLeft,
   faSignature,
@@ -17,42 +15,56 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/modules/common/components/Button";
 import CourseServices from "@/services/course-services";
+import Image from "@/modules/common/components/Image";
 
 const page = () => {
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
+    control,
+    reset,
+    setError,
     getValues,
     clearErrors,
     formState: { errors },
   } = useForm<ICreateCourse>();
+
   const { HandleOpenToast } = useToastContext();
   const [onLoading, setOnLoading] = useState<boolean>(false);
-  const selectedColumn = [
-    { title: "Tiêu đề", data: "title" },
-    { title: "Nội dung", data: "content" },
-    {
-      title: "Ngày gửi",
-      data: "createddate",
-      render: (data: string) => {
-        return formatDateTime.formatDate(data);
-      },
-    },
-    { title: "Trạng Thái", data: "status" },
-  ];
+  const [thumbnail, setThumbnail] = useState<string | null>(null);
+
   const handleSuccessToast = (message: string) => {
     HandleOpenToast({
       type: "success",
       content: message,
     });
   };
+
   const handleErrorToast = (message: string) => {
     HandleOpenToast({
       type: "error",
       content: `${message}! Vui lòng thử lại`,
     });
   };
+
+  const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      let reader = new FileReader();
+
+      reader.onload = (event) => {
+        if (typeof event.target?.result === "string") {
+          console.log("Base64 Image:", event.target.result); // Debugging log
+          setThumbnail(event.target.result); // Cập nhật ảnh mới
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   const resetFormValues = () => {
     const currentValues = getValues();
     Object.keys(currentValues).forEach((key) => {
@@ -61,14 +73,17 @@ const page = () => {
     Object.keys(currentValues).forEach((key) => {
       clearErrors(key as keyof ICreateCourse);
     });
+    setThumbnail(null); // Reset ảnh
   };
-  const handleSubmitCreateUser: SubmitHandler<ICreateCourse> = async (data) => {
+
+  const handleSubmitCreateCourse: SubmitHandler<ICreateCourse> = async (
+    data
+  ) => {
     setOnLoading(true);
     try {
       const result = await CourseServices.CreateCourse(data);
       if (result && result.success) {
         setOnLoading(false);
-
         handleSuccessToast("Tạo khóa học thành công");
       } else {
         setOnLoading(false);
@@ -81,14 +96,11 @@ const page = () => {
     }
     resetFormValues();
   };
-  useEffect(() => {}, []);
+
   return (
     <div className={`${styles.wrapper} mb-5`}>
       <div className="">
         <ol className="breadcrumb mb-3">
-          <li className="breadcrumb-item">
-            <Link href="/teacher">Trang chủ</Link>
-          </li>
           <li className="breadcrumb-item">Khóa học</li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">Tạo mới</li>
         </ol>
@@ -105,9 +117,9 @@ const page = () => {
             </strong>
             <div className="d-flex align-items-center ">
               <Button
-                rounded
-                onClick={handleSubmit(handleSubmitCreateUser)}
+                onClick={handleSubmit(handleSubmitCreateCourse)}
                 success_btn
+                rounded
                 leftIcon={<FontAwesomeIcon icon={faPlus} />}
                 className=" ms-3 fs-5"
               >
@@ -125,11 +137,6 @@ const page = () => {
               register={register}
               validation={{
                 required: "Tiêu đề là bắt buộc",
-                validate: {
-                  twoWords: (value: string) =>
-                    value.trim().split(" ").length >= 2 ||
-                    "Tiêu đề phải có ít nhất 2 từ",
-                },
                 maxLength: {
                   value: 254,
                   message: "Tiêu đề có tối đa 254 ký tự",
@@ -161,6 +168,41 @@ const page = () => {
               leftIcon={<FontAwesomeIcon icon={faQuoteLeft} />}
               errors={errors}
             />
+          </div>
+          <div className="">
+            <div className="mb-3 row">
+              <div className=" mb-3 col-sm-4 col-xs-12 mb-2 mb-md-0">
+                <label
+                  htmlFor="file"
+                  className={`${styles.btn_changeThumbnail}`}
+                >
+                  Thêm bìa khóa học
+                </label>
+              </div>
+              <div className="d-flex justify-content-around col-sm-8 col-xs-12">
+                {thumbnail && (
+                  <Image
+                    key={thumbnail}
+                    course_img
+                    src={thumbnail}
+                    alt="Course Thumbnail"
+                  />
+                )}
+              </div>
+              <input
+                id="file"
+                type="file"
+                accept="image/*"
+                className="d-none"
+                {...register("image", {
+                  required: "Vui lòng viết thêm ảnh của khóa học",
+                  onChange: onImageChange,
+                })}
+              />
+              {errors.image && (
+                <p className="text-danger">{errors.image.message}</p>
+              )}
+            </div>
           </div>
         </div>
       </Card>

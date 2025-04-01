@@ -94,7 +94,6 @@ function App({
   const handleDelete = async () => {
     try {
       const result = await delete_handle(selectedRow);
-      console.log(result);
       if (result && result.success) {
         setData((prevData: any) =>
           prevData.filter((row: any) => row._id !== selectedRow)

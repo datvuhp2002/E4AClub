@@ -41,10 +41,10 @@ const page = () => {
     } else {
       switch (res.data.user.role) {
         case "admin":
-          window.open("/admin", "_blank"); // Mở tab mới cho admin
+          window.open("/admin/khoa-hoc/danh-sach", "_blank"); // Mở tab mới cho admin
           break;
         case "teacher":
-          window.open("/teacher", "_blank"); // Mở tab mới cho teacher
+          window.open("/teacher/khoa-hoc/danh-sach", "_blank"); // Mở tab mới cho teacher
           break;
         case "student":
           router.push("/");

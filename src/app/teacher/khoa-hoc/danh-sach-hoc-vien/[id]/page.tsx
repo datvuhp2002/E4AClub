@@ -8,18 +8,21 @@ import CourseServices from "@/services/course-services";
 import { useToastContext } from "@/lib/context/toast-context";
 import Button from "@/modules/common/components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faLeftLong } from "@fortawesome/free-solid-svg-icons";
+import { useParams, useRouter } from "next/navigation";
 const DataTable = dynamic(
   () => import("@/modules/common/components/data-table"),
   { ssr: false }
 );
-const selectedColumn = [
-  { title: "Tiêu đề", data: "title" },
-  { title: "Miêu tả", data: "description" },
-  { title: "Tổng bài học", data: "totalSections" },
-  { title: "Tổng học viên", data: "totalEnrolledUsers" },
+const selectedColumnEnrollUser = [
+  { title: "Email", data: "email" },
+  { title: "Họ và tên", data: "name" },
 ];
 const page = () => {
+  const router = useRouter();
+  const params = useParams<{ id: string }>();
+  const [onLoadingEnrollUser, setOnLoadingEnrollUser] = useState<boolean>(true);
+  const [enrollUser, setEnrollUser] = useState<ICourse>({} as ICourse);
   const { HandleOpenToast } = useToastContext();
   const handleSuccessToast = () => {
     HandleOpenToast({
@@ -33,17 +36,15 @@ const page = () => {
       content: `${message}! Vui lòng thử lại`,
     });
   };
-  const [List, setList] = useState<any>();
-  const [onLoading, setOnLoading] = useState<boolean>(true);
   useEffect(() => {
-    setOnLoading(true);
-    CourseServices.GetMyCourse()
+    setOnLoadingEnrollUser(true);
+    CourseServices.GetEnrolledUsers(params.id)
       .then((res) => {
-        setList(res.data);
-        setOnLoading(false);
+        setEnrollUser(res.enrolledUsers);
+        setOnLoadingEnrollUser(false);
       })
-      .catch((e) => {
-        console.error(e);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
   return (
@@ -52,38 +53,42 @@ const page = () => {
         <ol className="breadcrumb mb-3 ">
           <li className="breadcrumb-item">Khóa học</li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">
-            Danh sách
+            Danh sách học viên
           </li>
         </ol>
       </div>
-      {/* Data Table */}
+      {/* Students */}
       <Card
         title={
           <div className="d-flex align-items-center justify-content-between">
-            <div className="fw-bold">Quản lý khóa học</div>
+            <label className="form-label fw-bold fs-3 ">
+              Danh sách người tham gia
+            </label>
             <div>
-              <div className="col">
-                <Button
-                  success_btn
-                  rounded
-                  className="fs-5"
-                  to="tao-moi"
-                  leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                >
-                  Tạo mới
-                </Button>
-              </div>
+              <Button
+                rounded
+                leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+                className="text-nowrap w-100 justify-content-around fs-5"
+                transparent_btn
+                onClick={() =>
+                  router.push(`/teacher/khoa-hoc/chi-tiet/${params.id}`)
+                }
+              >
+                Quay lại
+              </Button>
             </div>
           </div>
         }
       >
-        {/* <hr></hr> */}
-        {!onLoading ? (
+        {!onLoadingEnrollUser && enrollUser ? (
           <DataTable
-            data={List}
-            selectedColumn={selectedColumn}
-            edit_direction={"chi-tiet"}
-            delete_handle={CourseServices.DeleteCourse}
+            key={`enroll-user-table-${params.id}`}
+            data={enrollUser}
+            selectedColumn={selectedColumnEnrollUser}
+            edit_direction={"/teacher/tai-khoan/chi-tiet"}
+            delete_handle={() => {
+              return Promise.resolve({ success: true });
+            }}
           />
         ) : (
           <TableSkeleton />
