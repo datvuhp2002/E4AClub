@@ -146,7 +146,7 @@ const page = () => {
                       </div>
                     </div>
                   )}
-                  {totalEnrolledUsers && (
+                  {totalEnrolledUsers > 0 && (
                     <div className={`row d-flex align-items-center mb-2`}>
                       <div className="col text-end">Tổng học viên</div>
                       <div className="col d-flex">

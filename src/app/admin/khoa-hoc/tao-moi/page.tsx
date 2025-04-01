@@ -30,25 +30,25 @@ const page = () => {
     clearErrors,
     formState: { errors },
   } = useForm<ICreateCourse>();
-  const [thumbnail, setThumbnail] = useState<{
-    image: string | ArrayBuffer | null;
-  }>({
-    image: null,
-  });
+
   const { HandleOpenToast } = useToastContext();
   const [onLoading, setOnLoading] = useState<boolean>(false);
+  const [thumbnail, setThumbnail] = useState<string | null>(null);
+
   const handleSuccessToast = (message: string) => {
     HandleOpenToast({
       type: "success",
       content: message,
     });
   };
+
   const handleErrorToast = (message: string) => {
     HandleOpenToast({
       type: "error",
       content: `${message}! Vui lòng thử lại`,
     });
   };
+
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -56,13 +56,15 @@ const page = () => {
 
       reader.onload = (event) => {
         if (typeof event.target?.result === "string") {
-          setThumbnail({ image: event.target.result }); // Chỉ lưu string
+          console.log("Base64 Image:", event.target.result); // Debugging log
+          setThumbnail(event.target.result); // Cập nhật ảnh mới
         }
       };
 
       reader.readAsDataURL(file);
     }
   };
+
   const resetFormValues = () => {
     const currentValues = getValues();
     Object.keys(currentValues).forEach((key) => {
@@ -71,7 +73,9 @@ const page = () => {
     Object.keys(currentValues).forEach((key) => {
       clearErrors(key as keyof ICreateCourse);
     });
+    setThumbnail(null); // Reset ảnh
   };
+
   const handleSubmitCreateCourse: SubmitHandler<ICreateCourse> = async (
     data
   ) => {
@@ -92,14 +96,11 @@ const page = () => {
     }
     resetFormValues();
   };
-  useEffect(() => {}, []);
+
   return (
     <div className={`${styles.wrapper} mb-5`}>
       <div className="">
         <ol className="breadcrumb mb-3">
-          <li className="breadcrumb-item">
-            <Link href="/admin">Trang chủ</Link>
-          </li>
           <li className="breadcrumb-item">Khóa học</li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">Tạo mới</li>
         </ol>
@@ -136,7 +137,6 @@ const page = () => {
               register={register}
               validation={{
                 required: "Tiêu đề là bắt buộc",
-                validate: {},
                 maxLength: {
                   value: 254,
                   message: "Tiêu đề có tối đa 254 ký tự",
@@ -180,10 +180,11 @@ const page = () => {
                 </label>
               </div>
               <div className="d-flex justify-content-around col-sm-8 col-xs-12">
-                {thumbnail.image && (
+                {thumbnail && (
                   <Image
+                    key={thumbnail}
                     course_img
-                    src={thumbnail.image as string}
+                    src={thumbnail}
                     alt="Course Thumbnail"
                   />
                 )}

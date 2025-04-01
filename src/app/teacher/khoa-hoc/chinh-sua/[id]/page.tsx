@@ -4,20 +4,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./ChinhSua.module.scss";
 import { Controller, useForm } from "react-hook-form";
 import Card from "@/modules/common/components/Card";
-import dynamic from "next/dynamic";
 import CourseServices from "@/services/course-services";
 import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
-import SectionServices from "@/services/section-services";
 import { useParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeftLong, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import SkeletonData from "@/modules/common/components/skeleton-data";
 import { useRouter } from "next/navigation";
-const CKEditorComponent = dynamic(
-  () => import("@/modules/common/components/ck-editor"),
-  { ssr: false }
-);
 
 const page = () => {
   const {
@@ -69,9 +63,6 @@ const page = () => {
     <div className={`${styles.wrapper} mb-5`}>
       <div className="">
         <ol className="breadcrumb mb-3">
-          <li className="breadcrumb-item">
-            <Link href="/teacher">Trang chủ</Link>
-          </li>
           <li className="breadcrumb-item">Khóa học</li>
           <li className="breadcrumb-item">Chi tiết</li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">
