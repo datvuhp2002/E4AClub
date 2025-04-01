@@ -39,19 +39,22 @@ const page = () => {
   const [onLoading, setOnLoading] = useState<boolean>(true);
   useEffect(() => {
     setOnLoading(true);
-    CourseServices.GetCourseById(params.id).then((res) => {
-      setCourse(res.data);
-      setTotalEnrolledUsers(res.data.enrolledUsers.length);
-      setOnLoading(false);
-    });
-    SectionServices.GetSectionFromCourse(params.id)
-      .then((res) => {
-        setSections(res.sections);
+    Promise.all([
+      CourseServices.GetCourseById(params.id),
+      SectionServices.GetSectionFromCourse(params.id),
+    ])
+      .then(([courseRes, sectionRes]) => {
+        setCourse(courseRes.data);
+        setTotalEnrolledUsers(courseRes.data.enrolledUsers.length);
+        setSections(sectionRes.sections);
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Lỗi khi lấy dữ liệu:", err);
+      })
+      .finally(() => {
+        setOnLoading(false);
       });
-  }, []);
+  }, [params.id]);
   return (
     <div className={`${styles.wrapper} mb-5`}>
       <div className="d-flex align-items-center justify-content-between">
