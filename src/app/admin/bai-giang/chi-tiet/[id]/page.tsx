@@ -55,17 +55,21 @@ const page = () => {
   };
 
   useEffect(() => {
-    SectionServices.GetSection(params.id)
-      .then((res) => {
-        setSectionData(res.section);
+    setOnLoading(true);
+    Promise.all([
+      SectionServices.GetSection(params.id),
+      ExercisesServices.GetExercisesBySection(params.id),
+    ])
+      .then(([sectionRes, exercisesRes]) => {
+        setSectionData(sectionRes.section);
+        setList(exercisesRes.exercises);
       })
       .catch((err) => {
         handleErrorToast("Đã xảy ra lỗi");
+      })
+      .finally(() => {
+        setOnLoading(false);
       });
-    ExercisesServices.GetExercisesBySection(params.id).then((res) => {
-      setOnLoading(false);
-      setList(res.exercises);
-    });
   }, []);
   return (
     <Suspense fallback={<div>Đang tải...</div>}>
@@ -187,7 +191,7 @@ const page = () => {
               </div>
             </Card>
             <div className="mt-3">
-              {sectionData.course && (
+              {list && (
                 <Card
                   title={
                     <div className="d-flex align-items-center justify-content-between">
@@ -206,7 +210,7 @@ const page = () => {
                     </div>
                   }
                 >
-                  {!onLoading && list ? (
+                  {!onLoading ? (
                     <DataTable
                       data={list}
                       selectedColumn={selectedColumn}
