@@ -1,7 +1,7 @@
 ROOT=https://opac.thuviensonla.com.vn/
-API_URL=http://localhost:8080/api
+API_URL=https://e4a-be.onrender.com/api
 FILE_URL=http://localhost:3000/
-FLIPBOOK_URL=http://localhost:8080/uploads
+FLIPBOOK_URL=https://e4a-be.onrender.com/uploads
 TENANT=en
 NEXT_PUBLIC_FOOTER_PHONE_NUMBER_ADDRESS=024-38254938
 NEXT_PUBLIC_FOOTER_EMAIL_ADDRESS=info@nlv.gov.vn
