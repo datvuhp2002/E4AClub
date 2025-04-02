@@ -191,37 +191,35 @@ const page = () => {
               </div>
             </Card>
             <div className="mt-3">
-              {list && (
-                <Card
-                  title={
-                    <div className="d-flex align-items-center justify-content-between">
-                      Danh sách bài tập
-                      <div className="d-flex mt-2">
-                        <Button
-                          success_btn
-                          rounded
-                          className="fs-5"
-                          to={`/admin/bai-tap/tao-moi?learning=${params.id}`}
-                          leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                        >
-                          Tạo mới
-                        </Button>
-                      </div>
+              <Card
+                title={
+                  <div className="d-flex align-items-center justify-content-between">
+                    Danh sách bài tập
+                    <div className="d-flex mt-2">
+                      <Button
+                        success_btn
+                        rounded
+                        className="fs-5"
+                        to={`/admin/bai-tap/tao-moi?learning=${params.id}`}
+                        leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                      >
+                        Tạo mới
+                      </Button>
                     </div>
-                  }
-                >
-                  {!onLoading ? (
-                    <DataTable
-                      data={list}
-                      selectedColumn={selectedColumn}
-                      edit_direction={"/admin/bai-tap/chi-tiet"}
-                      delete_handle={ExercisesServices.DeleteSection}
-                    />
-                  ) : (
-                    <TableSkeleton />
-                  )}
-                </Card>
-              )}
+                  </div>
+                }
+              >
+                {!onLoading ? (
+                  <DataTable
+                    data={list}
+                    selectedColumn={selectedColumn}
+                    edit_direction={"/admin/bai-tap/chi-tiet"}
+                    delete_handle={ExercisesServices.DeleteSection}
+                  />
+                ) : (
+                  <TableSkeleton />
+                )}
+              </Card>
             </div>
           </div>
         ) : (
