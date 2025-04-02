@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import styles from "./login.module.scss";
+import styles from "./Login.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Box } from "@mui/material";
 import InputField from "@/modules/common/components/input-field";
