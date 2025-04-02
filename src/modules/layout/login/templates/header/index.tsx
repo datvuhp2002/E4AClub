@@ -7,7 +7,7 @@ const Header = () => {
     <div className={`${styles.wrapper}`}>
       <Image
         alt="logo"
-        src={process.env.FILE_URL + "svg/logo.svg"}
+        src={process.env.FILE_URL + "svg/Logo.svg"}
         login_logo
       />
     </div>
