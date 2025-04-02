@@ -2,6 +2,31 @@ import fetch from "@/common/request";
 
 const Service = "exercises";
 const ExercisesServices = {
+  CreateExercise: async (data: any) => {
+    try {
+      let res: any = await fetch({
+        endpoint: `/${Service}`,
+        method: "POST",
+        data,
+      });
+      return res;
+    } catch (err) {
+      console.log("ERRR::::", err);
+      throw err;
+    }
+  },
+  DeleteSection: async (id: string) => {
+    try {
+      const res: any = await fetch({
+        endpoint: `/${Service}/${id}`,
+        method: "DELETE",
+        data: {},
+      });
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
+    }
+  },
   GetExercisesBySection: async (id: string) => {
     try {
       let res: any = await fetch({
@@ -14,8 +39,7 @@ const ExercisesServices = {
       throw err;
     }
   },
-  GetSection: async (id: string) => {
-    console.log(id);
+  GetExerciseById: async (id: string) => {
     try {
       let res: any = await fetch({
         endpoint: `/${Service}/${id}`,
@@ -25,6 +49,18 @@ const ExercisesServices = {
     } catch (err) {
       console.log("ERRR::::", err);
       throw err;
+    }
+  },
+  UpdateExercise: async (id: string, data: IExercise) => {
+    try {
+      const res: any = await fetch({
+        endpoint: `/${Service}/${id}`,
+        method: "PUT",
+        data: data,
+      });
+      return res;
+    } catch (error) {
+      console.log("Request failed:", error);
     }
   },
 };

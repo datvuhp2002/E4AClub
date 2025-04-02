@@ -7,17 +7,39 @@ import styles from "./ChiTiet.module.scss";
 import SkeletonData from "@/modules/common/components/skeleton-data";
 import { useToastContext } from "@/lib/context/toast-context";
 import SectionServices from "@/services/section-services";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLeftLong, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-
+import {
+  faLeftLong,
+  faPenToSquare,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import TableSkeleton from "@/modules/common/components/table-skeleton";
+import dynamic from "next/dynamic";
+import ExercisesServices from "@/services/exercises-services";
+import formatDateTime from "@/common/format_date";
+const DataTable = dynamic(
+  () => import("@/modules/common/components/data-table"),
+  { ssr: false }
+);
 const page = () => {
   const params = useParams<{ id: string }>();
   const router = useRouter();
+  const [onLoading, setOnLoading] = useState<boolean>(true);
   const [sectionData, setSectionData] = useState<IGetSectionRes>(
     {} as IGetSectionRes
   );
+  const [list, setList] = useState<IExercise>();
+  const selectedColumn = [
+    { title: "Câu hỏi", data: "question" },
+    {
+      title: "Ngày tạo",
+      data: "createdAt",
+      render: (data: string) => {
+        return formatDateTime.formatDate(data);
+      },
+    },
+  ];
   const { HandleOpenToast } = useToastContext();
   const handleSuccessToast = (message: string) => {
     HandleOpenToast({
@@ -35,11 +57,15 @@ const page = () => {
   useEffect(() => {
     SectionServices.GetSection(params.id)
       .then((res) => {
-        setSectionData(res.data.section);
+        setSectionData(res.section);
       })
       .catch((err) => {
         handleErrorToast("Đã xảy ra lỗi");
       });
+    ExercisesServices.GetExercisesBySection(params.id).then((res) => {
+      setOnLoading(false);
+      setList(res.exercises);
+    });
   }, []);
   return (
     <Suspense fallback={<div>Đang tải...</div>}>
@@ -48,9 +74,6 @@ const page = () => {
           <div className={`${styles.wrapper} mb-5`}>
             <div className="">
               <ol className="breadcrumb mb-3">
-                <li className="breadcrumb-item">
-                  <Link href="/teacher">Trang chủ</Link>
-                </li>
                 <li className="breadcrumb-item">Bài giảng</li>
                 <li className="breadcrumb-item breadcrumb-active fw-bold">
                   Chi tiết
@@ -60,41 +83,51 @@ const page = () => {
             {/* Data Table */}
             <Card
               title={
-                <div className="row align-items-center justify-content-between">
-                  <div className="col-sm-12 col-md-9 mt-2">
-                    Chi tiết bài giảng -
-                    <strong className="ms-2 text-danger">
-                      {sectionData.title}
-                    </strong>
-                  </div>
-                  <div className="col-sm-12 col-md-3 row d-flex fs-5">
-                    <div className="col mt-2">
-                      <Button
-                        rounded
-                        success_btn
-                        leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
-                        className="text-nowrap w-100 justify-content-around fs-4"
-                        to={`/teacher/bai-giang/chinh-sua/${params.id}`}
-                      >
-                        sửa
-                      </Button>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="row w-100">
+                    <div className="col-sm-12 col-md-9 mt-2">
+                      Chi tiết bài giảng -
+                      <strong className="ms-2 text-danger">
+                        {sectionData.title}
+                      </strong>
                     </div>
-                    <div className="col mt-2">
-                      <Button
-                        rounded
-                        leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
-                        className="text-nowrap w-100 justify-content-around"
-                        transparent_btn
-                        onClick={() => router.back()}
-                      >
-                        Quay lại
-                      </Button>
+                    <div className="col-sm-12 col-md-3 d-flex fs-5 align-items-center justify-content-end mt-2">
+                      <div className="row">
+                        <div className="col">
+                          <Button
+                            rounded
+                            success_btn
+                            leftIcon={<FontAwesomeIcon icon={faPenToSquare} />}
+                            className="text-nowrap w-100 justify-content-around fs-5"
+                            to={`/teacher/bai-giang/chinh-sua/${params.id}`}
+                          >
+                            sửa
+                          </Button>
+                        </div>
+                        <div className="col">
+                          {sectionData.course && (
+                            <Button
+                              rounded
+                              leftIcon={<FontAwesomeIcon icon={faLeftLong} />}
+                              className="text-nowrap w-100 justify-content-around"
+                              transparent_btn
+                              onClick={() =>
+                                router.push(
+                                  `/teacher/khoa-hoc/chi-tiet/${sectionData.course._id}`
+                                )
+                              }
+                            >
+                              Quay lại
+                            </Button>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               }
             >
-              <div className="row">
+              <div className={`${styles.wrapper_learning_card} row`}>
                 <div className="col-12 col-md-6 mb-3">
                   <div className="mb-3 ">
                     <label className="form-label">Khóa học:</label>
@@ -150,6 +183,39 @@ const page = () => {
                 </div>
               </div>
             </Card>
+            <div className="mt-3">
+              {sectionData.course && (
+                <Card
+                  title={
+                    <div className="d-flex align-items-center justify-content-between">
+                      Danh sách bài tập
+                      <div className="d-flex mt-2">
+                        <Button
+                          success_btn
+                          rounded
+                          className="fs-5"
+                          to={`/teacher/bai-tap/tao-moi?learning=${params.id}`}
+                          leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                        >
+                          Tạo mới
+                        </Button>
+                      </div>
+                    </div>
+                  }
+                >
+                  {!onLoading && list ? (
+                    <DataTable
+                      data={list}
+                      selectedColumn={selectedColumn}
+                      edit_direction={"/teacher/bai-tap/chi-tiet"}
+                      delete_handle={ExercisesServices.DeleteSection}
+                    />
+                  ) : (
+                    <TableSkeleton />
+                  )}
+                </Card>
+              )}
+            </div>
           </div>
         ) : (
           <SkeletonData />

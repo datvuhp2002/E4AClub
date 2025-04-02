@@ -23,6 +23,8 @@ import SectionServices from "@/services/section-services";
 import ExercisesServices from "@/services/exercises-services";
 import MultipleChoice from "@/modules/layout/baigiang/components/multiple-choice";
 import SingleChoice from "@/modules/layout/baigiang/components/single-choice";
+import FillBlank from "@/modules/layout/baigiang/components/FillBlank";
+import Speaking from "@/modules/layout/baigiang/components/Speaking";
 const cx = classNames.bind(styles);
 
 const Page = () => {
@@ -45,7 +47,7 @@ const Page = () => {
     const currentExercise = searchParams.get("quiz");
     if (currentExercise) {
       setIsExercise(true);
-      ExercisesServices.GetSection(currentExercise)
+      ExercisesServices.GetExerciseById(currentExercise)
         .then((res) => {
           setExercises(res.exercise);
         })
@@ -83,13 +85,19 @@ const Page = () => {
   const renderExercise = (exercise: IExercise) => {
     switch (exercise.type) {
       case "multiple-choice":
-        return <MultipleChoice quizData={exercise.options} />;
+        return <MultipleChoice exerciseId={exercise._id} quizData={exercise.options} />;
       case "single-choice":
-        return <SingleChoice quizData={exercise.options} />;
+        return <SingleChoice exerciseId={exercise._id} quizData={exercise.options} />;
       case "fill-in-the-blank":
-        return <p>Bài tập điền vào chỗ trống</p>;
+        return (
+          <FillBlank
+            question={exercise.question}
+            correctAnswer={exercise.blankAnswer}
+            exerciseId={exercise._id}
+          />
+        );
       case "speaking":
-        return <p>Bài tập trả lời ngắn</p>;
+        return <Speaking exerciseId={exercise._id} question={exercise.question} />;
 
       default:
         return <p>Loại bài tập không xác định</p>;
@@ -99,6 +107,7 @@ const Page = () => {
     SectionServices.GetSectionFromCourse(params.id)
       .then((res) => {
         if (res.success) {
+          console.log(res);
           setMaxSection(res.sections.length);
           setLessonData(res.sections);
         }
@@ -144,8 +153,12 @@ const Page = () => {
           {exercises && (
             <div className={cx("content", "mt-5 container")}>
               <div className={cx("content_top")}>
-                <h1>{exercises.question}</h1>
-                <p>Cập nhật {moment(exercises.updatedAt).fromNow()}</p>
+                {exercises.type !== "speaking" ? (
+                  <>
+                    <h1>{exercises.question}</h1>
+                    <p>Cập nhật {moment(exercises.updatedAt).fromNow()}</p>
+                  </>
+                ) : null}
               </div>
               {/* nội dung bài tập */}
               <div>{renderExercise(exercises)}</div>

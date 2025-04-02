@@ -27,11 +27,6 @@ const directPublicRoutes = [
 ];
 const directAdminRoutes = [
   {
-    text: "Trang chủ",
-    icon: faHome,
-    path: "/admin",
-  },
-  {
     text: "Tài khoản",
     icon: faUsersCog,
     path: "tai-khoan",
@@ -46,11 +41,6 @@ const directAdminRoutes = [
         icon: faCircle,
         path: "/admin/tai-khoan/tao-moi",
       },
-      // {
-      //   text: "Thùng rác",
-      //   icon: faCircle,
-      //   path: "/admin/tai-khoan/thung-rac",
-      // },
     ],
   },
   {
@@ -68,11 +58,6 @@ const directAdminRoutes = [
         icon: faCircle,
         path: "/admin/khoa-hoc/tao-moi",
       },
-      // {
-      //   text: "Thùng rác",
-      //   icon: faCircle,
-      //   path: "/admin/khoa-hoc/thung-rac",
-      // },
     ],
   },
   {
@@ -85,42 +70,10 @@ const directAdminRoutes = [
         icon: faCircle,
         path: "/admin/bai-giang/tao-moi",
       },
-      // {
-      //   text: "Thùng rác",
-      //   icon: faCircle,
-      //   path: "/admin/bai-giang/thung-rac",
-      // },
     ],
   },
 ];
 const directTeacherRoutes = [
-  {
-    text: "Trang chủ",
-    icon: faHome,
-    path: "/teacher",
-  },
-  // {
-  //   text: "Tài khoản",
-  //   icon: faUsersCog,
-  //   path: "tai-khoan",
-  //   subMenu: [
-  //     {
-  //       text: "Danh sách",
-  //       icon: faCircle,
-  //       path: "/teacher/tai-khoan/danh-sach",
-  //     },
-  //     {
-  //       text: "Tạo mới",
-  //       icon: faCircle,
-  //       path: "/teacher/tai-khoan/tao-moi",
-  //     },
-  //     // {
-  //     //   text: "Thùng rác",
-  //     //   icon: faCircle,
-  //     //   path: "/teacher/tai-khoan/thung-rac",
-  //     // },
-  //   ],
-  // },
   {
     text: "Khóa học",
     icon: faBookOpen,
@@ -136,11 +89,6 @@ const directTeacherRoutes = [
         icon: faCircle,
         path: "/teacher/khoa-hoc/tao-moi",
       },
-      // {
-      //   text: "Thùng rác",
-      //   icon: faCircle,
-      //   path: "/teacher/khoa-hoc/thung-rac",
-      // },
     ],
   },
   {
@@ -153,11 +101,6 @@ const directTeacherRoutes = [
         icon: faCircle,
         path: "/teacher/bai-giang/tao-moi",
       },
-      // {
-      //   text: "Thùng rác",
-      //   icon: faCircle,
-      //   path: "/teacher/bai-giang/thung-rac",
-      // },
     ],
   },
 ];

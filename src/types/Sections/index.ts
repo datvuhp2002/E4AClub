@@ -9,6 +9,7 @@ interface ISection {
   exercises?: IExercise[];
   __v: number; // Version key for the document
   video: string; // Video ID associated with the lesson
+  isCompleted?: boolean;
 }
 interface IGetSectionRes {
   _id: string; // Unique identifier for the lesson

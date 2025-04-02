@@ -3,14 +3,19 @@ import classNames from "classnames/bind";
 import styles from "./MultipleChoice.module.scss";
 import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
+import CourseServices from "@/services/course-services";
 
 const cx = classNames.bind(styles);
 
 interface MultipleChoiceProps {
   quizData: IExerciseOption[];
+  exerciseId: string;
 }
 
-const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quizData }) => {
+const MultipleChoice: React.FC<MultipleChoiceProps> = ({
+  quizData,
+  exerciseId,
+}) => {
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [showBorder, setShowBorder] = useState(false);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean>(false);
@@ -45,6 +50,12 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quizData }) => {
         });
         setShowBorder(true);
         setIsAnswerCorrect(true);
+
+        CourseServices.UpdateProgressExercise({
+          exercise: exerciseId,
+          answers: selectedAnswers,
+          score: 100,
+        });
       } else if (isPartiallyCorrect) {
         HandleOpenToast({
           type: "warning",
@@ -64,7 +75,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quizData }) => {
   return (
     <div>
       <div className={cx("answer")}>
-        {quizData.map((item) => (
+        {quizData.map((item: any) => (
           <div
             key={item._id}
             onClick={() => toggleAnswer(item._id)}

@@ -19,13 +19,6 @@ const selectedColumn = [
   { title: "Miêu tả", data: "description" },
   { title: "Tổng bài học", data: "totalSections" },
   { title: "Tổng học viên", data: "totalEnrolledUsers" },
-  // {
-  //   title: "Tổng bài học",
-  //   data: "createddate",
-  //   render: (data: string) => {
-  //     return formatDateTime.formatDate(data);
-  //   },
-  // },
 ];
 const page = () => {
   const { HandleOpenToast } = useToastContext();

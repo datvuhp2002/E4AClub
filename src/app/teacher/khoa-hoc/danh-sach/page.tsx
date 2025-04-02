@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styles from "./DanhSach.module.scss";
 import Card from "@/modules/common/components/Card";
@@ -9,7 +8,7 @@ import CourseServices from "@/services/course-services";
 import { useToastContext } from "@/lib/context/toast-context";
 import Button from "@/modules/common/components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 const DataTable = dynamic(
   () => import("@/modules/common/components/data-table"),
   { ssr: false }
@@ -19,13 +18,6 @@ const selectedColumn = [
   { title: "Miêu tả", data: "description" },
   { title: "Tổng bài học", data: "totalSections" },
   { title: "Tổng học viên", data: "totalEnrolledUsers" },
-  // {
-  //   title: "Tổng bài học",
-  //   data: "createddate",
-  //   render: (data: string) => {
-  //     return formatDateTime.formatDate(data);
-  //   },
-  // },
 ];
 const page = () => {
   const { HandleOpenToast } = useToastContext();
@@ -45,7 +37,7 @@ const page = () => {
   const [onLoading, setOnLoading] = useState<boolean>(true);
   useEffect(() => {
     setOnLoading(true);
-    CourseServices.GetAllCourse()
+    CourseServices.GetMyCourse()
       .then((res) => {
         setList(res.data);
         setOnLoading(false);
@@ -58,9 +50,6 @@ const page = () => {
     <div className={`${styles.wrapper} mb-5`}>
       <div className="">
         <ol className="breadcrumb mb-3 ">
-          <li className="breadcrumb-item">
-            <Link href="/teacher">Trang chủ</Link>
-          </li>
           <li className="breadcrumb-item">Khóa học</li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">
             Danh sách

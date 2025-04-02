@@ -90,18 +90,18 @@ const page = () => {
     SectionServices.GetSection(params.id)
       .then((res) => {
         if (res.success) {
-          setTotalSections(res.data.totalSections);
+          setTotalSections(res.totalSections);
           setLoading(false);
-          setValue("title", res.data.section.title);
-          setValue("order", res.data.section.order);
-          setValue("content", res.data.section.content);
+          setValue("title", res.section.title);
+          setValue("order", res.section.order);
+          setValue("content", res.section.content);
           setValue(
             "video",
-            `https://www.youtube.com/embed/${res.data.section.video}`
+            `https://www.youtube.com/embed/${res.section.video}`
           );
           setSelectedCourse({
-            title: `${res.data.section.course.title}`,
-            _id: res.data.section.course._id,
+            title: `${res.section.course.title}`,
+            _id: res.section.course._id,
           });
           setVideoId(res.section.video);
         }

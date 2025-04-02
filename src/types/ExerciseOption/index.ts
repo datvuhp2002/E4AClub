@@ -1,7 +1,7 @@
 interface IExerciseOption {
   text: string;
   isCorrect: boolean;
-  _id: string;
+  _id?: string;
 }
 
 interface IExercise {
@@ -10,7 +10,7 @@ interface IExercise {
   type: "multiple-choice" | "single-choice" | "fill-in-the-blank" | "speaking";
   question: string;
   options: IExerciseOption[];
-  correctAnswers: any[];
+  blankAnswer: string;
   createdAt: string;
   updatedAt: string;
 }

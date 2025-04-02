@@ -249,9 +249,14 @@ const countries = [
   { value: "ZW", title: "Zimbabwe" },
 ];
 
+const exercisesType = [
+  { value: "choice", title: "Trắc nghiệm" },
+  { value: "fill-in-the-blank", title: "Điền từ khuyết thiếu" },
+  { value: "speaking", title: "Phát âm" },
+];
 const role = [
   { value: "admin", title: "Quản trị" },
   { value: "teacher", title: "Giáo viên" },
   { value: "student", title: "Học sinh" },
 ];
-export { countries, role };
+export { countries, role, exercisesType };

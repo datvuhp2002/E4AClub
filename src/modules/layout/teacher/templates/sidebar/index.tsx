@@ -91,7 +91,7 @@ const Sidebar: React.FC<{
   const renderSidebarItem = () => {
     return directTeacherRoutes.map((item, index) => {
       const isActive = item.path
-        ? pathName === item.path || pathName.startsWith(`/admin/${item.path}`)
+        ? pathName === item.path || pathName.startsWith(`/teacher/${item.path}`)
         : false;
       return (
         <ListItem
@@ -140,7 +140,7 @@ const Sidebar: React.FC<{
                     const isSubmenuActive = item.path
                       ? pathName === subItem.path ||
                         pathName.startsWith(
-                          `/admin/${item.path}/${subItem.path}`
+                          `/teacher/${item.path}/${subItem.path}`
                         )
                       : false;
                     return (
@@ -192,7 +192,7 @@ const Sidebar: React.FC<{
         <DrawerHeader
           className={`${styles.logo} d-flex align-items-center justify-content-center `}
         >
-          <Link href="/admin">
+          <Link href="/teacher/khoa-hoc/danh-sach">
             <Image
               alt="logo"
               src={process.env.FILE_URL + "svg/Logo.svg"}
