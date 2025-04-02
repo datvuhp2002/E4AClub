@@ -8,9 +8,9 @@ import { UserProvider } from "@/lib/context/user-context";
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextThemesProvider
-      themes={["standard", "ultimate"]}
+      themes={["standard"]}
       attribute="class"
-      defaultTheme={process.env.NEXT_PUBLIC_SETTING_THEME}
+      defaultTheme={"standard"}
     >
       <ThemeProvider theme={theme}>
         <UserProvider>
