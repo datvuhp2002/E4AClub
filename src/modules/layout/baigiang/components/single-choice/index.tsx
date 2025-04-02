@@ -12,7 +12,10 @@ interface SingleChoiceProps {
   exerciseId: string;
 }
 
-const SingleChoice: React.FC<SingleChoiceProps> = ({ quizData, exerciseId }) => {
+const SingleChoice: React.FC<SingleChoiceProps> = ({
+  quizData,
+  exerciseId,
+}) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showBorder, setShowBorder] = useState(false);
   const { HandleOpenToast } = useToastContext();
@@ -51,7 +54,7 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({ quizData, exerciseId }) => 
   return (
     <div>
       <div className={cx("answer")}>
-        {quizData.map((item) => (
+        {quizData.map((item: any) => (
           <div
             key={item._id}
             onClick={() => onSelectAnswer(item._id)}

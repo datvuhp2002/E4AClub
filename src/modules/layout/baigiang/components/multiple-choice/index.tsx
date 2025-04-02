@@ -12,7 +12,10 @@ interface MultipleChoiceProps {
   exerciseId: string;
 }
 
-const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quizData, exerciseId }) => {
+const MultipleChoice: React.FC<MultipleChoiceProps> = ({
+  quizData,
+  exerciseId,
+}) => {
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [showBorder, setShowBorder] = useState(false);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean>(false);
@@ -47,7 +50,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quizData, exerciseId })
         });
         setShowBorder(true);
         setIsAnswerCorrect(true);
-        
+
         CourseServices.UpdateProgressExercise({
           exercise: exerciseId,
           answers: selectedAnswers,
@@ -72,7 +75,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quizData, exerciseId })
   return (
     <div>
       <div className={cx("answer")}>
-        {quizData.map((item) => (
+        {quizData.map((item: any) => (
           <div
             key={item._id}
             onClick={() => toggleAnswer(item._id)}
