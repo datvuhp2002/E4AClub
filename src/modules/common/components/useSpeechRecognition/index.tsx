@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 
-const useSpeechRecognition = (onResult?: (text: string) => void) => {
+const useSpeechRecognition = (onResult?: (text: string) => void, onEvaluate?: (audioURL: string) => void) => {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [audioURL, setAudioURL] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  const streamRef = useRef<MediaStream | null>(null); // Lưu stream để tắt khi kết thúc
+  const streamRef = useRef<MediaStream | null>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   const startListening = async () => {
     if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
@@ -14,7 +15,6 @@ const useSpeechRecognition = (onResult?: (text: string) => void) => {
       return;
     }
 
-    // Yêu cầu quyền truy cập microphone
     streamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
     mediaRecorderRef.current = new MediaRecorder(streamRef.current);
     audioChunksRef.current = [];
@@ -27,37 +27,42 @@ const useSpeechRecognition = (onResult?: (text: string) => void) => {
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
       const url = URL.createObjectURL(audioBlob);
       setAudioURL(url);
+      onEvaluate?.(url);
 
-      // 🔴 Dừng tất cả các track của microphone (tắt biểu tượng thu âm)
       streamRef.current?.getTracks().forEach(track => track.stop());
       streamRef.current = null;
     };
 
     mediaRecorderRef.current.start();
 
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition() as any;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognitionRef.current = new SpeechRecognition();
 
-    recognition.lang = "en-US";
-    recognition.interimResults = false;
-    recognition.start();
+    recognitionRef.current.lang = "en-US";
+    recognitionRef.current.interimResults = false;
+    recognitionRef.current.start();
     setIsListening(true);
 
-    recognition.onresult = (event: any) => {
+    recognitionRef.current.onresult = (event: any) => {
       const speechText = event.results[0][0].transcript;
       setText(speechText);
       onResult?.(speechText);
     };
 
-    recognition.onend = () => {
-      setIsListening(false);
-      mediaRecorderRef.current?.stop(); // Dừng ghi âm khi nhận diện xong
-      recognition.stop(); // Đảm bảo dừng hẳn nhận diện giọng nói
+    recognitionRef.current.onend = () => {
+      stopListening();
     };
   };
 
-  return { text, isListening, startListening, audioURL };
+  const stopListening = () => {
+    if (isListening) {
+      setIsListening(false);
+      recognitionRef.current?.stop();
+      mediaRecorderRef.current?.stop();
+    }
+  };
+
+  return { text, isListening, startListening, stopListening, audioURL };
 };
 
 export default useSpeechRecognition;
