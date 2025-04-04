@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const useSpeechRecognition = (
   onResult?: (text: string) => void,
@@ -70,7 +70,12 @@ const useSpeechRecognition = (
     }
   };
 
-  return { text, isListening, startListening, stopListening, audioURL };
+  const resetAudio = () => {
+    setAudioURL(null);
+    setText('');
+  };
+
+  return { text, isListening, startListening, stopListening, resetAudio, audioURL };
 };
 
 export default useSpeechRecognition;
