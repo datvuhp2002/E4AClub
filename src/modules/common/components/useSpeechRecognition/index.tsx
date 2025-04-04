@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const useSpeechRecognition = (onResult?: (text: string) => void, onEvaluate?: (audioURL: string) => void) => {
   const [text, setText] = useState("");
@@ -7,7 +7,7 @@ const useSpeechRecognition = (onResult?: (text: string) => void, onEvaluate?: (a
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
 
   const startListening = async () => {
     if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
@@ -62,7 +62,12 @@ const useSpeechRecognition = (onResult?: (text: string) => void, onEvaluate?: (a
     }
   };
 
-  return { text, isListening, startListening, stopListening, audioURL };
+  const resetAudio = () => {
+    setAudioURL(null);
+    setText('');
+  };
+
+  return { text, isListening, startListening, stopListening, resetAudio, audioURL };
 };
 
 export default useSpeechRecognition;

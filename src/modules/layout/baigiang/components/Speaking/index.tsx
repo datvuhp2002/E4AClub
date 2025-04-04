@@ -1,11 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import DiffMatchPatch from 'diff-match-patch';
+import { useEffect, useState } from 'react';
 import useSpeechRecognition from '@/modules/common/components/useSpeechRecognition';
 import classNames from 'classnames/bind';
 import styles from './Speaking.module.scss';
-import Button from '@/modules/common/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import { SoundIcon } from '@/modules/common/components/IconSVG/IconSVG';
@@ -95,7 +93,13 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
         setHighlightedText(<>{highlightedText}</>);
     };
 
-    const { isListening, startListening, stopListening, audioURL } = useSpeechRecognition(calculateScore);
+    const { isListening, startListening, stopListening, resetAudio, audioURL } = useSpeechRecognition(calculateScore);
+
+    useEffect(() => {
+        setScore(null);
+        setHighlightedText(null);
+        resetAudio();
+    }, [exerciseId])
 
     const handlePlayAudio = () => {
         if (audioURL) {
