@@ -1,13 +1,16 @@
 import { useState, useRef } from "react";
 
-const useSpeechRecognition = (onResult?: (text: string) => void, onEvaluate?: (audioURL: string) => void) => {
+const useSpeechRecognition = (
+  onResult?: (text: string) => void,
+  onEvaluate?: (audioURL: string) => void
+) => {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [audioURL, setAudioURL] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
 
   const startListening = async () => {
     if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
@@ -15,7 +18,9 @@ const useSpeechRecognition = (onResult?: (text: string) => void, onEvaluate?: (a
       return;
     }
 
-    streamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
+    streamRef.current = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+    });
     mediaRecorderRef.current = new MediaRecorder(streamRef.current);
     audioChunksRef.current = [];
 
@@ -24,18 +29,21 @@ const useSpeechRecognition = (onResult?: (text: string) => void, onEvaluate?: (a
     };
 
     mediaRecorderRef.current.onstop = () => {
-      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+      const audioBlob = new Blob(audioChunksRef.current, {
+        type: "audio/webm",
+      });
       const url = URL.createObjectURL(audioBlob);
       setAudioURL(url);
       onEvaluate?.(url);
 
-      streamRef.current?.getTracks().forEach(track => track.stop());
+      streamRef.current?.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
     };
 
     mediaRecorderRef.current.start();
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
 
     recognitionRef.current.lang = "en-US";
