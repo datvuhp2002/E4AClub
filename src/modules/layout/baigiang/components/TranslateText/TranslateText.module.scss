@@ -1,0 +1,10 @@
+.wrapper {
+    border-bottom: 1px dashed var(--border-line);
+    cursor: pointer;
+    color: transparent;
+    white-space: nowrap;
+
+    &:hover {
+        border-color: var(--admin-orange-color);
+    }
+}
