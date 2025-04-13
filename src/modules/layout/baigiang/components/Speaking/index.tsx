@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import { SoundIcon } from '@/modules/common/components/IconSVG/IconSVG';
 import CourseServices from '@/services/course-services';
+import SentenceWrapper from '../SentenceWrapper';
 
 const cx = classNames.bind(styles);
 
@@ -157,7 +158,12 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
                     >
                         <FontAwesomeIcon icon={faVolumeHigh} />
                     </button>
-                    <p className={cx('wrapper-body-voice-text')}>{score !== null ? highlightedText : question}</p>
+                    <div className={cx('wrapper-body-voice-text')}>
+                        <SentenceWrapper text={question}>
+                            {score !== null ? highlightedText : question}
+                        </SentenceWrapper>
+                    </div>
+                    {/* <p className={cx('wrapper-body-voice-text')}>{score !== null ? highlightedText : question}</p> */}
                 </div>
             </div>
         </div>
