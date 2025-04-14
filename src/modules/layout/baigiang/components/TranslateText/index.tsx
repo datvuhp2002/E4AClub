@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, CSSProperties } from "react";
-import { Tooltip } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import classNames from 'classnames/bind';
 import styles from './TranslateText.module.scss';
 import TranslatorService from "@/services/translator-service";
@@ -10,8 +10,8 @@ const cx = classNames.bind(styles);
 
 interface TranslateTextProps {
     text: string;
-    className?: string; 
-    style?: CSSProperties; 
+    className?: string;
+    style?: CSSProperties;
 }
 
 const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style }) => {
@@ -47,7 +47,46 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
             className={cx('wrapper', className)}
             onMouseEnter={handleTranslate}
             title={translatedText || 'Đang dịch...'}
+            // title={
+            //     <Box
+            //         sx={{ maxWidth: 220 }}
+            //         dangerouslySetInnerHTML={{
+            //             __html: `<strong>Đây là HTML</strong><br><em>Hiển thị bằng cách không an toàn</em>`,
+            //         }}
+            //     />
+            // }
             arrow
+            slotProps={{
+                popper: {
+                    modifiers: [
+                        {
+                            name: 'offset',
+                            options: {
+                                offset: [0, 8],
+                            },
+                        },
+                    ],
+                },
+                tooltip: {
+                    sx: {
+                        backgroundColor: '#fff',
+                        color: 'var(--text-color)',
+                        fontSize: '14px',
+                        padding: '8px 12px',
+                        borderRadius: '8px',
+                        border: '2px solid #ccc',
+                    },
+                },
+                arrow: {
+                    sx: {
+                        color: '#fff',
+                        '::before': {
+                            border: '2px solid #ccc',
+                            boxSizing: 'border-box',
+                        },
+                    },
+                },
+            }}
         >
             <span style={style}>{text}</span>
         </Tooltip>
