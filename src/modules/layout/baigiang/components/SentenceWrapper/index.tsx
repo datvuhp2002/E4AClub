@@ -11,10 +11,11 @@ const cx = classNames.bind(style);
 
 interface SentenceWrapperProps {
     text: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
+    className?: string;
 }
 
-const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null }) => {
+const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null, className="" }) => {
     const [phraseArr, setPhraseArr] = useState([]);
 
     useEffect(() => {
@@ -80,8 +81,8 @@ const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null
     }, [text]);
 
     return (
-        <div className={cx("wrapper")}>
-            {children !== null ? children : text}
+        <div className={cx("wrapper", "w-100 pe-2", [className])}>
+            <span> {children !== null ? children : text} </span>
             <div className={cx("wrapper-translate-tooltip")}>
                 {
                     phraseArr.map((phrase, index) => (<>

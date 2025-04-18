@@ -23,11 +23,11 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
             a: 'Tính từ',
             n: 'Danh từ',
             v: 'Động từ',
-            adv: 'Trạng từ',
+            r: 'Trạng từ',
             prep: 'Giới từ',
             conj: 'Liên từ',
             pron: 'Đại từ',
-            interj: 'Thán từ'
+            int: 'Thán từ'
         };
 
         const details = data.translated?.details || {};
@@ -38,7 +38,7 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
             const detail = details[posKey];
             tooltipHTML += `<div style="margin-bottom: 1rem;">`;
             tooltipHTML += `<strong style="text-decoration: underline;">${posMap[posKey] || posKey}</strong>`;
-            tooltipHTML += `<div style="margin-top: 0.25rem; color: var(--welcome-page-step-4-color)"><em>&rarr; ${detail.definition}</em></div>`;
+            tooltipHTML += `<div style="margin-top: 0.25rem; color: var(--welcome-page-step-4-color)"><em>&rarr; ${detail.definition}</em> (${text})</div>`;
 
             if (detail.examples?.length > 0) {
                 tooltipHTML += `<div style="margin-top: 0.5rem;"><strong>Ví dụ:</strong><ul style="padding-left: 1rem; margin: 0;">`;

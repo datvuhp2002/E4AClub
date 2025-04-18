@@ -1,10 +1,9 @@
 .wrapper {
-    border-bottom: 1px dashed var(--border-line);
+    border-bottom: 2px dotted var(--border-line);
     cursor: pointer;
     color: transparent;
-    white-space: nowrap;
 
     &:hover {
-        border-color: var(--admin-orange-color);
+        border-color: var(--purple-light);
     }
 }
