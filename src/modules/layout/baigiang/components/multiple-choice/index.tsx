@@ -4,6 +4,7 @@ import styles from "./MultipleChoice.module.scss";
 import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
 import CourseServices from "@/services/course-services";
+import SentenceWrapper from "../SentenceWrapper";
 
 const cx = classNames.bind(styles);
 
@@ -89,7 +90,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({
                 : ""
             )}
           >
-            {item.text}
+            <SentenceWrapper text={item.text}/>
           </div>
         ))}
       </div>

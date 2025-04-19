@@ -13,9 +13,10 @@ interface SentenceWrapperProps {
     text: string;
     children?: React.ReactNode;
     className?: string;
+    style?: React.CSSProperties; // Allow passing additional styles
 }
 
-const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null, className="" }) => {
+const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null, className = "", style }) => {
     const [phraseArr, setPhraseArr] = useState<string[]>([]);
 
     useEffect(() => {
@@ -63,7 +64,6 @@ const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null
                 // Nếu là động từ tobe → gộp với từ trước 
                 if (tobeVerbs.includes(currentWord)) {
                     result[result.length - 1] += ' ' + currentWord;
-                    //buffer[buffer.length - 1] += ' ' + currentWord;
                 } else {
                     buffer.push(currentWord);
                 }
@@ -81,7 +81,7 @@ const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null
     }, [text]);
 
     return (
-        <div className={cx("wrapper", "w-100 pe-2", [className])}>
+        <div className={cx("wrapper", "w-100 pe-2", [className])} style={style}> 
             <span> {children !== null ? children : text} </span>
             <div className={cx("wrapper-translate-tooltip")}>
                 {
