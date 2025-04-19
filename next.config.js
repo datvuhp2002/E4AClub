@@ -3,6 +3,7 @@ const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const nextConfig = {
+  reactStrictMode: false,
   env: {
     ROOT: process.env.ROOT,
     API_URL: process.env.API_URL,
