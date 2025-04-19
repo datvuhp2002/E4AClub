@@ -13,6 +13,8 @@ import {
   faPlus,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import Select from "@/modules/common/components/Select";
+import { exercisesType } from "@/common/static_variable";
 import ExercisesServices from "@/services/exercises-services";
 import { useParams, useRouter } from "next/navigation";
 
@@ -22,6 +24,9 @@ interface FormValues {
   question: string;
   options?: { text: string; isCorrect: boolean }[];
   blankAnswer?: string;
+  role?: string;
+  script?: string;
+  conversation?: { script?: string; role?: string };
 }
 
 const page = () => {
@@ -55,7 +60,7 @@ const page = () => {
   const handleSuccessToast = (message: string) => {
     HandleOpenToast({ type: "success", content: message });
   };
-  const [exerciseData, setExerciseData] = useState<IExercise>();
+  const [exerciseData, setExerciseData] = useState<ICreateExercise>();
   const [sectionParams, setSectionParams] = useState<string>();
   const handleErrorToast = (message: string) => {
     HandleOpenToast({ type: "error", content: `${message}! Vui lòng thử lại` });
@@ -72,7 +77,7 @@ const page = () => {
     });
   };
   const onSubmit = async (data: FormValues) => {
-    const payload: IExercise = {
+    const payload: ICreateExercise = {
       _id: params.id,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -81,14 +86,19 @@ const page = () => {
         | "multiple-choice"
         | "single-choice"
         | "fill-in-the-blank"
-        | "speaking",
+        | "speaking"
+        | "conversation",
       question: data.question,
       options:
         data.options?.map((option) => ({
           text: option.text,
           isCorrect: option.isCorrect,
-        })) ?? [], // Không gửi `_id`
+        })) ?? [],
       blankAnswer: data.blankAnswer ?? "",
+      conversation: {
+        role: data.role ?? "",
+        script: data.script ?? "",
+      },
     };
     if (data.type === "choice" && (!data.options || data.options.length < 2)) {
       handleErrorToast("Câu trả lời phải có ít nhất 2 đáp án");
@@ -100,7 +110,6 @@ const page = () => {
     ) {
       payload.options = [];
     }
-    console.log(payload);
     try {
       const res = await ExercisesServices.UpdateExercise(params.id, payload);
       if (res.success) {
@@ -116,10 +125,8 @@ const page = () => {
 
   useEffect(() => {
     ExercisesServices.GetExerciseById(params.id).then((res) => {
-      console.log(res);
       setExerciseData(res.exercise);
       setValue("question", res.exercise.question);
-
       if (
         res.exercise.type === "single-choice" ||
         res.exercise.type === "multiple-choice"
@@ -131,6 +138,10 @@ const page = () => {
       } else if (res.exercise.type === "fill-in-the-blank") {
         setSelectedType(res.exercise.type);
         setValue("blankAnswer", res.exercise.blankAnswer);
+      } else if (res.exercise.type === "conversation") {
+        setSelectedType(res.exercise.type);
+        setValue("role", res.exercise.conversation.role);
+        setValue("script", res.exercise.conversation.script);
       } else {
         setSelectedType(res.exercise.type);
       }
@@ -140,6 +151,7 @@ const page = () => {
     <div className={`${styles.wrapper} mb-5`}>
       <div>
         <ol className="breadcrumb mb-3">
+          <li className="breadcrumb-item">Trang chủ</li>
           <li className="breadcrumb-item">Chi tiết bài giảng</li>
           <li className="breadcrumb-item">Bài tập</li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">Tạo mới</li>
@@ -281,6 +293,43 @@ const page = () => {
                   {errors.blankAnswer && (
                     <small className="text-danger">
                       {errors.blankAnswer.message}
+                    </small>
+                  )}
+                </div>
+              </div>
+            )}
+            {/* Nếu loại bài tập là phát âm  */}
+            {selectedType === "conversation" && (
+              <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 mb-3">
+                  <label className="fw-bold">
+                    Vai trò <span className="text-danger">(*)</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    {...register("role", {
+                      required: "Vai trò là bắt buộc",
+                    })}
+                  />
+                  {errors.role && (
+                    <small className="text-danger">{errors.role.message}</small>
+                  )}
+                </div>
+                <div className="col-12 mb-3">
+                  <label className="fw-bold">
+                    Kịch bản <span className="text-danger">(*)</span>
+                  </label>
+                  <textarea
+                    className="form-control fs-5"
+                    style={{ minHeight: "30vh" }}
+                    {...register("script", {
+                      required: "Kịch bản là bắt buộc",
+                    })}
+                  />
+                  {errors.script && (
+                    <small className="text-danger">
+                      {errors.script.message}
                     </small>
                   )}
                 </div>

@@ -51,7 +51,7 @@ const ExercisesServices = {
       throw err;
     }
   },
-  UpdateExercise: async (id: string, data: IExercise) => {
+  UpdateExercise: async (id: string, data: ICreateExercise) => {
     try {
       const res: any = await fetch({
         endpoint: `/${Service}/${id}`,

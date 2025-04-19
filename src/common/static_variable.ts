@@ -253,6 +253,7 @@ const exercisesType = [
   { value: "choice", title: "Trắc nghiệm" },
   { value: "fill-in-the-blank", title: "Điền từ khuyết thiếu" },
   { value: "speaking", title: "Phát âm" },
+  { value: "conversation", title: "Hội thoại" },
 ];
 const role = [
   { value: "admin", title: "Quản trị" },

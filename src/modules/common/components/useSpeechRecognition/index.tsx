@@ -72,10 +72,17 @@ const useSpeechRecognition = (
 
   const resetAudio = () => {
     setAudioURL(null);
-    setText('');
+    setText("");
   };
 
-  return { text, isListening, startListening, stopListening, resetAudio, audioURL };
+  return {
+    text,
+    isListening,
+    startListening,
+    stopListening,
+    resetAudio,
+    audioURL,
+  };
 };
 
 export default useSpeechRecognition;

@@ -27,6 +27,7 @@ const page = () => {
   const [list, setList] = useState<IExerciseOption[]>();
   const [isOptions, setIsOptions] = useState<boolean>(false);
   const [isPlankAnswer, setIsPlankAnswer] = useState<boolean>(false);
+  const [isConversation, setIsConversation] = useState<boolean>(false);
   const [type, setType] = useState<string>("Trắch nghiệm");
   const selectedColumn = [
     { title: "Câu trả lời", data: "text" },
@@ -54,7 +55,7 @@ const page = () => {
   const handleDeleteOptions = async (id: string) => {
     try {
       const updatedList = list ? list.filter((item) => item._id !== id) : [];
-      const updatedExercise: IExercise = {
+      const updatedExercise: any = {
         ...exerciseData,
         options: updatedList,
       };
@@ -77,10 +78,13 @@ const page = () => {
           setType("Điền từ khuyết thiếu");
           setIsOptions(false);
           setIsPlankAnswer(true);
-        } else {
+        } else if (res.exercise.type === "conversation") {
           setType("Phát âm");
+          setIsConversation(true);
           setIsOptions(false);
           setIsPlankAnswer(false);
+        } else {
+          setType("Không xác định");
         }
         setOnLoading(false);
         setExerciseData(res.exercise);
@@ -97,9 +101,7 @@ const page = () => {
           <div className={`${styles.wrapper} mb-5`}>
             <div className="">
               <ol className="breadcrumb mb-3">
-                <li className="breadcrumb-item">
-                  <Link href="/admin">Trang chủ</Link>
-                </li>
+                <li className="breadcrumb-item">Trang chủ</li>
                 <li className="breadcrumb-item">Bài tập</li>
                 <li className="breadcrumb-item breadcrumb-active fw-bold">
                   Chi tiết
@@ -167,6 +169,23 @@ const page = () => {
                       <div className="mb-3 ">
                         <label className="form-label">Loại câu hỏi:</label>
                         <strong className="ms-2">{type}</strong>
+                      </div>
+                    )}
+                    {isConversation && (
+                      <div className="mb-3 ">
+                        <label className="form-label">Hội thoại:</label>
+                        <div className="ms-2 ">
+                          {exerciseData.conversation.parsedScript?.map(
+                            (item, index) => (
+                              <div key={item._id}>
+                                <strong className="text-success lh-lg">
+                                  {item.speaker}:
+                                </strong>{" "}
+                                {item.text}
+                              </div>
+                            )
+                          )}
+                        </div>
                       </div>
                     )}
                     <div className="mb-3 ">
