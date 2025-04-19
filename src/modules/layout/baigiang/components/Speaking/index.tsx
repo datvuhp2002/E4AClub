@@ -1,23 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import useSpeechRecognition from '@/modules/common/components/useSpeechRecognition';
 import classNames from 'classnames/bind';
-import styles from './Speaking.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
-import { SoundIcon } from '@/modules/common/components/IconSVG/IconSVG';
+
+import { SoundIcon, VoiceIcon } from '@/modules/common/components/IconSVG/IconSVG';
+import useSpeechRecognition from '@/modules/common/components/useSpeechRecognition';
 import CourseServices from '@/services/course-services';
 import SentenceWrapper from '../SentenceWrapper';
+import styles from './Speaking.module.scss';
 
 const cx = classNames.bind(styles);
 
 interface SpeakingProps {
     question: string;
-    exerciseId: string;
+    exerciseId?: string;
+    talking?: boolean;
+    className?: string;
+    onScoreChange?: (score: number) => void;
 }
 
-const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
+const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, className = "", onScoreChange }) => {
     const [score, setScore] = useState<number | null>(null);
     const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(null);
 
@@ -44,10 +48,10 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
 
         // Tách `question` và `inputText`
         const questionData = splitTextWithPunctuation(question);
-        const inputData = splitTextWithPunctuation(inputText.toLowerCase()); // Không phân biệt hoa thường
+        const inputData = splitTextWithPunctuation(inputText.toLowerCase());
 
         // So sánh từ theo vị trí
-        let incorrectIndexes = new Set<number>(); // Chứa index của từ sai
+        let incorrectIndexes = new Set<number>();
         let correctCount = 0;
 
         questionData.words.forEach((qWord, i) => {
@@ -61,13 +65,21 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
         // Tính điểm
         const totalWords = questionData.words.length;
         const similarity = (1 - incorrectIndexes.size / totalWords) * 100;
-        setScore(Math.round(similarity));
+        const roundedScore = Math.round(similarity);
+        setScore(roundedScore);
 
-        CourseServices.UpdateProgressExercise({
-            exercise: exerciseId,
-            answers: [`${inputText}`],
-            score: Math.round(similarity)
-        });
+        if (onScoreChange) {
+            onScoreChange(roundedScore);
+        }
+
+        // chỉ tự gửi điểm đi với type default
+        if (!talking && exerciseId != null) {
+            CourseServices.UpdateProgressExercise({
+                exercise: exerciseId,
+                answers: [`${inputText}`],
+                score: roundedScore
+            });
+        }
 
         // Tạo highlight text với khoảng trắng trước các từ không phải từ đầu tiên
         const highlightedText = questionData.words.map((word, i) => {
@@ -100,7 +112,7 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
         setScore(null);
         setHighlightedText(null);
         resetAudio();
-    }, [exerciseId])
+    }, [exerciseId, question])
 
     const handlePlayAudio = () => {
         if (audioURL) {
@@ -109,8 +121,13 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
         }
     };
 
+    const classes = cx('wrapper', {
+        [className]: className,
+        talking
+    });
+
     return (
-        <div className={cx('wrapper')}>
+        <div className={classes}>
             <h1 className="text-2xl font-bold mb-4">Chấm điểm phát âm tiếng Anh</h1>
 
             <div
@@ -122,8 +139,8 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
                             ? score < 50
                                 ? '#FF4D4D'
                                 : score < 80
-                                  ? '#FFC107'
-                                  : '#28A745'
+                                    ? '#FFC107'
+                                    : '#28A745'
                             : '#D3D3D3'
                     } as React.CSSProperties
                 }
@@ -142,13 +159,7 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId }) => {
                         </button>
                     ) : (
                         <button onClick={startListening} className={cx('wrapper-body-voice-button')}>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-                                <path d="M0 0h24v24H0V0z" fill="none" />
-                                <path
-                                    fill="#fff"
-                                    d="M12 15c1.66 0 2.99-1.34 2.99-3L15 6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 15 6.7 12H5c0 3.42 2.72 6.23 6 6.72V22h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"
-                                />
-                            </svg>
+                            <VoiceIcon color="white" />
                         </button>
                     )}
                     <button

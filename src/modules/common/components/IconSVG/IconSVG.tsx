@@ -24,4 +24,33 @@ const SoundIcon: React.FC<IconProps> = ({ width = 24, height = 24, color = 'whit
     </svg>
 );
 
-export { SoundIcon };
+const VoiceIcon: React.FC<IconProps> = ({ width = 24, height = 24, color = 'white', className = '' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" height={height} viewBox="0 0 24 24" width={width} className={className}>
+        <path d="M0 0h24v24H0V0z" fill="none" />
+        <path
+            fill={color}
+            d="M12 15c1.66 0 2.99-1.34 2.99-3L15 6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 15 6.7 12H5c0 3.42 2.72 6.23 6 6.72V22h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"
+        />
+    </svg>
+);
+
+const ManPersonSVG: React.FC<IconProps> = ({ width = 24, height = 24, color = 'white', className = '' }) => (
+    <svg enable-background="new -27 23 101 100" height="100px" id="malecostume_1_" version="1.1" viewBox="-27 23 101 100" width="101px" xmlns="http://www.w3.org/2000/svg" ><g><g><circle cx="23" cy="73" fill="#F5EEE5" r="50" /><g><defs><circle cx="23" cy="73" id="SVGID_1_" r="50" /></defs><clipPath id="SVGID_2_"><use overflow="visible" /></clipPath><path clip-path="url(#SVGID_2_)" d="M38,98.9l27.9,7.7c3.2,1.1,5.7,3.5,7.1,6.6v9.8H-27v-9.8      c1.3-3.1,3.9-5.5,7.1-6.6L8,98.9V84h30V98.9z" fill="#D4B08C" /><g clip-path="url(#SVGID_2_)"><defs><path d="M38,98.9l27.9,7.7c3.2,1.1,5.7,3.5,7.1,6.6v9.8H-27v-9.8c1.3-3.1,3.9-5.5,7.1-6.6L8,98.9V84h30V98.9z" id="SVGID_3_" /></defs><clipPath id="SVGID_4_"><use overflow="visible" /></clipPath><polygon clip-path="url(#SVGID_4_)" fill="#1E1E23" points="23.2,103 16,103 11.2,98 -27,98 -27,123 23.2,123 73.3,123        73.3,98 35.2,98 30.4,103      " /><polygon clip-path="url(#SVGID_4_)" fill="#C1CAD4" points="23,103 24,103 38.7,95.3 32.9,124.2 23,123.1 13.1,124.2 7.3,95.3        22,103      " /><polygon clip-path="url(#SVGID_4_)" fill="#216DD9" points="20.5,112 25.5,112 29.5,124 16.5,124      " /><polygon clip-path="url(#SVGID_4_)" fill="#249CF2" points="12.5,103 33.5,103 25.5,112 20.5,112      " /><path clip-path="url(#SVGID_4_)" d="M38.5,93l-14.4,10l10.8,11L39,94L38.5,93z M7.5,93l14.4,10l-10.8,11L7,94       L7.5,93z" fill="#FFFFFF" /></g></g><path d="M23,97c-1.5,0-3.5-0.3-4.8-0.9c-1.6-0.7-7.2-4.6-9.1-6.3c-2.5-2.3-3.8-5.1-4.2-10S3,57.5,3,53.5     C3,47.8,8.1,39,23,39l0,0l0,0l0,0l0,0C37.9,39,43,47.8,43,53.5c0,4-1.5,21.5-1.9,26.4s-1.6,7.7-4.2,10c-1.9,1.7-7.6,5.6-9.1,6.3     C26.5,96.7,24.5,97,23,97L23,97z" fill="#F2CEA5" /><path d="M30,83l-14,0c-0.4,0-0.6,0.4-0.4,0.8c1.3,2.3,3.7,3.5,6.7,3.7c3.1,0.2,6.5-1.3,8.1-3.7     C30.6,83.5,30.4,83,30,83z" fill="#A3705F" /><circle cx="32" cy="68" fill="#262626" r="2" /><circle cx="14" cy="68" fill="#262626" r="2" /><path d="M8,65c0,0,1.1-3,6.1-3c3.4,0,5.4,1.5,6.4,3" fill="none" stroke="#CC9872" stroke-width="2" /><path d="M38.1,65c0,0-1.1-3-6.1-3c-4.8,0-7,3-7,5c0,1.9,0,9,0,9" fill="none" stroke="#BB8660" stroke-width="2" /><path d="M41.8,71.2c0,0,0.8-6.3,3.7-7.2c0.4-1.8,1.5-7,1.5-9.9s-0.3-5.7-1.9-8.1c-1.8-2.6-5.6-4.1-7.6-4.1     c-2.3,1.4-7.7,4.6-9.4,6.5c-0.9,1,0.4,1.8,0.4,1.8s1.2-0.5,1.7-0.6c2.5-0.7,8-1.2,9.7,1.3C42,53.9,42,62.7,42,64     C42,65.2,41.8,71.2,41.8,71.2z" fill="#D98C21" /><path d="M0.5,64c2.9,1,3.7,7.2,3.7,7.2S4,65.2,4,64c0-1.6,0.2-9.1,3.4-12.7c3.6-4,8.4-5.3,11.1-3.5     c1.4,0.9,6.1,5.5,11.1,1.7c3-2.3,8.5-7.5,8.5-7.5s-2.9-8.9-16.1-7.9c-5.6,0.5-11.8-0.9-11.8-0.9s-0.1,2.5,0.9,3.8     C2.8,39.4,0.1,45.4-0.7,50c-0.2,0.9-0.3,1.8-0.3,2.7c0,0.5,0,1,0,1.4C-1,57,0.1,62.1,0.5,64z" fill="#E6A422" /></g></g></svg>
+);
+
+const SmileFace: React.FC<IconProps> = ({ width = 24, height = 24, color = 'yellow', className = '' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill={color} version="1.1" id="Capa_1" width={width} height={height} viewBox="0 0 34.25 34.25">
+        <g>
+            <path d="M17.125,0C7.668,0,0,7.667,0,17.125S7.668,34.25,17.125,34.25c9.459,0,17.125-7.667,17.125-17.125S26.584,0,17.125,0z    M23.445,11.422c1.354,0,2.453,1.099,2.453,2.453s-1.1,2.453-2.453,2.453c-1.354,0-2.453-1.099-2.453-2.453   S22.091,11.422,23.445,11.422z M10.804,11.422c1.355,0,2.453,1.099,2.453,2.453s-1.098,2.453-2.453,2.453   c-1.354,0-2.453-1.099-2.453-2.453S9.451,11.422,10.804,11.422z M26.365,23.079c-2.098,3.046-5.553,4.864-9.24,4.864   c-3.689,0-7.145-1.818-9.24-4.865c-0.47-0.682-0.297-1.616,0.386-2.086c0.683-0.471,1.616-0.297,2.086,0.386   c1.536,2.233,4.067,3.565,6.769,3.565s5.231-1.332,6.771-3.565c0.47-0.681,1.402-0.854,2.086-0.385   C26.662,21.463,26.834,22.396,26.365,23.079z" />
+        </g>
+    </svg>
+)
+
+const CryingFace: React.FC<IconProps> = ({ width = 24, height = 24, color = 'yellow', className = '' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} width={width} height={height} viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zM6 5c.558 0 1.031.41 1.031.875v.781c0 .466-.473.844-1.031.844-.558 0-1-.378-1-.844v-.781C5 5.41 5.442 5 6 5zm4 0c.558 0 1 .378 1 .844v.812c0 .466-.442.844-1 .844s-1-.378-1-.844v-.812C9 5.378 9.442 5 10 5zm1.75 2.281c1.208.449 2.046.937 2.219 1.563a.993.993 0 01-.938 1.25c-.519.007-.768-.216-.937-.875-.167-.66.083-1.293-.344-1.938zM7.969 9.97c2.588 0 3.969.98 3.969 1.562v.531c-.793-.696-3.187-1-3.97-1-.781 0-3.018-.058-3.968 1v-.53c0-.745 1.38-1.563 3.969-1.563z" fill={color} /></svg>
+)
+const SurpriseFace: React.FC<IconProps> = ({ width = 24, height = 24, color = 'yellow', className = '' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} width={width} height={height} viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zM6 5c.558 0 1.031.473 1.031 1.031V7c0 .558-.473 1-1.031 1-.558 0-1-.442-1-1v-.969C5 5.473 5.442 5 6 5zm4 0c.558 0 1 .473 1 1.031V7c0 .558-.442 1-1 1s-1-.442-1-1v-.969C9 5.473 9.442 5 10 5zM8 9.594c1.06 0 1.93.92 1.938 2.031 0 1.116-.873 2.031-1.938 2.031s-1.937-.915-1.937-2.031S6.935 9.594 8 9.594z" fill={color}/></svg>
+)
+
+export { SoundIcon, VoiceIcon, ManPersonSVG, SmileFace, CryingFace, SurpriseFace };

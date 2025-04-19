@@ -1,13 +1,20 @@
 'use client';
 
+import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import style from './Talking.module.scss';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(style);
 
 interface TalkingProps {
   text: string;
   gender?: 'male' | 'female' | 'child' | 'elderly';
+  classNames?: string;
 }
 
-const Talking: React.FC<TalkingProps> = ({ text, gender = 'male' }) => {
+const Talking: React.FC<TalkingProps> = ({ text, gender = 'male', classNames = '' }) => {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
 
   // Load danh sách giọng khi component mount
@@ -55,7 +62,7 @@ const Talking: React.FC<TalkingProps> = ({ text, gender = 'male' }) => {
 
   return (
     <div>
-      <button onClick={speak}>Nói</button>
+      <button className={cx('wrapper', classNames)} onClick={speak}><FontAwesomeIcon icon={faVolumeHigh} /></button>
     </div>
   );
 };

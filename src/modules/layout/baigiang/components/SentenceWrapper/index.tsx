@@ -11,36 +11,45 @@ const cx = classNames.bind(style);
 
 interface SentenceWrapperProps {
     text: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
+    className?: string;
 }
 
-const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null }) => {
+const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null, className="" }) => {
     const [phraseArr, setPhraseArr] = useState([]);
 
     useEffect(() => {
         const doc = nlp(text);
-
-        // 1. Tách theo cụm: lấy các cụm danh từ và cụm động từ
-        const nounPhrases = doc.nouns().out('array');       // English book
-        const verbPhrases = doc.verbs().out('array');       // like to read
-
-        // 2. Gộp tất cả cụm lại, tránh trùng lặp
-        const phraseSet = new Set([...nounPhrases, ...verbPhrases]);
-
-        // 3. Lấy tất cả các từ gốc trong câu
+        const nounPhrases = doc.nouns().out('array');
         const allWords = text.split(/\s+/);
 
-        // 4. Gom lại thành mảng cụm / từ:
-        const result: string[] = [];
+        const pronouns = ['I', 'you', 'he', 'she', 'it', 'we', 'they', 'He', 'She', 'We', 'They', 'It', 'You'];
+        const tobeVerbs = ['is', 'am', 'are', 'was', 'were', 'Is', 'Am', 'Are', 'Was', 'Were'];
 
+        const result: string[] = [];
         let i = 0;
+        let buffer: string[] = [];
+
         while (i < allWords.length) {
             let found = false;
 
-            // Kiểm tra từng cụm xem có khớp không
+            // Tìm cụm danh từ dài nhất có thể (tối đa 4 từ)
             for (let len = Math.min(4, allWords.length - i); len > 0; len--) {
-                const slice = allWords.slice(i, i + len).join(' ');
-                if (phraseSet.has(slice)) {
+                const sliceArr = allWords.slice(i, i + len);
+                const slice = sliceArr.join(' ');
+
+                // Nếu chỉ là 1 từ và là đại từ thì bỏ qua
+                if (len === 1 && pronouns.includes(sliceArr[0])) {
+                    continue;
+                }
+
+                if (nounPhrases.includes(slice)) {
+                    // Push buffer nếu có
+                    if (buffer.length > 0) {
+                        result.push(buffer.join(' '));
+                        buffer = [];
+                    }
+
                     result.push(slice);
                     i += len;
                     found = true;
@@ -48,27 +57,39 @@ const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null
                 }
             }
 
-            // Nếu không phải cụm nào thì push từng từ
             if (!found) {
-                result.push(allWords[i]);
-                i += 1;
+                const currentWord = allWords[i];
+
+                // Nếu là động từ tobe → gộp với từ trước 
+                if (tobeVerbs.includes(currentWord)) {
+                    result[result.length - 1] += ' ' + currentWord;
+                    //buffer[buffer.length - 1] += ' ' + currentWord;
+                } else {
+                    buffer.push(currentWord);
+                }
+
+                i++;
             }
         }
 
-        setPhraseArr(result);
+        // Push phần còn lại
+        if (buffer.length > 0) {
+            result.push(buffer.join(' '));
+        }
 
-    }, [text])
+        setPhraseArr(result);
+    }, [text]);
 
     return (
-        <div className={cx("wrapper")}>
-            {children !== null ? children : text}
+        <div className={cx("wrapper", "w-100 pe-2", [className])}>
+            <span> {children !== null ? children : text} </span>
             <div className={cx("wrapper-translate-tooltip")}>
-            {
-                phraseArr.map((phrase, index) => (<>
-                    {index !== 0 && <span>&nbsp;</span>}
-                    <TranslateText key={index} text={phrase} />
-                </>))
-            }
+                {
+                    phraseArr.map((phrase, index) => (<>
+                        {index !== 0 && <span>&nbsp;</span>}
+                        <TranslateText key={index} text={phrase} />
+                    </>))
+                }
             </div>
         </div>
     );
