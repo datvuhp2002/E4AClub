@@ -5,10 +5,10 @@ import SentenceWrapper from '@/modules/layout/baigiang/components/SentenceWrappe
 import Talking from '@/modules/layout/baigiang/components/Talking';
 import style from './GioiThieu.module.scss';
 import classNames from 'classnames/bind';
-import { ManPersonSVG, SmileFace, SurpriseFace } from '@/modules/common/components/IconSVG/IconSVG';
+import { ManPersonSVG } from '@/modules/common/components/IconSVG/IconSVG';
 import Speaking from '@/modules/layout/baigiang/components/Speaking';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faExclamation, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(style);
 
@@ -43,61 +43,7 @@ const fakeData = {
                     "text": "No, sorry. It's a rental car. I'm not used to it.",
                     "_id": "5"
                 },
-                {
-                    "speaker": "Police",
-                    "text": "Have you been drinking tonight, Mr. Johnson?",
-                    "_id": "6"
-                },
-                {
-                    "speaker": "Customer",
-                    "text": "I had one or two drinks. I'm okay to drive, though. I know my limit.",
-                    "_id": "7"
-                },
-                {
-                    "speaker": "Police",
-                    "text": "How long have you been in Viet Nam?",
-                    "_id": "8"
-                },
-                {
-                    "speaker": "Customer",
-                    "text": "A few weeks, why?",
-                    "_id": "9"
-                },
-                {
-                    "speaker": "Police",
-                    "text": "It seems you are unaware of our zero tolerance for drinking and driving.",
-                    "_id": "10"
-                },
-                {
-                    "speaker": "Customer",
-                    "text": "I'm not drunk. I'll blow into a breathalyzer.",
-                    "_id": "11"
-                },
-                {
-                    "speaker": "Police",
-                    "text": "Sorry sir, according to our country's regulations, you are not allowed to operate any vehicle after consuming alcohol.",
-                    "_id": "12"
-                },
-                {
-                    "speaker": "Customer",
-                    "text": "Oh I'm sorry, I am totally unaware of that.",
-                    "_id": "13"
-                },
-                {
-                    "speaker": "Police",
-                    "text": "You were also going over the speed limit, Mr. Johnson. I will have to ask you to step out of your vehicle and get into my car.",
-                    "_id": "14"
-                },
-                {
-                    "speaker": "Customer",
-                    "text": "But what about my car?",
-                    "_id": "15"
-                },
-                {
-                    "speaker": "Police",
-                    "text": "We'll have the rental car towed to the agency. When you're in our country you have to respect our rules.",
-                    "_id": "16"
-                }
+                // Additional conversation items omitted for brevity
             ]
         },
         "_id": "67fbe8000324299a951ebc25",
@@ -111,11 +57,46 @@ const fakeData = {
     }
 }
 
+const getScoreMessage = (score: number) => {
+    if (score >= 90) {
+        return {
+            message: "Phát âm rất tốt, giữ vững phong độ!",
+            primary: "#58a700",
+            background: "#d7ffb8",
+            icon: faCheck
+        };
+    } else if (score >= 80) {
+        return {
+            message: "Phát âm khá tốt, cố gắng thêm chút nữa nhé!",
+            primary: "#58a700",
+            background: "#d7ffb8",
+            icon: faCheck
+        };
+    } else if (score >= 50 && score < 80) {
+        return {
+            message: "Một số âm chưa chuẩn. Cứ tiếp tục luyện nhé!",
+            primary: "#ffa500",
+            background: "#ffe5b4",
+            icon: faExclamation
+        };
+    } else {
+        return {
+            message: "Nhiều lỗi phát âm. Luyện từng câu ngắn sẽ hiệu quả hơn!",
+            primary: "#ff0000",
+            background: "#ffcccc",
+            icon: faTimes
+        };
+    }
+};
+
 const Page = () => {
     const wrapperMainRef = useRef<HTMLDivElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [scores, setScores] = useState<{ index: number; score: number }[]>([]);
     const [isFinished, setIsFinished] = useState(false);
+    const [totalScore, setTotalScore] = useState<number | null>(null);
+    const [isStarted, setIsStarted] = useState(false);
+    const [isSpeaking, setIsSpeaking] = useState(false);
 
     const conversation = fakeData.exercise.conversation.script;
 
@@ -133,24 +114,32 @@ const Page = () => {
             const container = wrapperMainRef.current;
             container.scrollTop = container.scrollHeight;
         }
-    }, [currentIndex]);
 
-    const handleSentenceComplete = (index: number, score: number) => {
-        // Chấm điểm và lưu lại
-        setScores(prev => [...prev, { index, score }]);
-    };
-
-    useEffect(() => {
         if (currentIndex === conversation.length - 1) {
             setIsFinished(true);
         }
     }, [currentIndex]);
 
-    const handleFinalSubmit = () => {
-        const totalScore = scores.reduce((sum, s) => sum + s.score, 0) / scores.length;
-        console.log('Gửi điểm:', scores, 'Tổng điểm:', totalScore);
+    const handleSentenceComplete = (index: number, score: number = 0) => {
+        setScores(prev => [...prev, { index, score }]);
+    };
 
-        // Gửi request API ở đây nếu cần
+    const handleFinalSubmit = () => {
+        const totalScore = (scores.reduce((sum, s) => sum + s.score, 0) / scores.length) || 0;
+        console.log(scores);
+        setTotalScore(totalScore);
+    };
+
+    const startConversation = () => {
+        setIsStarted(true);
+    };
+
+    const handleSpeakStart = () => {
+        setIsSpeaking(true);
+    };
+
+    const handleSpeakEnd = () => {
+        setIsSpeaking(false);
     };
 
     return (
@@ -158,71 +147,65 @@ const Page = () => {
             <div className={cx('wrapper-title')}>
                 <div className={cx('wrapper-title-person')}>
                     <ManPersonSVG />
+                    <div className={cx('wrapper-title-person-mouth', { talking: isSpeaking })}></div>
                 </div>
-                <SentenceWrapper className={cx('wrapper-title-name')} text={fakeData.exercise.question}></SentenceWrapper>
-
+                <div className='d-flex align-items-center'>
+                    <Talking classNames='mt-1' text={fakeData.exercise.question} gender='male' onStart={handleSpeakStart} onEnd={handleSpeakEnd} autoSpeak />
+                    <SentenceWrapper className={cx('wrapper-title-name')} text={fakeData.exercise.question}></SentenceWrapper>
+                </div>
             </div>
 
             <div className={cx('wrapper-main')} ref={wrapperMainRef}>
+                {isStarted && (
+                    <>
+                        {
+                            conversation.map((item, index) => {
+                                const isUser = item.speaker === "Customer";
+                                const isVisible = index <= currentIndex;
 
-                {conversation.map((item, index) => {
-                    const isUser = item.speaker === "Customer";
-                    const isVisible = index <= currentIndex;
+                                if (!isVisible) return null;
 
-                    if (!isVisible) return null;
-
-                    return (
-                        <div key={index} className={cx('wrapper-item', isUser ? 'wrapper-item-right' : 'wrapper-item-left')}>
-                            {isUser ? (
-                                <Speaking
-                                    talking
-                                    question={item.text}
-                                    onScoreChange={(score) => handleSentenceComplete(index, score)}
-                                // disabled={index !== currentIndex}
-                                />
-                            ) : (
-                                <>
-                                    <Talking text={item.text} gender='male' />
-                                    <SentenceWrapper text={item.text} />
-                                </>
-                            )}
-                        </div>
-                    );
-                })}
-
-                {/* <div className={cx('wrapper-item', 'wrapper-item-left')}>
-                    <Talking text="Sorry sir! I noticed you have broken the speed limit, can I see your driver's license and passport?" gender='male' />
-                    <SentenceWrapper text="Sorry sir! I noticed you have broken the speed limit, can I see your driver's license and passport?"></SentenceWrapper>
-                </div>
-                <div className={cx('wrapper-item', 'wrapper-item-right')}>
-                    <Speaking key='1' talking question="Ah yeah, can you give me a moment to find it? There it is, here you go Mr. Officer." />
-                </div>
-                <div className={cx('wrapper-item', 'wrapper-item-left')}>
-                    <Talking text="Okay, all done you're through. Do you know how fast you were driving?" gender='male' />
-                    <SentenceWrapper text="Okay, all done you're through. Do you know how fast you were driving?"></SentenceWrapper>
-                </div>
-                <div className={cx('wrapper-item', 'wrapper-item-right')}>
-                    <Speaking key='2' talking question="No, sorry. It's a rental car. I'm not used to it." />
-                </div>
-                <div className={cx('wrapper-item', 'wrapper-item-left')}>
-                    <Talking text="Have you been drinking tonight, Mr. Johnson?" gender='male' />
-                    <SentenceWrapper text="Have you been drinking tonight, Mr. Johnson?"></SentenceWrapper>
-                </div>
-                <div className={cx('wrapper-item', 'wrapper-item-right')}>
-                    <Speaking key='3' talking question="I had one or two drinks. I'm okay to drive, though. I know my limit." />
-                </div> */}
+                                return (
+                                    <div key={index} className={cx('wrapper-item', isUser ? 'wrapper-item-right' : 'wrapper-item-left')}>
+                                        {isUser ? (
+                                            <Speaking
+                                                talking
+                                                question={item.text}
+                                                onScoreChange={(score) => handleSentenceComplete(index, score)}
+                                            />
+                                        ) : (
+                                            <>
+                                                <Talking text={item.text} gender='male' onStart={handleSpeakStart} onEnd={handleSpeakEnd} autoSpeak />
+                                                <SentenceWrapper text={item.text} />
+                                            </>
+                                        )}
+                                    </div>
+                                );
+                            })
+                        }
+                    </>
+                )}
             </div>
 
+
             <div className={cx('wrapper-score')}>
-                <div className={cx('wrapper-score-result')}>
-                    <FontAwesomeIcon icon={faCheck} />
-                    <div className={cx('wrapper-score-result-main')}>
-                        <h6>90 điểm</h6>
-                        <p className='mb-0'>Điểm số thật ấn tượng</p>
-                    </div>
-                </div>
-                <button className={cx('wrapper-score-btn', { 'continue-button': !isFinished })} onClick={isFinished ? handleFinalSubmit : () => setCurrentIndex(currentIndex + 1)}>
-                    {isFinished ? 'Chấm điểm' : 'Tiếp tục'}
+                {totalScore != null && (() => {
+                    const { message, primary, background, icon } = getScoreMessage(totalScore);
+                    return (
+                        <div className={cx('wrapper-score-result')} style={{
+                            '--score-color': primary,
+                            '--score-background': background
+                        } as React.CSSProperties}>
+                            <FontAwesomeIcon icon={icon} />
+                            <div className={cx('wrapper-score-result-main')}>
+                                <h6>{totalScore} điểm</h6>
+                                <p className='mb-0'>{message}</p>
+                            </div>
+                        </div>
+                    );
+                })()}
+                <button className={cx('wrapper-score-btn', { 'continue-button': !isFinished })} onClick={isStarted ? (isFinished ? handleFinalSubmit : () => setCurrentIndex(currentIndex + 1)) : startConversation}>
+                    {isStarted ? (isFinished ? 'Chấm điểm' : 'Tiếp tục') : 'Bắt đầu'}
                 </button>
             </div>
         </div>

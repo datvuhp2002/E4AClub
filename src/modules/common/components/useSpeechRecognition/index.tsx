@@ -18,9 +18,7 @@ const useSpeechRecognition = (
       return;
     }
 
-    streamRef.current = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-    });
+    streamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
     mediaRecorderRef.current = new MediaRecorder(streamRef.current);
     audioChunksRef.current = [];
 
@@ -28,46 +26,48 @@ const useSpeechRecognition = (
       audioChunksRef.current.push(event.data);
     };
 
-    mediaRecorderRef.current.onstop = () => {
-      const audioBlob = new Blob(audioChunksRef.current, {
-        type: "audio/webm",
-      });
-      const url = URL.createObjectURL(audioBlob);
-      setAudioURL(url);
-      onEvaluate?.(url);
-
-      streamRef.current?.getTracks().forEach((track) => track.stop());
-      streamRef.current = null;
-    };
-
     mediaRecorderRef.current.start();
 
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
-
     recognitionRef.current.lang = "en-US";
     recognitionRef.current.interimResults = false;
-    recognitionRef.current.start();
-    setIsListening(true);
+    recognitionRef.current.continuous = true; // 👈 giữ nhận diện liên tục
 
     recognitionRef.current.onresult = (event: any) => {
-      const speechText = event.results[0][0].transcript;
+      const speechText = Array.from(event.results)
+        .map((result) => result[0].transcript)
+        .join(" ");
       setText(speechText);
-      onResult?.(speechText);
     };
 
-    recognitionRef.current.onend = () => {
-      stopListening();
-    };
+    recognitionRef.current.start();
+    setIsListening(true);
   };
 
   const stopListening = () => {
-    if (isListening) {
-      setIsListening(false);
-      recognitionRef.current?.stop();
-      mediaRecorderRef.current?.stop();
-    }
+    if (!isListening) return;
+
+    setIsListening(false);
+
+    // Stop recognition
+    recognitionRef.current?.stop();
+
+    // Stop recording
+    mediaRecorderRef.current?.stop();
+
+    // Stop audio stream
+    streamRef.current?.getTracks().forEach((track) => track.stop());
+    streamRef.current = null;
+
+    // Tạo audioURL khi recording stop
+    mediaRecorderRef.current!.onstop = () => {
+      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+      const url = URL.createObjectURL(audioBlob);
+      setAudioURL(url);
+      onEvaluate?.(url);
+      onResult?.(text); // 👈 gửi text tại thời điểm stop
+    };
   };
 
   const resetAudio = () => {
@@ -84,5 +84,6 @@ const useSpeechRecognition = (
     audioURL,
   };
 };
+
 
 export default useSpeechRecognition;
