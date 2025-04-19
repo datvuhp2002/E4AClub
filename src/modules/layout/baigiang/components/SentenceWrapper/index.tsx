@@ -16,7 +16,7 @@ interface SentenceWrapperProps {
 }
 
 const SentenceWrapper: React.FC<SentenceWrapperProps> = ({ text, children = null, className="" }) => {
-    const [phraseArr, setPhraseArr] = useState([]);
+    const [phraseArr, setPhraseArr] = useState<string[]>([]);
 
     useEffect(() => {
         const doc = nlp(text);
