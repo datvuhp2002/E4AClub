@@ -18,7 +18,10 @@ interface FormValues {
   type: string;
   question: string;
   fillQuestion?: string;
+  role?: string;
+  script?: string;
   options?: { text: string; isCorrect: boolean }[];
+  conversation?: { script?: string; role?: string };
   blankAnswer?: string[];
 }
 
@@ -72,6 +75,15 @@ const page = () => {
   };
   const onSubmit = async (data: FormValues) => {
     let payload = { ...data };
+    if (data.type === "conversation") {
+      payload.conversation = {
+        role: data.role ?? "",
+        script: data.script ?? "",
+      };
+      delete payload.role;
+      delete payload.script;
+    }
+
     if (data.type !== "choice") {
       delete payload.options;
     } else {
@@ -112,9 +124,7 @@ const page = () => {
     <div className={`${styles.wrapper} mb-5`}>
       <div>
         <ol className="breadcrumb mb-3">
-          <li className="breadcrumb-item">
-            <Link href="/admin">Trang chủ</Link>
-          </li>
+          <li className="breadcrumb-item">Trang chủ</li>
           <li className="breadcrumb-item">Chi tiết bài giảng</li>
           <li className="breadcrumb-item">Bài tập</li>
           <li className="breadcrumb-item breadcrumb-active fw-bold">Tạo mới</li>
@@ -272,6 +282,43 @@ const page = () => {
                   {errors.blankAnswer && (
                     <small className="text-danger">
                       {errors.blankAnswer.message}
+                    </small>
+                  )}
+                </div>
+              </div>
+            )}
+            {/* Nếu loại bài tập là phát âm  */}
+            {selectedType === "conversation" && (
+              <div className="col-12 col-md-6 mb-3">
+                <div className="col-12 mb-3">
+                  <label className="fw-bold">
+                    Vai trò <span className="text-danger">(*)</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    {...register("role", {
+                      required: "Vai trò là bắt buộc",
+                    })}
+                  />
+                  {errors.role && (
+                    <small className="text-danger">{errors.role.message}</small>
+                  )}
+                </div>
+                <div className="col-12 mb-3">
+                  <label className="fw-bold">
+                    Kịch bản <span className="text-danger">(*)</span>
+                  </label>
+                  <textarea
+                    className="form-control fs-5"
+                    style={{ minHeight: "30vh" }}
+                    {...register("script", {
+                      required: "Kịch bản là bắt buộc",
+                    })}
+                  />
+                  {errors.script && (
+                    <small className="text-danger">
+                      {errors.script.message}
                     </small>
                   )}
                 </div>

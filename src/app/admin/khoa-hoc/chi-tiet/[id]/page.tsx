@@ -59,9 +59,7 @@ const page = () => {
     <div className={`${styles.wrapper} mb-5`}>
       <div className="d-flex align-items-center justify-content-between">
         <ol className="breadcrumb mb-3 ">
-          <li className="breadcrumb-item">
-            <Link href="/admin">Trang chủ</Link>
-          </li>
+          <li className="breadcrumb-item">Trang chủ</li>
           <li className="breadcrumb-item">Khóa học</li>
           <li className="breadcrumb-item">
             <Link href="/admin/khoa-hoc/danh-sach">Danh sách</Link>

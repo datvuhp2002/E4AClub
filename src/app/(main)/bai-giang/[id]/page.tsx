@@ -85,9 +85,16 @@ const Page = () => {
   const renderExercise = (exercise: IExercise) => {
     switch (exercise.type) {
       case "multiple-choice":
-        return <MultipleChoice exerciseId={exercise._id} quizData={exercise.options} />;
+        return (
+          <MultipleChoice
+            exerciseId={exercise._id}
+            quizData={exercise.options}
+          />
+        );
       case "single-choice":
-        return <SingleChoice exerciseId={exercise._id} quizData={exercise.options} />;
+        return (
+          <SingleChoice exerciseId={exercise._id} quizData={exercise.options} />
+        );
       case "fill-in-the-blank":
         return (
           <FillBlank
@@ -97,7 +104,9 @@ const Page = () => {
           />
         );
       case "speaking":
-        return <Speaking exerciseId={exercise._id} question={exercise.question} />;
+        return (
+          <Speaking exerciseId={exercise._id} question={exercise.question} />
+        );
 
       default:
         return <p>Loại bài tập không xác định</p>;
