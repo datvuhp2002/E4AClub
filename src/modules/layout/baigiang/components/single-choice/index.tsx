@@ -4,6 +4,7 @@ import styles from "./SingleChoice.module.scss";
 import Button from "@/modules/common/components/Button";
 import { useToastContext } from "@/lib/context/toast-context";
 import CourseServices from "@/services/course-services";
+import SentenceWrapper from "../SentenceWrapper";
 
 const cx = classNames.bind(styles);
 
@@ -68,7 +69,7 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({
                 : ""
             )}
           >
-            {item.text}
+            <SentenceWrapper text={item.text}/>
           </div>
         ))}
       </div>

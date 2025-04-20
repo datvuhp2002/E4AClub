@@ -6,6 +6,7 @@ import {
   faChevronDown,
   faChevronUp,
   faCircleDot,
+  faComments,
   faKeyboard,
   faListCheck,
   faMicrophone,
@@ -84,6 +85,8 @@ const LessonCard: React.FC<LessonCardProps> = ({
         return <FontAwesomeIcon width={17} icon={faKeyboard} className="me-4" />;
       case "speaking":
         return <FontAwesomeIcon width={17} icon={faMicrophone} className="me-4" />;
+      case "conversation":
+        return <FontAwesomeIcon width={17} icon={faComments} className="me-4" />;
       default:
         return <FontAwesomeIcon width={17} icon={faBookOpenReader} className="me-4" />;
     }

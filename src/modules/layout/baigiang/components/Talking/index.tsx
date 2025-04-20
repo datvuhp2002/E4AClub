@@ -72,7 +72,7 @@ const Talking: React.FC<TalkingProps> = ({ text, gender = 'male', classNames = '
         if (autoSpeak) {
             speak();
         }
-    }, []);
+    }, [autoSpeak]);
 
     return (
         <div>

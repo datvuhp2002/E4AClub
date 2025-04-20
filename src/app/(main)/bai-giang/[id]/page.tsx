@@ -25,6 +25,9 @@ import MultipleChoice from "@/modules/layout/baigiang/components/multiple-choice
 import SingleChoice from "@/modules/layout/baigiang/components/single-choice";
 import FillBlank from "@/modules/layout/baigiang/components/FillBlank";
 import Speaking from "@/modules/layout/baigiang/components/Speaking";
+import Conversation from "@/modules/layout/baigiang/components/Conversation";
+import excludeVariablesFromRoot from "@mui/material/styles/excludeVariablesFromRoot";
+import SentenceWrapper from "@/modules/layout/baigiang/components/SentenceWrapper";
 const cx = classNames.bind(styles);
 
 const Page = () => {
@@ -107,7 +110,10 @@ const Page = () => {
         return (
           <Speaking exerciseId={exercise._id} question={exercise.question} />
         );
-
+      case "conversation":
+        return (
+          <Conversation key={exercise._id} exerciseId={exercise._id} data={exercise} />
+        )
       default:
         return <p>Loại bài tập không xác định</p>;
     }
@@ -145,7 +151,7 @@ const Page = () => {
           {sectionData && (
             <div className={cx("content", "mt-5 container")}>
               <div className={cx("content_top")}>
-                <h1>{sectionData.title}</h1>
+                <SentenceWrapper style={{ fontSize: '2.5rem', fontWeight: 500, marginBottom: 12 }} text={sectionData.title} />
                 <p>Cập nhật {moment(sectionData.updatedAt).fromNow()}</p>
               </div>
               <div
@@ -162,12 +168,12 @@ const Page = () => {
           {exercises && (
             <div className={cx("content", "mt-5 container")}>
               <div className={cx("content_top")}>
-                {exercises.type !== "speaking" ? (
+                {exercises.type !== "speaking" && exercises.type !== "conversation" && (
                   <>
-                    <h1>{exercises.question}</h1>
+                    <SentenceWrapper style={{ fontSize: '2.5rem', fontWeight: 500, marginBottom: 12 }} text={exercises.question} />
                     <p>Cập nhật {moment(exercises.updatedAt).fromNow()}</p>
                   </>
-                ) : null}
+                )}
               </div>
               {/* nội dung bài tập */}
               <div>{renderExercise(exercises)}</div>
