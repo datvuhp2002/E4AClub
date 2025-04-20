@@ -39,11 +39,13 @@ const Page = () => {
   const [currentSection, setCurrentSection] = useState(1);
   const [maxSection, setMaxSection] = useState(1);
   const [lessonData, setLessonData] = useState<ISection[]>();
-  const [showLesson, setShowLesson] = useState<boolean>(true);
+  const [showLesson, setShowLesson] = useState<boolean>(typeof window !== 'undefined' && window.innerWidth > 768);
   const [sectionData, setSectionData] = useState<ISection>();
   const [isExercise, setIsExercise] = useState<boolean>(false);
   const [html, setHtml] = useState<string>("");
   const [exercises, setExercises] = useState<IExercise>();
+
+  
 
   useEffect(() => {
     const currentSection = searchParams.get("section");
