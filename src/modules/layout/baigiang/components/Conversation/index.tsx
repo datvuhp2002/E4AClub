@@ -130,7 +130,8 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-title')}>
                 <div className={cx('wrapper-title-person')}>
-                    <ManPersonSVG />
+                    <img src={`${process.env.FILE_URL}/svg/person_suit.svg`} alt="User Avatar" />
+                    {/* <ManPersonSVG /> */}
                     <div className={cx('wrapper-title-person-mouth', { talking: isSpeaking })}></div>
                 </div>
                 <div className='d-flex align-items-center'>
