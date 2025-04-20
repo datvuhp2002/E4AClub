@@ -11,6 +11,7 @@ const useSpeechRecognition = (
   const audioChunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
   const recognitionRef = useRef<any>(null);
+  const textRef = useRef("");
 
   const startListening = async () => {
     if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
@@ -36,8 +37,9 @@ const useSpeechRecognition = (
 
     recognitionRef.current.onresult = (event: any) => {
       const speechText = Array.from(event.results)
-        .map((result) => result[0].transcript)
+        .map((result: any) => result[0].transcript)
         .join(" ");
+      textRef.current = speechText;
       setText(speechText);
     };
 
@@ -61,12 +63,12 @@ const useSpeechRecognition = (
     streamRef.current = null;
 
     // Tạo audioURL khi recording stop
-    mediaRecorderRef.current!.onstop = () => {
+    recognitionRef.current.onend = () => {
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
       const url = URL.createObjectURL(audioBlob);
       setAudioURL(url);
       onEvaluate?.(url);
-      onResult?.(text); // 👈 gửi text tại thời điểm stop
+      onResult?.(textRef.current);
     };
   };
 

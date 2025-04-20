@@ -19,7 +19,7 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
     const [hasTranslated, setHasTranslated] = useState(false);
 
     const renderTooltipHTML = (data: any) => {
-        const posMap = {
+        const posMap: { [key: string]: string } = {
             a: 'Tính từ',
             n: 'Danh từ',
             v: 'Động từ',
@@ -30,6 +30,7 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
             int: 'Thán từ'
         };
 
+        debugger;
         const details = data.translated?.details || {};
         const keys = Object.keys(details);
         let tooltipHTML = '<div>';
@@ -42,7 +43,7 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
 
             if (detail.examples?.length > 0) {
                 tooltipHTML += `<div style="margin-top: 0.5rem;"><strong>Ví dụ:</strong><ul style="padding-left: 1rem; margin: 0;">`;
-                detail.examples.forEach((ex, idx) => {
+                detail.examples.forEach((ex: any, idx: number) => {
                     tooltipHTML += `<li key=${idx}>${ex}</li>`;
                 });
                 tooltipHTML += `</ul></div>`;
