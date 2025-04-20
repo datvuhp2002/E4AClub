@@ -50,7 +50,7 @@ interface ConversationProps {
     exerciseId: string;
 }
 
-const Conversation: React.FC<ConversationProps> = ({exerciseId, data }) => {
+const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
     const wrapperMainRef = useRef<HTMLDivElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [scores, setScores] = useState<{ index: number; score: number }[]>([]);
@@ -89,12 +89,23 @@ const Conversation: React.FC<ConversationProps> = ({exerciseId, data }) => {
     }, [currentIndex]);
 
     const handleSentenceComplete = (index: number, score: number = 0) => {
-        setScores(prev => [...prev, { index, score }]);
+        setScores(prev => {
+            const existingIndex = prev.findIndex(item => item.index === index);
+
+            if (existingIndex !== -1) {
+                const updated = [...prev];
+                updated[existingIndex] = { index, score };
+                return updated;
+            }
+
+            return [...prev, { index, score }];
+        });
     };
 
     const handleFinalSubmit = () => {
-        const totalScore = (scores.reduce((sum, s) => sum + s.score, 0) / scores.length) || 0;
+        const totalScore = Math.round((scores.reduce((sum, s) => sum + s.score, 0) / scores.length) || 0);
         setTotalScore(totalScore);
+        console.log(scores);
 
         CourseServices.UpdateProgressExercise({
             exercise: exerciseId,

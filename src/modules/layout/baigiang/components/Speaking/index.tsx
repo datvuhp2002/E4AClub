@@ -26,6 +26,7 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, clas
     const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(null);
 
     const calculateScore = async (inputText: string) => {
+        console.log(inputText)
         // Hàm loại bỏ dấu câu và tách câu thành từ + lưu vị trí dấu câu
         const splitTextWithPunctuation = (text: string) => {
             const words = [];
