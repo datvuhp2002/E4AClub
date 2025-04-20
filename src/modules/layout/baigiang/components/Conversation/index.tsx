@@ -145,7 +145,7 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
                     <>
                         {
                             conversation.map((item, index) => {
-                                const isUser = item.speaker === "Customer";
+                                const isUser = item.speaker === data.conversation.role;
                                 const isVisible = index <= currentIndex;
 
                                 if (!isVisible) return null;
