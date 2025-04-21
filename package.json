@@ -74,6 +74,7 @@
     "react-paginate": "^8.2.0",
     "react-qr-code": "^2.0.12",
     "react-tippy": "^1.4.0",
+    "recorder-js": "^1.0.7",
     "sass": "^1.79.4",
     "swiper": "^11.1.14",
     "tippy.js": "^6.3.7",

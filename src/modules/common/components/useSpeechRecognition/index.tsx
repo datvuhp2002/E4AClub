@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
+import Recorder from 'recorder-js';
 
 const useSpeechRecognition = (
   onResult?: (text: string) => void,
@@ -7,33 +8,26 @@ const useSpeechRecognition = (
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [audioURL, setAudioURL] = useState<string | null>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
-  const streamRef = useRef<MediaStream | null>(null);
+
   const recognitionRef = useRef<any>(null);
+  const recorderRef = useRef<any>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const textRef = useRef("");
 
   const startListening = async () => {
-    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
       alert("Trình duyệt không hỗ trợ Speech Recognition!");
       return;
     }
 
-    streamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorderRef.current = new MediaRecorder(streamRef.current);
-    audioChunksRef.current = [];
-
-    mediaRecorderRef.current.ondataavailable = (event) => {
-      audioChunksRef.current.push(event.data);
-    };
-
-    mediaRecorderRef.current.start();
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    // 🎙️ Start Speech Recognition
     recognitionRef.current = new SpeechRecognition();
     recognitionRef.current.lang = "en-US";
     recognitionRef.current.interimResults = false;
-    recognitionRef.current.continuous = true; // 👈 giữ nhận diện liên tục
+    recognitionRef.current.continuous = true;
 
     recognitionRef.current.onresult = (event: any) => {
       const speechText = Array.from(event.results)
@@ -44,32 +38,35 @@ const useSpeechRecognition = (
     };
 
     recognitionRef.current.start();
+
+    // 🎧 Start Recorder.js
+    audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    streamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    recorderRef.current = new Recorder(audioContextRef.current);
+    await recorderRef.current.init(streamRef.current);
+    recorderRef.current.start();
+
     setIsListening(true);
   };
 
-  const stopListening = () => {
+  const stopListening = async () => {
     if (!isListening) return;
-
     setIsListening(false);
 
-    // Stop recognition
+    // 🛑 Stop Speech Recognition
     recognitionRef.current?.stop();
 
-    // Stop recording
-    mediaRecorderRef.current?.stop();
-
-    // Stop audio stream
-    streamRef.current?.getTracks().forEach((track) => track.stop());
-    streamRef.current = null;
-
-    // Tạo audioURL khi recording stop
-    recognitionRef.current.onend = () => {
-      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-      const url = URL.createObjectURL(audioBlob);
+    // 🛑 Stop Recording
+    if (recorderRef.current) {
+      const { blob } = await recorderRef.current.stop();
+      streamRef.current?.getTracks().forEach((track) => track.stop());
+      const url = URL.createObjectURL(blob);
       setAudioURL(url);
       onEvaluate?.(url);
-      onResult?.(textRef.current);
-    };
+    }
+
+    onResult?.(textRef.current);
   };
 
   const resetAudio = () => {
@@ -86,6 +83,5 @@ const useSpeechRecognition = (
     audioURL,
   };
 };
-
 
 export default useSpeechRecognition;
