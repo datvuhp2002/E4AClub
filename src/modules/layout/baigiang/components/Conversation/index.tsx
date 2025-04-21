@@ -5,7 +5,6 @@ import SentenceWrapper from '@/modules/layout/baigiang/components/SentenceWrappe
 import Talking from '@/modules/layout/baigiang/components/Talking';
 import style from './Conversation.module.scss';
 import classNames from 'classnames/bind';
-import { ManPersonSVG } from '@/modules/common/components/IconSVG/IconSVG';
 import Speaking from '@/modules/layout/baigiang/components/Speaking';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faExclamation, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -166,6 +165,9 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
                                                 talking
                                                 question={item.text}
                                                 onScoreChange={(score) => handleSentenceComplete(index, score)}
+                                                onCompleted={() => {
+                                                    setCurrentIndex(currentIndex + 1); 
+                                                }}
                                             />
                                         ) : (
                                             <>
