@@ -62,16 +62,17 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
     const conversation = data.conversation.parsedScript ?? [];
 
     useEffect(() => {
-        const updatedScores = conversation.map((item, index) => {
+        const updatedScores: { index: number; score: number }[] = conversation
+        .map((item, index) => {
             if (data.conversation.role ? item.speaker.toLowerCase() === data.conversation.role.toLowerCase() : false) {
-                return { index, score: 0 }; 
+                return { index, score: 0 };
             }
             return null;
-        }).filter(item => item !== null);
+        })
+        .filter((item): item is { index: number; score: number } => item !== null);
 
         setIsStarted(false);
         setCurrentIndex(0);
-        setScores([]);
         setTotalScore(null);
         setScores(updatedScores);
     }, [exerciseId]);
