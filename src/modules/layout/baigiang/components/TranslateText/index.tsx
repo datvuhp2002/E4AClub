@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState, CSSProperties } from "react";
-import { Box, Tooltip } from "@mui/material";
+import { useEffect, useRef, useState, CSSProperties } from "react";
+import { Box, Popper, ClickAwayListener } from "@mui/material";
 import classNames from 'classnames/bind';
 import styles from './TranslateText.module.scss';
 import TranslatorService from "@/services/translator-service";
@@ -17,6 +17,8 @@ interface TranslateTextProps {
 const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style }) => {
     const [translatedText, setTranslatedText] = useState<string | null>(null);
     const [hasTranslated, setHasTranslated] = useState(false);
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef<HTMLSpanElement | null>(null);
 
     const renderTooltipHTML = (data: any) => {
         const posMap: { [key: string]: string } = {
@@ -65,7 +67,6 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
         return tooltipHTML;
     };
 
-
     const handleTranslate = () => {
         if (!hasTranslated) {
             TranslatorService.TranslateText(text)
@@ -91,44 +92,58 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
     useEffect(() => {
         setTranslatedText(null);
         setHasTranslated(false);
+        setOpen(false);
     }, [text]);
 
+    const handleClick = () => {
+        if (!open) {
+            handleTranslate();
+        }
+        setOpen((prev) => !prev);
+    };
+
+    const handleClickAway = () => {
+        setOpen(false);
+    };
+
     return (
-        <Tooltip
-            className={cx('wrapper', className)}
-            onMouseEnter={handleTranslate}
-            title={
-                <Box
-                    sx={{ maxWidth: 240, maxHeight: '35vh', overflowY: 'auto', padding: '8px 12px', }}
-                    dangerouslySetInnerHTML={{
-                        __html: translatedText || 'Đang dịch...',
-                    }}
-                />
-            }
-            arrow
-            slotProps={{
-                tooltip: {
-                    sx: {
-                        backgroundColor: '#fff',
-                        color: 'var(--text-color)',
-                        fontSize: '1.4rem',
-                        borderRadius: '8px',
-                        border: '2px solid var(--border-line)',
-                    },
-                },
-                arrow: {
-                    sx: {
-                        color: '#fff',
-                        '::before': {
-                            border: '2px solid var(--border-line)',
-                            boxSizing: 'border-box',
+        <ClickAwayListener onClickAway={handleClickAway}>
+            <span className={cx('wrapper', className)} ref={anchorRef} onClick={handleClick} style={{ cursor: 'pointer', ...style }}>
+                {text}
+                <Popper
+                    open={open}
+                    anchorEl={anchorRef.current}
+                    placement="top"
+                    modifiers={[
+                        {
+                            name: 'offset',
+                            options: {
+                                offset: [0, 8],
+                            },
                         },
-                    },
-                },
-            }}
-        >
-            <span style={style}>{text}</span>
-        </Tooltip>
+                    ]}
+                >
+                    <Box
+                        sx={{
+                            backgroundColor: '#fff',
+                            color: 'var(--text-color)',
+                            fontSize: '1.4rem',
+                            borderRadius: '8px',
+                            border: '2px solid var(--border-line)',
+                            maxWidth: 240,
+                            maxHeight: '35vh',
+                            overflowY: 'auto',
+                            padding: '8px 12px',
+                            boxShadow: '0px 4px 10px rgba(0,0,0,0.1)',
+                            zIndex: 1300,
+                        }}
+                        dangerouslySetInnerHTML={{
+                            __html: translatedText || 'Đang dịch...',
+                        }}
+                    />
+                </Popper>
+            </span>
+        </ClickAwayListener>
     );
 };
 

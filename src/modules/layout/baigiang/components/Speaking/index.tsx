@@ -19,11 +19,13 @@ interface SpeakingProps {
     talking?: boolean;
     className?: string;
     onScoreChange?: (score: number) => void;
+    onCompleted?: () => void; 
 }
 
-const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, className = "", onScoreChange }) => {
+const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, className = "", onScoreChange, onCompleted }) => {
     const [score, setScore] = useState<number | null>(null);
     const [highlightedText, setHighlightedText] = useState<JSX.Element | null>(null);
+    const [isFirstScoreCalculated, setIsFirstScoreCalculated] = useState(true);
 
     const calculateScore = async (inputText: string) => {
         console.log(inputText)
@@ -43,7 +45,6 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, clas
                 }
                 index++;
             }
-
             return { words, punctuations };
         };
 
@@ -105,6 +106,11 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, clas
         });
 
         setHighlightedText(<>{highlightedText}</>);
+
+        if (isFirstScoreCalculated && onCompleted) {
+            onCompleted();
+            setIsFirstScoreCalculated(false); 
+        }
     };
 
     const { isListening, startListening, stopListening, resetAudio, audioURL } = useSpeechRecognition(calculateScore);
