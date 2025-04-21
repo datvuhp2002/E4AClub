@@ -17,18 +17,30 @@ interface TalkingProps {
     onEnd?: () => void;
 }
 
-const Talking: React.FC<TalkingProps> = ({ text, gender = 'male', classNames = '', autoSpeak = false, onStart, onEnd }) => {
+const Talking: React.FC<TalkingProps> = ({
+    text,
+    gender = 'male',
+    classNames = '',
+    autoSpeak = false,
+    onStart,
+    onEnd
+}) => {
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
 
-    // Load danh sách giọng khi component mount
+    // Load danh sách giọng nói
     useEffect(() => {
         const loadVoices = () => {
             const voicesList = speechSynthesis.getVoices();
-            setVoices(voicesList);
+            if (voicesList.length > 0) {
+                setVoices(voicesList);
+            } else {
+                // Nếu chưa có giọng nào, thử lại sau một chút
+                setTimeout(loadVoices, 100);
+            }
         };
 
         loadVoices();
-        if (speechSynthesis.onvoiceschanged !== undefined) {
+        if (typeof speechSynthesis.onvoiceschanged !== 'undefined') {
             speechSynthesis.onvoiceschanged = loadVoices;
         }
     }, []);
@@ -36,20 +48,37 @@ const Talking: React.FC<TalkingProps> = ({ text, gender = 'male', classNames = '
     const selectVoice = () => {
         if (voices.length === 0) return null;
 
+        // Chỉ lấy những voice có ngôn ngữ là tiếng Anh
+        const englishVoices = voices.filter(v => v.lang.startsWith('en'));
+
         switch (gender) {
             case 'female':
-                return voices.find(v => /female|samantha|zira/i.test(v.name));
+                return (
+                    englishVoices.find(v => /female|samantha|zira/i.test(v.name)) ||
+                    englishVoices[0]
+                );
             case 'child':
-                return voices.find(v => /child|kid|boy|girl/i.test(v.name));
+                return (
+                    englishVoices.find(v => /child|kid|boy|girl/i.test(v.name)) ||
+                    englishVoices[0]
+                );
             case 'elderly':
-                return voices.find(v => /old|grand|elder|wise/i.test(v.name));
+                return (
+                    englishVoices.find(v => /old|grand|elder|wise/i.test(v.name)) ||
+                    englishVoices[0]
+                );
             default: // male
-                return voices.find(v => /male|david|google us english/i.test(v.name));
+                return (
+                    englishVoices.find(v => /male|david|google us english/i.test(v.name)) ||
+                    englishVoices[0]
+                );
         }
     };
 
     const speak = React.useMemo(() => {
         return () => {
+            if (!text) return;
+
             const utterance = new SpeechSynthesisUtterance(text);
             const selectedVoice = selectVoice();
 
@@ -66,17 +95,19 @@ const Talking: React.FC<TalkingProps> = ({ text, gender = 'male', classNames = '
 
             speechSynthesis.speak(utterance);
         };
-    }, [text]);
+    }, [text, voices]);
 
     useEffect(() => {
-        if (autoSpeak) {
+        if (autoSpeak && voices.length > 0) {
             speak();
         }
-    }, [autoSpeak]);
+    }, [autoSpeak, voices]);
 
     return (
         <div>
-            <button className={cx('wrapper', classNames)} onClick={speak}><FontAwesomeIcon icon={faVolumeHigh} /></button>
+            <button className={cx('wrapper', classNames)} onClick={speak}>
+                <FontAwesomeIcon icon={faVolumeHigh} />
+            </button>
         </div>
     );
 };
