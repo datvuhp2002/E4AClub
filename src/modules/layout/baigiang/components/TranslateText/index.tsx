@@ -30,7 +30,6 @@ const TranslateText: React.FC<TranslateTextProps> = ({ text, className, style })
             int: 'Thán từ'
         };
 
-        debugger;
         const details = data.translated?.details || {};
         const keys = Object.keys(details);
         let tooltipHTML = '<div>';
