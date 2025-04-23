@@ -18,20 +18,20 @@ const TranslatorWrapper: React.FC<TranslatorWrapperProps> = () => {
             const selection = window.getSelection();
             const text = selection?.toString().trim() || '';
 
+            setOpen(false);
+            setTranslatedHTML('');
+            setSelectedText('');
+            setAnchorPosition(null);
+
             if (text && selection) {
+                const ranges = selection.getRangeAt(0);
+
                 setSelectedText(text);
-                const range = selection.getRangeAt(0);
-                const rect = range.getBoundingClientRect();
+                const rect = ranges.getBoundingClientRect();
                 const x = rect.left + rect.width / 2;
                 const y = rect.bottom;
                 setAnchorPosition({ x, y });
                 setOpen(true);
-                setTranslatedHTML('');
-            } else {
-                setOpen(false);
-                setSelectedText('');
-                setAnchorPosition(null);
-                setTranslatedHTML('');
             }
         };
 
@@ -127,7 +127,7 @@ const TranslatorWrapper: React.FC<TranslatorWrapperProps> = () => {
                                 sx={{
                                     mt: '0.5rem',
                                     display: 'block',
-                                    backgroundColor: 'var(--statistics-card-img-bg-blue)', 
+                                    backgroundColor: 'var(--statistics-card-img-bg-blue)',
                                     boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
                                     color: '#fff',
                                     '&:hover': {
@@ -147,8 +147,7 @@ const TranslatorWrapper: React.FC<TranslatorWrapperProps> = () => {
                                     padding: '8px 12px',
                                     borderRadius: '8px',
                                     border: '2px solid var(--grey-color)',
-                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.06)',
-
+                                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1);',
                                     maxWidth: 320,
                                     maxHeight: 360,
                                     overflowY: 'auto',

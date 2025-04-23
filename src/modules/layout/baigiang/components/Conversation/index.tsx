@@ -62,13 +62,13 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
 
     useEffect(() => {
         const updatedScores: { index: number; score: number }[] = conversation
-        .map((item, index) => {
-            if (data.conversation.role ? item.speaker.toLowerCase() === data.conversation.role.toLowerCase() : false) {
-                return { index, score: 0 };
-            }
-            return null;
-        })
-        .filter((item): item is { index: number; score: number } => item !== null);
+            .map((item, index) => {
+                if (data.conversation.role ? item.speaker.toLowerCase() === data.conversation.role.toLowerCase() : false) {
+                    return { index, score: 0 };
+                }
+                return null;
+            })
+            .filter((item): item is { index: number; score: number } => item !== null);
 
         setIsStarted(false);
         setCurrentIndex(0);
@@ -89,6 +89,14 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
         if (wrapperMainRef.current) {
             const container = wrapperMainRef.current;
             container.scrollTop = container.scrollHeight;
+
+            const rect = wrapperMainRef.current.getBoundingClientRect();
+            const absoluteY = window.scrollY + rect.top;
+
+            window.scrollTo({
+                top: absoluteY - (window.innerHeight - wrapperMainRef.current.offsetHeight) + 80, // cách bottom 80px
+                behavior: 'smooth'
+            });
         }
 
         if (currentIndex === conversation.length - 1) {
@@ -120,6 +128,12 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
             answers: [`${data.question}`],
             score: totalScore
         });
+
+        // kéo xuống để xem điểm
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
     };
 
     const startConversation = () => {
@@ -139,13 +153,13 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
             <div className={cx('wrapper-title')}>
                 <div className={cx('wrapper-title-person')}>
                     <img src={`${process.env.FILE_URL}/svg/person_suit.svg`} alt="User Avatar" />
-                    {/* <ManPersonSVG /> */}
                     <div className={cx('wrapper-title-person-mouth', { talking: isSpeaking })}></div>
                 </div>
-                <div className='d-flex align-items-center'>
-                    <Talking classNames='mt-1' text={data.question} gender='male' onStart={handleSpeakStart} onEnd={handleSpeakEnd} />
-                    <p className={cx('wrapper-title-name', 'mb-0')}>{data.question}</p>
-                    {/* <SentenceWrapper className={cx('wrapper-title-name')} text={data.question}></SentenceWrapper> */}
+                <div className={cx('wrapper-title-name')}>
+                    <p className='mb-0'>{data.question}</p>
+                    <button className={cx('wrapper-score-btn', { 'continue-button': !isFinished })} onClick={isStarted ? (isFinished ? handleFinalSubmit : () => setCurrentIndex(currentIndex + 1)) : startConversation}>
+                        {isStarted ? (isFinished ? 'Chấm điểm' : 'Tiếp tục') : 'Bắt đầu'}
+                    </button>
                 </div>
             </div>
 
@@ -167,7 +181,7 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
                                                 question={item.text}
                                                 onScoreChange={(score) => handleSentenceComplete(index, score)}
                                                 onCompleted={() => {
-                                                    setCurrentIndex(currentIndex + 1); 
+                                                    setCurrentIndex(currentIndex + 1);
                                                 }}
                                             />
                                         ) : (
@@ -202,9 +216,6 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
                         </div>
                     );
                 })()}
-                <button className={cx('wrapper-score-btn', { 'continue-button': !isFinished })} onClick={isStarted ? (isFinished ? handleFinalSubmit : () => setCurrentIndex(currentIndex + 1)) : startConversation}>
-                    {isStarted ? (isFinished ? 'Chấm điểm' : 'Tiếp tục') : 'Bắt đầu'}
-                </button>
             </div>
         </div>
     );
