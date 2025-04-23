@@ -144,7 +144,8 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
                 </div>
                 <div className='d-flex align-items-center'>
                     <Talking classNames='mt-1' text={data.question} gender='male' onStart={handleSpeakStart} onEnd={handleSpeakEnd} />
-                    <SentenceWrapper className={cx('wrapper-title-name')} text={data.question}></SentenceWrapper>
+                    <p className={cx('wrapper-title-name', 'mb-0')}>{data.question}</p>
+                    {/* <SentenceWrapper className={cx('wrapper-title-name')} text={data.question}></SentenceWrapper> */}
                 </div>
             </div>
 
@@ -172,7 +173,8 @@ const Conversation: React.FC<ConversationProps> = ({ exerciseId, data }) => {
                                         ) : (
                                             <>
                                                 <Talking text={item.text} gender='male' onStart={handleSpeakStart} onEnd={handleSpeakEnd} autoSpeak />
-                                                <SentenceWrapper text={item.text} />
+                                                {/* <SentenceWrapper text={item.text} /> */}
+                                                <p className='mb-0'>{item.text}</p>
                                             </>
                                         )}
                                     </div>

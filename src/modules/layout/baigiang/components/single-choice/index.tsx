@@ -69,7 +69,8 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({
                 : ""
             )}
           >
-            <SentenceWrapper text={item.text}/>
+            <h1>{item.text}</h1>
+            {/* <SentenceWrapper text={item.text}/> */}
           </div>
         ))}
       </div>
