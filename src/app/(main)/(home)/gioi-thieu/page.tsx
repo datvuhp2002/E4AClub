@@ -151,7 +151,8 @@ const Page = () => {
                 </div>
                 <div className='d-flex align-items-center'>
                     <Talking classNames='mt-1' text={fakeData.exercise.question} gender='male' onStart={handleSpeakStart} onEnd={handleSpeakEnd} autoSpeak />
-                    <SentenceWrapper className={cx('wrapper-title-name')} text={fakeData.exercise.question}></SentenceWrapper>
+                    <p className={cx('wrapper-title-name', 'mb-0')}>{fakeData.exercise.question}</p>
+                    {/* <SentenceWrapper className={cx('wrapper-title-name')} text={fakeData.exercise.question}></SentenceWrapper> */}
                 </div>
             </div>
 
@@ -176,7 +177,7 @@ const Page = () => {
                                         ) : (
                                             <>
                                                 <Talking text={item.text} gender='male' onStart={handleSpeakStart} onEnd={handleSpeakEnd} autoSpeak />
-                                                <SentenceWrapper text={item.text} />
+                                                <p className='mb-0'>{item.text}</p>
                                             </>
                                         )}
                                     </div>

@@ -176,12 +176,12 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, clas
                     >
                         <FontAwesomeIcon icon={faVolumeHigh} />
                     </button>
-                    <div className={cx('wrapper-body-voice-text')}>
+                    {/* <div className={cx('wrapper-body-voice-text')}>
                         <SentenceWrapper text={question}>
                             {score !== null ? highlightedText : question}
                         </SentenceWrapper>
-                    </div>
-                    {/* <p className={cx('wrapper-body-voice-text')}>{score !== null ? highlightedText : question}</p> */}
+                    </div> */}
+                    <p className={cx('wrapper-body-voice-text')}>{score !== null ? highlightedText : question}</p>
                 </div>
             </div>
         </div>

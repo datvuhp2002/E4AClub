@@ -5,6 +5,7 @@ import Providers from "@/modules/providers";
 import Script from "next/script";
 import { WebMetadata } from "@/common/consts";
 import { Inter } from "next/font/google";
+import ClientOnlyLayout from "./ClientOnlyLayout";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -65,7 +66,9 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
-          <main>{children}</main>
+          <ClientOnlyLayout>
+            <main>{children}</main>
+          </ClientOnlyLayout>
         </Providers>
         {/* <Script src="https://code.responsivevoice.org/responsivevoice.js?key=UY8NFr5C"></Script> */}
         {/* Ensure jQuery loads first */}

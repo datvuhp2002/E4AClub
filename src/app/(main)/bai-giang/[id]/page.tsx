@@ -153,7 +153,8 @@ const Page = () => {
           {sectionData && (
             <div className={cx("content", "mt-5 container")}>
               <div className={cx("content_top")}>
-                <SentenceWrapper style={{ fontSize: '2.5rem', fontWeight: 500, marginBottom: 12 }} text={sectionData.title} />
+                {/* <SentenceWrapper style={{ fontSize: '2.5rem', fontWeight: 500, marginBottom: 12 }} text={sectionData.title} /> */}
+                <h1>{sectionData.title}</h1>
                 <p>Cập nhật {moment(sectionData.updatedAt).fromNow()}</p>
               </div>
               <div
@@ -172,7 +173,8 @@ const Page = () => {
               <div className={cx("content_top")}>
                 {exercises.type !== "speaking" && exercises.type !== "conversation" && (
                   <>
-                    <SentenceWrapper style={{ fontSize: '2.5rem', fontWeight: 500, marginBottom: 12 }} text={exercises.question} />
+                    {/* <SentenceWrapper style={{ fontSize: '2.5rem', fontWeight: 500, marginBottom: 12 }} text={exercises.question} /> */}
+                    <h1>{exercises.question}</h1>
                     <p>Cập nhật {moment(exercises.updatedAt).fromNow()}</p>
                   </>
                 )}
