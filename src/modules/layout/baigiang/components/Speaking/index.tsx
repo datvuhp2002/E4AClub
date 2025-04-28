@@ -8,7 +8,6 @@ import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import { SoundIcon, VoiceIcon } from '@/modules/common/components/IconSVG/IconSVG';
 import useSpeechRecognition from '@/modules/common/components/useSpeechRecognition';
 import CourseServices from '@/services/course-services';
-import SentenceWrapper from '../SentenceWrapper';
 import styles from './Speaking.module.scss';
 
 const cx = classNames.bind(styles);
@@ -28,7 +27,7 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, clas
     const [isFirstScoreCalculated, setIsFirstScoreCalculated] = useState(true);
 
     const calculateScore = async (inputText: string) => {
-        console.log(inputText)
+        console.log("inputText: " + inputText)
         // Hàm loại bỏ dấu câu và tách câu thành từ + lưu vị trí dấu câu
         const splitTextWithPunctuation = (text: string) => {
             const words = [];
@@ -176,11 +175,6 @@ const Speaking: React.FC<SpeakingProps> = ({ question, exerciseId, talking, clas
                     >
                         <FontAwesomeIcon icon={faVolumeHigh} />
                     </button>
-                    {/* <div className={cx('wrapper-body-voice-text')}>
-                        <SentenceWrapper text={question}>
-                            {score !== null ? highlightedText : question}
-                        </SentenceWrapper>
-                    </div> */}
                     <p className={cx('wrapper-body-voice-text')}>{score !== null ? highlightedText : question}</p>
                 </div>
             </div>

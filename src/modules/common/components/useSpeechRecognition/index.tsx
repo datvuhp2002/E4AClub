@@ -1,87 +1,120 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import * as Vosk from 'vosk-browser';
 import Recorder from 'recorder-js';
 
 const useSpeechRecognition = (
-  onResult?: (text: string) => void,
-  onEvaluate?: (audioURL: string) => void
+    onResult?: (text: string) => void,
+    onEvaluate?: (audioURL: string) => void
 ) => {
-  const [text, setText] = useState("");
-  const [isListening, setIsListening] = useState(false);
-  const [audioURL, setAudioURL] = useState<string | null>(null);
+    const textRef = useRef<any>(null);
+    const [isListening, setIsListening] = useState(false);
+    const [recognizer, setRecognizer] = useState<any>(null);
+    const [audioContext, setAudioContext] = useState<any>(null);
+    const [source, setSource] = useState<any>(null);
 
-  const recognitionRef = useRef<any>(null);
-  const recorderRef = useRef<any>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const streamRef = useRef<MediaStream | null>(null);
-  const textRef = useRef("");
+    const [audioURL, setAudioURL] = useState<string | null>(null);
+    const recorderRef = useRef<any>(null);
+    const audioContextRef = useRef<AudioContext | null>(null);
+    const streamRef = useRef<MediaStream | null>(null);
 
-  const startListening = async () => {
-    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert("Trình duyệt không hỗ trợ Speech Recognition!");
-      return;
-    }
-
-    // 🎙️ Start Speech Recognition
-    recognitionRef.current = new SpeechRecognition();
-    recognitionRef.current.lang = "en-US";
-    recognitionRef.current.interimResults = false;
-    recognitionRef.current.continuous = true;
-
-    recognitionRef.current.onresult = (event: any) => {
-      const speechText = Array.from(event.results)
-        .map((result: any) => result[0].transcript)
-        .join(" ");
-      textRef.current = speechText;
-      setText(speechText);
+    const initRecognizer = async () => {
+        const model = await Vosk.createModel('/model/vosk-model-small-en-us-0.15.tar.gz');
+        const rec = new model.KaldiRecognizer(16000);
+        rec.on('result', async (message: any) => {
+            console.log('Result:', message.result.text);
+            textRef.current += message.result.text
+        });
+        rec.on('partialresult', (message: any) => {
+            // console.log('Partial:', message.result.partial);
+        });
+        setRecognizer(rec);
     };
 
-    recognitionRef.current.start();
+    const startListening = async () => {
+        if (!recognizer) return;
 
-    // 🎧 Start Recorder.js
-    audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-    streamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
+        resetAudio();
 
-    recorderRef.current = new Recorder(audioContextRef.current);
-    await recorderRef.current.init(streamRef.current);
-    recorderRef.current.start();
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: false,
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                channelCount: 1,
+                sampleRate: 16000,
+            },
+        });
 
-    setIsListening(true);
-  };
+        const context = new AudioContext();
+        const src = context.createMediaStreamSource(stream);
+        const processor = context.createScriptProcessor(4096, 1, 1);
 
-  const stopListening = async () => {
-    if (!isListening) return;
-    setIsListening(false);
+        processor.onaudioprocess = (e) => {
+            try {
+                recognizer.acceptWaveform(e.inputBuffer);
+            } catch (err) {
+                console.error('acceptWaveform failed', err);
+            }
+        };
 
-    // 🛑 Stop Speech Recognition
-    recognitionRef.current?.stop();
+        src.connect(processor);
+        processor.connect(context.destination);
 
-    // 🛑 Stop Recording
-    if (recorderRef.current) {
-      const { blob } = await recorderRef.current.stop();
-      streamRef.current?.getTracks().forEach((track) => track.stop());
-      const url = URL.createObjectURL(blob);
-      setAudioURL(url);
-      onEvaluate?.(url);
-    }
+        setAudioContext(context);
+        setSource(stream);
 
-    onResult?.(textRef.current);
-  };
+        // 🎧 Start Recorder.js
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+        streamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
 
-  const resetAudio = () => {
-    setAudioURL(null);
-    setText("");
-  };
+        recorderRef.current = new Recorder(audioContextRef.current);
+        await recorderRef.current.init(streamRef.current);
+        recorderRef.current.start();
 
-  return {
-    text,
-    isListening,
-    startListening,
-    stopListening,
-    resetAudio,
-    audioURL,
-  };
+        setIsListening(true);
+    };
+
+    const stopListening = async () => {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        if (source) {
+            source.getTracks().forEach((track: any) => track.stop());
+        }
+        if (audioContext) {
+            audioContext.close();
+        }
+
+        if (recorderRef.current) {
+            const { blob } = await recorderRef.current.stop();
+            streamRef.current?.getTracks().forEach((track) => track.stop());
+            const url = URL.createObjectURL(blob);
+            setAudioURL(url);
+            onEvaluate?.(url);
+        }
+
+        setIsListening(false);
+        onResult?.(textRef.current);
+    };
+
+    const resetAudio = () => {
+        setAudioURL(null);
+        textRef.current = "";
+    };
+
+    useEffect(() => {
+        initRecognizer();
+
+        return () => {
+            stopListening();
+        };
+    }, []);
+
+    return {
+        isListening,
+        startListening,
+        stopListening,
+        resetAudio,
+        audioURL,
+    };
 };
 
 export default useSpeechRecognition;

@@ -79,6 +79,7 @@
     "swiper": "^11.1.14",
     "tippy.js": "^6.3.7",
     "typescript": "5.1.6",
+    "vosk-browser": "^0.0.8",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
